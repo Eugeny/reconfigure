@@ -1,0 +1,15 @@
+*.pyc
+*.pyo
+.DS_Store
+*~
+*.sublime-workspace
+
+
+debian/python-reconfigure*
+dist/*.rpm
+dist/*.deb
+dist/*.gz
+*.egg*
+build/*
+debian/files
+debian/*stamp*
