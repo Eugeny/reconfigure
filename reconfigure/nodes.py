@@ -21,3 +21,12 @@ class PropertyNode (Node):
 
 	def __str__(self):
 		return '%s = %s' % (self.name, self.value)
+
+
+class IncludeNode (Node):
+	def __init__(self, files):
+		Node.__init__(self)
+		self.files = files
+
+	def __str__(self):
+		return '<include> %s' % self.files
