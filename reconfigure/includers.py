@@ -8,21 +8,25 @@ class BaseIncluder: # pragma: no cover
 		self.parser = parser
 		self.content_map = content_map
 
-	def combine(self, tree):
+	def compose(self, tree):
+		pass
+
+	def decompose(self, tree):
 		pass
 
 
 class NginxStyleIncluder (BaseIncluder):
-	def combine(self, origin, tree):
-		self.combine_rec(origin, tree)
+	def compose(self, origin, tree):
+		self.compose_rec(origin, tree)
 		return tree
 
-	def combine_rec(self, origin, node):
-		node.origin = origin
+	def compose_rec(self, origin, node):
+		if not node.origin:
+			node.origin = origin
 		for child in node.children:
 			if isinstance(child, PropertyNode) and child.name == 'include':
 				files = child.value
-				if not files.startswith('/'):
+				if node.origin and not files.startswith('/'):
 					files = os.path.join(os.path.split(origin)[0], files)
 				if '*' in files or '.' in files:
 					files = glob.glob(files)
@@ -35,7 +39,20 @@ class NginxStyleIncluder (BaseIncluder):
 						content = open(file, 'r').read()
 					subtree = self.parser.parse(content)
 					node.children.extend(subtree.children)
+					self.compose_rec(file, subtree)
 				node.children[node.children.index(child)] = IncludeNode(child.value)
-				self.combine_rec(file, child)
+			self.compose_rec(origin, child)
+
+	def decompose(self, tree):
+		result = {}
+		result[tree.origin] = self.decompose_rec(tree, result)
+		return result
+
+	def decompose_rec(self, node, result):
+		for child in node.children:
+			if child.origin != node.origin:
+				node.children.remove(child)
+				result[child.origin] = self.decompose_rec(child, result)
 			else:
-				self.combine_rec(origin, child)
+				self.decompose_rec(child, result)
+		return node

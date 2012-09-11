@@ -6,10 +6,12 @@ class Reconfig:
 		if not self.includer.parser:
 			self.includer.parser = self.parser
 		if path:
+			self.origin = path
 			self.content = open(path, 'r').read()
 		else:
+			self.origin = None
 			self.content = content
 
 	def load(self):
 		self.tree = self.parser.parse(self.content)
-		self.includer.combine()
+		self.tree = self.includer.compose(self.origin, self.tree)

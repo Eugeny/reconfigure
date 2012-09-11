@@ -6,7 +6,7 @@ from reconfigure.nodes import *
 
 
 class IncludersTest (unittest.TestCase):
-    def test_combine(self):
+    def test_compose_decompose(self):
         content = """
             sec1 {
                 p1 1;
@@ -22,10 +22,10 @@ class IncludersTest (unittest.TestCase):
         parser = NginxStyleParser()
         includer = NginxStyleIncluder(parser=parser, content_map={'test': content2})
         tree = parser.parse(content)
-        tree = includer.combine('', tree)
+        tree = includer.compose(None, tree)
         self.assertTrue(len(tree.children[0].children) == 3)
 
+        treemap = includer.decompose(tree)
+        self.assertTrue(len(treemap.keys()) == 2)
+        self.assertTrue(treemap['test'].name == 'sec2')
 
-        #print
-        #tree = parser.parse(open('/etc/nginx/nginx.conf').read())
-        #print includer.combine('/etc/nginx/nginx.conf', tree)
