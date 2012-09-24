@@ -3,7 +3,7 @@ import glob
 import os
 
 
-class BaseIncluder: # pragma: no cover
+class BaseIncluder (object): # pragma: no cover
 	def __init__(self, parser=None, content_map={}):
 		self.parser = parser
 		self.content_map = content_map
@@ -15,7 +15,7 @@ class BaseIncluder: # pragma: no cover
 		pass
 
 
-class NginxStyleIncluder (BaseIncluder):
+class NginxIncluder (BaseIncluder):
 	def compose(self, origin, tree):
 		self.compose_rec(origin, tree)
 		return tree

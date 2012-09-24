@@ -1,4 +1,4 @@
-class Node:
+class Node (object):
 	def __init__(self, name=None):
 		self.name = name
 		self.origin = None
@@ -12,6 +12,11 @@ class Node:
 
 	def __repr__(self):
 		return str(self)
+
+	def get(self, name):
+		for child in self.children:
+			if child.name == name:
+				return child
 
 
 class RootNode (Node):

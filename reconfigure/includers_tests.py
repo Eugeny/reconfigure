@@ -19,8 +19,8 @@ class IncludersTest (unittest.TestCase):
             }
         """
 
-        parser = NginxStyleParser()
-        includer = NginxStyleIncluder(parser=parser, content_map={'test': content2})
+        parser = NginxParser()
+        includer = NginxIncluder(parser=parser, content_map={'test': content2})
         tree = parser.parse(content)
         tree = includer.compose(None, tree)
         self.assertTrue(len(tree.children[0].children) == 3)
