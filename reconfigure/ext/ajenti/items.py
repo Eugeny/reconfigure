@@ -1,3 +1,6 @@
+from reconfigure.nodes import *
+
+
 class HttpBinding (object):
     def __init__(self):
         self.host = '0.0.0.0'
@@ -8,6 +11,12 @@ class HttpBinding (object):
         self.host = tree.get('host').value
         self.port = tree.get('port').value
         return self
+
+    def _unbuild(self):
+        return Node(name='bind', children=[
+            PropertyNode(name='host', value=self.host),
+            PropertyNode(name='port', value=self.port),
+        ])
 
 
 class SslParams (object):
@@ -23,6 +32,13 @@ class SslParams (object):
         self.key_path = tree.get('key_path').value
         return self
 
+    def _unbuild(self):
+        return Node(name='ssl', children=[
+            PropertyNode(name='enable', value=self.enable),
+            PropertyNode(name='certificate_path', value=self.certificate_path),
+            PropertyNode(name='key_path', value=self.key_path),
+        ])
+
 
 class User (object):
     def __init__(self, name=None, password=None):
@@ -34,6 +50,11 @@ class User (object):
         self.name = tree.name
         self.password = tree.get('password').value
         return self
+
+    def _unbuild(self):
+        return Node(name=self.name, children=[
+            PropertyNode(name='password', value=self.password),
+        ])
 
 
 class Config (object):
@@ -52,3 +73,11 @@ class Config (object):
         for node in tree.get('users').children:
             self.users[node.name] = User()._build(node)
         return self
+
+    def _unbuild(self):
+        return RootNode(children=[
+            PropertyNode(name='authentication', value=self.authentication),
+            self.http_binding._unbuild(),
+            self.ssl._unbuild(),
+            Node(name='users', children=[x._unbuild() for x in self.users.values()])
+        ])

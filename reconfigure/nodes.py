@@ -1,8 +1,8 @@
 class Node (object):
-	def __init__(self, name=None):
+	def __init__(self, name=None, children=None):
 		self.name = name
 		self.origin = None
-		self.children = []
+		self.children = children or []
 
 	def __str__(self):
 		s = '(%s)\n' % self.name 
@@ -13,10 +13,19 @@ class Node (object):
 	def __repr__(self):
 		return str(self)
 
-	def get(self, name):
+	def get(self, name, default=None):
 		for child in self.children:
 			if child.name == name:
 				return child
+		self.children.append(default)
+		return default
+
+	def set(self, name, value):
+		node = self.get(name)
+		if not node:
+			node = PropertyNode(name, value)
+		node.value = value
+		return self
 
 
 class RootNode (Node):

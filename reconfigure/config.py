@@ -19,3 +19,16 @@ class Reconfig (object):
 			self.tree = self.includer.compose(self.origin, self.tree)
 		if self.builder is not None:
 			self.tree = self.builder.build(self.tree)
+
+	def save(self):
+		tree = self.tree
+		if self.builder is not None:
+			tree = self.builder.unbuild(tree)
+		if self.includer is not None:
+			tree = self.includer.decompose(tree)
+		content = self.parser.stringify(tree)
+
+		if self.origin is None:
+			return content
+		else:
+			open(self.origin, 'w').write(content)

@@ -19,7 +19,7 @@ class JsonParser (BaseParser):
 				node.children.append(PropertyNode(k, v))
 
 	def stringify(self, tree):
-		return json.dumps(self.save_node_rec(tree))
+		return json.dumps(self.save_node_rec(tree), indent=4)
 
 	def save_node_rec(self, node):
 		r = {}
