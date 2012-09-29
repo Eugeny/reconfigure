@@ -17,17 +17,17 @@ class BaseIncluder (object): # pragma: no cover
 
 class NginxIncluder (BaseIncluder):
 	def compose(self, origin, tree):
-		self.compose_rec(origin, tree)
+		self.compose_rec(origin, origin, tree)
 		return tree
 
-	def compose_rec(self, origin, node):
+	def compose_rec(self, root, origin, node):
 		if not node.origin:
 			node.origin = origin
 		for child in node.children:
 			if isinstance(child, PropertyNode) and child.name == 'include':
 				files = child.value
 				if node.origin and not files.startswith('/'):
-					files = os.path.join(os.path.split(origin)[0], files)
+					files = os.path.join(os.path.split(root)[0], files)
 				if '*' in files or '.' in files:
 					files = glob.glob(files)
 				else:
@@ -39,9 +39,9 @@ class NginxIncluder (BaseIncluder):
 						content = open(file, 'r').read()
 					subtree = self.parser.parse(content)
 					node.children.extend(subtree.children)
-					self.compose_rec(file, subtree)
+					self.compose_rec(root, file, subtree)
 				node.children[node.children.index(child)] = IncludeNode(child.value)
-			self.compose_rec(origin, child)
+			self.compose_rec(root, origin, child)
 
 	def decompose(self, tree):
 		result = {}

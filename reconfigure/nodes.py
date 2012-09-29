@@ -20,6 +20,18 @@ class Node (object):
 		self.children.append(default)
 		return default
 
+	def get_all(self, name):
+		return [n for n in self.children if n.name == name]
+
+	def replace(self, node=None):
+		self.children = [c for c in self.children if c.name != node.name]
+		if node is not None:
+			if type(node) == list:
+				for n in node:
+					self.children.append(n)
+			else:
+				self.children.append(node)
+
 	def set(self, name, value):
 		node = self.get(name)
 		if not node:
