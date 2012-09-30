@@ -44,6 +44,8 @@ class NginxParser (BaseParser):
 	def stringify_rec(self, node):
 		if isinstance(node, PropertyNode):
 			return '%s %s;\n' % (node.name, node.value)
+		if isinstance(node, IncludeNode):
+			return 'include %s;\n' % (node.files)
 		result = '\n%s {\n' % node.name
 		for child in node.children:
 			result += '\n'.join('\t' + x for x in self.stringify_rec(child).splitlines()) + '\n'

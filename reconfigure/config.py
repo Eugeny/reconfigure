@@ -26,9 +26,12 @@ class Reconfig (object):
 			tree = self.builder.unbuild(tree)
 		if self.includer is not None:
 			tree = self.includer.decompose(tree)
-		content = self.parser.stringify(tree)
 
 		if self.origin is None:
-			return content
+			result = {}
+			for k in tree:
+				result[k] = self.parser.stringify(tree[k])
+			return result
 		else:
+			content = self.parser.stringify(tree)
 			open(self.origin, 'w').write(content)

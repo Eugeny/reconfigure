@@ -52,7 +52,7 @@ class NginxIncluder (BaseIncluder):
 		for child in node.children:
 			if child.origin != node.origin:
 				node.children.remove(child)
-				result[child.origin] = self.decompose_rec(child, result)
+				result.setdefault(child.origin, RootNode()).children.append(self.decompose_rec(child, result))
 			else:
 				self.decompose_rec(child, result)
 		return node

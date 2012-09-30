@@ -23,8 +23,8 @@ class Node (object):
 	def get_all(self, name):
 		return [n for n in self.children if n.name == name]
 
-	def replace(self, node=None):
-		self.children = [c for c in self.children if c.name != node.name]
+	def replace(self, name, node=None):
+		self.children = [c for c in self.children if c.name != name]
 		if node is not None:
 			if type(node) == list:
 				for n in node:

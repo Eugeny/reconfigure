@@ -27,5 +27,5 @@ class IncludersTest (unittest.TestCase):
 
         treemap = includer.decompose(tree)
         self.assertTrue(len(treemap.keys()) == 2)
-        self.assertTrue(treemap['test'].name == 'sec2')
+        self.assertTrue(treemap['test'].children[0].name == 'sec2')
 

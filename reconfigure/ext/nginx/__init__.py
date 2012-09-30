@@ -16,8 +16,10 @@ class Builder (BaseBuilder):
 
 class NginxConfig (Reconfig):
 	def __init__(self, **kwargs):
-		Reconfig.__init__(self, 
-			parser=NginxParser(), 
-			includer=NginxIncluder(), 
-			builder=Builder(), 
-			**kwargs)
+		k = {
+			'parser': NginxParser(), 
+			'includer': NginxIncluder(), 
+			'builder': Builder(), 
+		}
+		k.update(kwargs)
+		Reconfig.__init__(self, **k)
