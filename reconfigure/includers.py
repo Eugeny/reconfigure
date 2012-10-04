@@ -24,6 +24,8 @@ class NginxIncluder (BaseIncluder):
 		if not node.origin:
 			node.origin = origin
 		for child in node.children:
+			self.compose_rec(root, origin, child)
+		for child in node.children:
 			if isinstance(child, PropertyNode) and child.name == 'include':
 				files = child.value
 				if node.origin and not files.startswith('/'):
@@ -41,7 +43,6 @@ class NginxIncluder (BaseIncluder):
 					node.children.extend(subtree.children)
 					self.compose_rec(root, file, subtree)
 				node.children[node.children.index(child)] = IncludeNode(child.value)
-			self.compose_rec(root, origin, child)
 
 	def decompose(self, tree):
 		result = {}

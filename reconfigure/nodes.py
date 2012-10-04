@@ -17,14 +17,19 @@ class Node (object):
 		for child in self.children:
 			if child.name == name:
 				return child
-		self.children.append(default)
+		if default:
+			self.append(default)
 		return default
 
 	def get_all(self, name):
 		return [n for n in self.children if n.name == name]
 
+	def append(self, node):
+		self.replace(None, node)
+
 	def replace(self, name, node=None):
-		self.children = [c for c in self.children if c.name != name]
+		if name:
+			self.children = [c for c in self.children if c.name != name]
 		if node is not None:
 			if type(node) == list:
 				for n in node:
@@ -36,6 +41,7 @@ class Node (object):
 		node = self.get(name)
 		if not node:
 			node = PropertyNode(name, value)
+			self.append(node)
 		node.value = value
 		return self
 

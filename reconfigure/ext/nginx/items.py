@@ -39,7 +39,7 @@ class Server (object):
         self.source.replace('listen', [PropertyNode('listen', n) for n in self.ports])
         for node in self.source.children:
             if node.name.startswith('location'):
-                self.source.remove(node)
+                self.source.children.remove(node)
         for s in self.locations:
             self.source.children.append(s._unbuild())        
         return self.source

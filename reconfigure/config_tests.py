@@ -5,6 +5,7 @@ from reconfigure.includers import *
 from reconfigure.nodes import *
 from reconfigure.config import Reconfig
 from reconfigure.ext.nginx import NginxConfig
+from reconfigure.ext.hosts import HostsConfig
 
 
 class ConfigTest (unittest.TestCase):
@@ -49,10 +50,20 @@ class NginxConfigTest (unittest.TestCase):
         includer = NginxIncluder(content_map={'test': content2})
         config = NginxConfig(includer=includer, content=content)
         config.load()
-        for k,v in config.save().iteritems():
-            print '\n', k, '\n', v
+        # TODO
 
 
+class HostsConfigTest (unittest.TestCase):
+    def test_config(self):
+        content = """
+            a1 h1 a2 a3 a4
+            a5 h2
+            a6 h3 a7
+        """
+        config = HostsConfig(content=content)
+        config.load()
+        newcontent = config.save()[None]
+        self.assertTrue(newcontent.split() == content.split())
 
 
 if __name__ == '__main__':
