@@ -9,6 +9,8 @@ class HostsParser (BaseParser):
 		lines = filter(None, [x.strip() for x in content.splitlines()])
 		root = RootNode()
 		for line in lines:
+			if line.startswith('#'):
+				continue
 			tokens = line.split(None, 2)
 			if len(tokens) == 2:
 				tokens += ['']
