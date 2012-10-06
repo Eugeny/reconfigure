@@ -6,5 +6,4 @@ import ext
 
 from config import *
 
-__all__ = [Reconfig, parsers, includers, nodes, builders, ext]
-
+__all__ = ['Reconfig', 'parsers', 'includers', 'nodes', 'builders', 'ext']

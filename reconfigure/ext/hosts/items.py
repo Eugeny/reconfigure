@@ -2,6 +2,7 @@ from reconfigure.nodes import *
 
 
 class Alias (object):
+
     def __init__(self):
         self._build(PropertyNode('alias', ''))
 
@@ -16,6 +17,7 @@ class Alias (object):
 
 
 class Host (object):
+
     def __init__(self):
         self._build(Node('', [Node('aliases')]).set('address', ''))
 
@@ -34,6 +36,7 @@ class Host (object):
 
 
 class Config (object):
+
     def __init__(self):
         pass
 

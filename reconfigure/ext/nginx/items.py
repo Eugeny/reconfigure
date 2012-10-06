@@ -2,6 +2,7 @@ from reconfigure.nodes import *
 
 
 class Location (object):
+
     def __init__(self):
         self.pattern = '/'
         self.source = None
@@ -17,6 +18,7 @@ class Location (object):
 
 
 class Server (object):
+
     def __init__(self):
         self.names = []
         self.ports = []
@@ -41,7 +43,7 @@ class Server (object):
             if node.name.startswith('location'):
                 self.source.children.remove(node)
         for s in self.locations:
-            self.source.children.append(s._unbuild())        
+            self.source.children.append(s._unbuild())
         return self.source
 
 

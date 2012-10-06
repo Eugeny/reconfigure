@@ -1,11 +1,11 @@
 from reconfigure.config import Reconfig
 from reconfigure.parsers import JsonParser
-
 from reconfigure.builders import BaseBuilder
-from items import *
+from items import Config
 
 
 class Builder (BaseBuilder):
+
     def build(self, tree):
         return Config()._build(tree)
 
@@ -14,10 +14,11 @@ class Builder (BaseBuilder):
 
 
 class AjentiConfig (Reconfig):
-	def __init__(self, **kwargs):
-		k = {
-			'parser': JsonParser(), 
-			'builder': Builder(), 
-		}
-		k.update(kwargs)
-		Reconfig.__init__(self, **k)
+
+    def __init__(self, **kwargs):
+        k = {
+            'parser': JsonParser(),
+            'builder': Builder(),
+        }
+        k.update(kwargs)
+        Reconfig.__init__(self, **k)

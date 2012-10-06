@@ -1,5 +1,4 @@
-from reconfigure.parsers import *
-from reconfigure.nodes import *
+from parser import *
 import unittest
 
 

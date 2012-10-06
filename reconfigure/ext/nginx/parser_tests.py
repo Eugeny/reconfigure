@@ -1,5 +1,4 @@
-from reconfigure.parsers import *
-from reconfigure.nodes import *
+from parser import NginxParser
 import unittest
 
 
@@ -7,7 +6,7 @@ class NginxParserTest (unittest.TestCase):
     def test_parse_stringify(self):
         content = """
             p1 asd;
-            
+
             sec {
                 s1p1 asd;
                 s1p2 wqe;

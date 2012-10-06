@@ -4,8 +4,8 @@ from reconfigure.parsers import *
 from reconfigure.includers import *
 from reconfigure.nodes import *
 from reconfigure.config import Reconfig
-from reconfigure.ext.nginx import NginxConfig
-from reconfigure.ext.hosts import HostsConfig
+from reconfigure.ext.nginx import *
+from reconfigure.ext.hosts import *
 
 
 class ConfigTest (unittest.TestCase):

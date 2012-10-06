@@ -1,10 +1,10 @@
 from reconfigure.config import Reconfig
-from reconfigure.parsers import NginxParser
-from reconfigure.includers import NginxIncluder
-
 from reconfigure.builders import BaseBuilder
+from includer import NginxIncluder
+from parser import NginxParser
 from items import *
 
+__all__ = ['NginxParser', 'NginxIncluder', 'NginxConfig']
 
 class Builder (BaseBuilder):
     def build(self, tree):
@@ -15,11 +15,11 @@ class Builder (BaseBuilder):
 
 
 class NginxConfig (Reconfig):
-	def __init__(self, **kwargs):
-		k = {
-			'parser': NginxParser(), 
-			'includer': NginxIncluder(), 
-			'builder': Builder(), 
-		}
-		k.update(kwargs)
-		Reconfig.__init__(self, **k)
+    def __init__(self, **kwargs):
+        k = {
+            'parser': NginxParser(),
+            'includer': NginxIncluder(),
+            'builder': Builder(),
+        }
+        k.update(kwargs)
+        Reconfig.__init__(self, **k)
