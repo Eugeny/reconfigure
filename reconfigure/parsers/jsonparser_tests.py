@@ -21,4 +21,3 @@ class JsonParserTest (unittest.TestCase):
         newcontent = json.loads(parser.stringify(tree))
         content = json.loads(content)
         self.assertTrue(newcontent == content)
-

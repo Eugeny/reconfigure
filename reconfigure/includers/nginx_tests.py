@@ -1,8 +1,7 @@
 #coding: utf8
 import unittest
-from reconfigure.parsers import *
-from reconfigure.includers import *
-from reconfigure.nodes import *
+from reconfigure.parsers import NginxParser
+from reconfigure.includers import NginxIncluder
 
 
 class IncludersTest (unittest.TestCase):
@@ -28,4 +27,3 @@ class IncludersTest (unittest.TestCase):
         treemap = includer.decompose(tree)
         self.assertTrue(len(treemap.keys()) == 2)
         self.assertTrue(treemap['test'].children[0].name == 'sec2')
-

@@ -62,7 +62,7 @@ class Config (object):
         self.http_binding = HttpBinding()
         self.ssl = SslParams()
         self.authentication = False
-        self.users = { 'root': User(name='root', password='root') }
+        self.users = {'root': User(name='root', password='root')}
 
     def _build(self, tree):
         self.source = tree

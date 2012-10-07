@@ -15,4 +15,3 @@ class HostsParserTest (unittest.TestCase):
         tree = parser.parse(content)
         newcontent = parser.stringify(tree)
         self.assertTrue(newcontent.split() == content.split())
-
