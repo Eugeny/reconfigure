@@ -13,6 +13,24 @@ class Node (object):
     def __repr__(self):
         return str(self)
 
+    def __iter__(self):
+        return iter(self.children)
+
+    def __len__(self):
+        return len(self.children)
+
+    def __nonzero__(self):
+        return True
+
+    def __getitem__(self, key):
+        return self.get(key)
+
+    def __setitem__(self, key, value):
+        self.set(key, value)
+
+    def __contains__(self, item):
+        return item in self.children
+
     def get(self, name, default=None):
         for child in self.children:
             if child.name == name:
