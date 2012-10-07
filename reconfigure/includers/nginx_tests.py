@@ -1,6 +1,7 @@
 #coding: utf8
 import unittest
-from reconfigure.ext.nginx import *
+from reconfigure.parsers import NginxParser
+from reconfigure.includers import NginxIncluder
 
 
 class IncludersTest (unittest.TestCase):

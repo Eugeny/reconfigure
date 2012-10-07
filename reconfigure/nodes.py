@@ -1,5 +1,4 @@
 class Node (object):
-
     def __init__(self, name=None, children=None):
         self.name = name
         self.origin = None
