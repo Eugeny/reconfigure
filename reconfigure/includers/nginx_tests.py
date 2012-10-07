@@ -5,7 +5,6 @@ from reconfigure.includers import NginxIncluder
 
 
 class IncludersTest (unittest.TestCase):
-
     def test_compose_decompose(self):
         content = """
             sec1 {

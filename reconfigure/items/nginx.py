@@ -2,7 +2,6 @@ from reconfigure.nodes import *
 
 
 class Location (object):
-
     def __init__(self):
         self.pattern = '/'
         self.source = None
@@ -18,7 +17,6 @@ class Location (object):
 
 
 class Server (object):
-
     def __init__(self):
         self.names = []
         self.ports = []
