@@ -1,0 +1,2 @@
+-e bzr+http://code.liw.fi/coverage-test-runner/bzr/trunk/@67#egg=CoverageTestRunner-1.9-py2.7-dev_r67
+coverage==3.5.3
