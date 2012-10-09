@@ -28,7 +28,7 @@ FONT_MAP = 8859-1_to_uni"""
         tree = parser.parse(content)
         self.assertTrue(tree.get(None) is not None)
         newcontent = parser.stringify(tree)
-        self.assertEqual(newcontent.split('\n'), content.split('\n'))
+        self.assertEqual(filter(None, newcontent.split('\n')), filter(None, content.split('\n')))
 
     def test_raise(self):
         tree = RootNode()
