@@ -47,11 +47,13 @@ class User (object):
         self.name = name
         self.password = password
         self.configs = {}
+        self.permissions = []
 
     def _build(self, tree):
         self.source = tree
         self.name = tree.name
         self.password = tree['password'].value
+        self.permissions = tree['permissions'].value
         for node in tree['configs']:
             self.configs[node.name] = json.loads(node.value)
         return self
@@ -59,6 +61,7 @@ class User (object):
     def _unbuild(self):
         return Node(name=self.name, children=[
             PropertyNode(name='password', value=self.password),
+            PropertyNode(name='permissions', value=self.permissions),
             Node('configs', children=[
                 PropertyNode(name=k, value=json.dumps(v))
                 for k, v in self.configs.iteritems()
