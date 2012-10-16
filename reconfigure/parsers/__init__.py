@@ -4,6 +4,7 @@ from hosts import HostsParser
 from ini import IniFileParser
 from jsonparser import JsonParser
 from nginx import NginxParser
+from resolv import ResolvParser
 
 __all__ = [
     'BaseParser',
@@ -12,4 +13,5 @@ __all__ = [
     'IniFileParser',
     'JsonParser',
     'NginxParser',
+    'ResolvParser',
 ]

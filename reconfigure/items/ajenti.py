@@ -1,3 +1,5 @@
+import json
+
 from reconfigure.nodes import *
 
 
@@ -44,16 +46,23 @@ class User (object):
     def __init__(self, name=None, password=None):
         self.name = name
         self.password = password
+        self.configs = {}
 
     def _build(self, tree):
         self.source = tree
         self.name = tree.name
-        self.password = tree.get('password').value
+        self.password = tree['password'].value
+        for node in tree['configs']:
+            self.configs[node.name] = json.loads(node.value)
         return self
 
     def _unbuild(self):
         return Node(name=self.name, children=[
             PropertyNode(name='password', value=self.password),
+            Node('configs', children=[
+                PropertyNode(name=k, value=json.dumps(v))
+                for k, v in self.configs.iteritems()
+            ])
         ])
 
 
