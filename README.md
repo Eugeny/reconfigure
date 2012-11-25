@@ -88,7 +88,7 @@ http {
         include /etc/nginx/sites-enabled/*;
 }
 
->>> print pparser.parse(content)
+>>> print parser.parse(content)
 (None)
         user = www-data
         worker_processes = 4
@@ -109,6 +109,7 @@ http {
                 gzip_disable = "msie6"
                 include = /etc/nginx/conf.d/*.conf
                 include = /etc/nginx/sites-enabled/*
+```
 
 The Node Trees have the same format for every config, so Parsers abstract us away from the file format.
 
