@@ -113,3 +113,51 @@ http {
 The Node Trees have the same format for every config, so Parsers abstract us away from the file format.
 
 #### Includer
+
+Includers handle the include directives in configs and track which statement belongs to which file.
+Let's continue from the previous example:
+
+```
+>>> nodetree = parser.parse()
+
+>>> from reconfigure.includers import NginxIncluder
+>>> includer = NginxIncluder(parser=parser)
+>>> nodetree includer.compose('/etc/nginx/nginx.conf', nodetree)
+>>> print nodetree
+(None)
+        user = www-data
+        worker_processes = 4
+        pid = /var/run/nginx.pid
+        (events)
+                worker_connections = 768
+        (http)
+                sendfile = on
+                tcp_nopush = on
+                tcp_nodelay = on
+                keepalive_timeout = 65
+                types_hash_max_size = 2048
+                <include> /etc/nginx/mime.types
+                default_type = application/octet-stream
+                access_log = /var/log/nginx/access.log
+                error_log = /var/log/nginx/error.log
+                <include> /etc/nginx/conf.d/*.conf
+                <include> /etc/nginx/sites-enabled/*
+
+                ....
+
+                (server)
+                        root = /srv/wp
+                        index = index.php index.htm
+                        server_name = localhost
+                        (location /)
+                                root = /srv/wp
+                        (location ~ \.php$)
+                                fastcgi_pass = 127.0.0.1:9000
+                                fastcgi_index = index.php
+                                <include> fastcgi_params
+                                fastcgi_param = QUERY_STRING            $query_string
+                                fastcgi_param = REQUEST_METHOD          $request_method
+                ....
+```
+
+You can see that include directives has been converted into special "include nodes" and all relevant files has been recursively parsed and included.
