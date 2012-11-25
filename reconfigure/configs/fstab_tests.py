@@ -3,7 +3,7 @@ import unittest
 from reconfigure.configs import FSTabConfig
 
 
-class HostsConfigTest (unittest.TestCase):
+class FSTabConfigTest (unittest.TestCase):
     def test_config(self):
         content = """
             fs1 mp1  ext rw 1 2

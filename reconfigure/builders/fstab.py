@@ -1,10 +1,34 @@
-from base import BaseBuilder
-from reconfigure.items.fstab import Config
+from auto import AutoBaseBuilder
 
 
-class FSTabBuilder (BaseBuilder):
-    def build(self, tree):
-        return Config()._build(tree)
+class FSTabBuilder (AutoBaseBuilder):
+    def _build(self, node):
+        return self.object(
+            filesystems=node.children().pickall().build(FilesystemBuilder)
+        )
 
-    def unbuild(self, tree):
-        return tree._unbuild()
+    def _unbuild(self, obj, node):
+        node.append_unbuilt(obj.filesystems)
+
+
+class FilesystemBuilder (AutoBaseBuilder):
+    fields = ['device', 'mountpoint', 'type', 'options', 'freq', 'passno']
+
+    @staticmethod
+    def empty():
+        return FilesystemBuilder.object(
+            **dict(
+                (f, 'none') for f in FilesystemBuilder.fields
+            )
+        )
+
+    def _build(self, node):
+        return self.object(
+            **dict(
+                node.children().pickall().each(lambda i, n: (FilesystemBuilder.fields[i], n.get('value').value))
+            )
+        )
+
+    def _unbuild(self, obj, node):
+        for f in FilesystemBuilder.fields:
+            node.set(f, getattr(obj, f))

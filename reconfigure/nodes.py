@@ -43,6 +43,8 @@ class Node (object):
         return [n for n in self.children if n.name == name]
 
     def append(self, node):
+        if not node.origin:
+            node.origin = self.origin
         self.replace(None, node)
 
     def replace(self, name, node=None):

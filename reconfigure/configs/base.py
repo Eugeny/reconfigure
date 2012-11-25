@@ -8,12 +8,14 @@ class Reconfig (object):
                 self.includer.parser = self.parser
         if path:
             self.origin = path
-            self.content = open(path, 'r').read()
+            self.content = None
         else:
             self.origin = None
             self.content = content
 
     def load(self):
+        if self.origin:
+            self.content = open(self.origin, 'r').read()
         self.tree = self.parser.parse(self.content)
         if self.includer is not None:
             self.tree = self.includer.compose(self.origin, self.tree)

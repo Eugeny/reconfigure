@@ -1,12 +1,12 @@
 from reconfigure.configs.base import Reconfig
-from reconfigure.parsers import FSTabParser
+from reconfigure.parsers import SSVParser
 from reconfigure.builders import FSTabBuilder
 
 
 class FSTabConfig (Reconfig):
     def __init__(self, **kwargs):
         k = {
-            'parser': FSTabParser(),
+            'parser': SSVParser(),
             'builder': FSTabBuilder(),
         }
         k.update(kwargs)

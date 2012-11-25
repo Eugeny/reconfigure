@@ -8,19 +8,30 @@ class NginxConfigTest (unittest.TestCase):
     def test_config(self):
         content = """
             p1 1;
-            include test;
+
+            http {
+                include test;
+            }
         """
         content2 = """
-            http {
-                p2 2;
+                server {
+                    root /srv/wp;
+                    index index.php index.htm;
 
-                location ~ /.+ {
-                    lol wut;
+                    server_name c.d.local;
+                    server_name c.d.wifi;
+
+                    location / {
+                            root /home/user/Work/dash/public/static;
+                    }
                 }
-            }
         """
 
         includer = NginxIncluder(content_map={'test': content2})
         config = NginxConfig(includer=includer, content=content)
         config.load()
+
+        print config.tree
+
+        print config.save()['test']
         # TODO
