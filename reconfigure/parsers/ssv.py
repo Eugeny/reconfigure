@@ -26,5 +26,5 @@ class SSVParser (BaseParser):
     def stringify(self, tree):
         r = ''
         for node in tree.children:
-            r += '\t'.join(x.value for x in node.children) + '\n'
+            r += '\t'.join(x.get('value').value for x in node.children) + '\n'
         return r

@@ -31,4 +31,4 @@ class FilesystemBuilder (AutoBaseBuilder):
 
     def _unbuild(self, obj, node):
         for f in FilesystemBuilder.fields:
-            node.set(f, getattr(obj, f))
+            node.make_child('token').set('value', getattr(obj, f))

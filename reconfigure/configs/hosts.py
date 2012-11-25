@@ -1,12 +1,12 @@
 from reconfigure.configs.base import Reconfig
-from reconfigure.parsers import HostsParser
+from reconfigure.parsers import SSVParser
 from reconfigure.builders import HostsBuilder
 
 
 class HostsConfig (Reconfig):
     def __init__(self, **kwargs):
         k = {
-            'parser': HostsParser(),
+            'parser': SSVParser(),
             'builder': HostsBuilder(),
         }
         k.update(kwargs)

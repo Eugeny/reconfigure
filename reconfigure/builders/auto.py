@@ -91,6 +91,11 @@ class NodeBox (object):
         for o in obj:
             self.append(o.unbuild())
 
+    def make_child(self, name):
+        node = Node(name)
+        self.node.append(node)
+        return NodeBox(node)
+
 
 class NodeSet (object):
     def __init__(self, nodes):
@@ -110,6 +115,15 @@ class NodeSet (object):
         r = [x for x in self.nodes]
         del self.nodes[:]
         return NodeSet(r)
+
+    def slice(self, f, to=None):
+        if to is not None:
+            return NodeSet(self.nodes[f:to])
+        else:
+            return NodeSet(self.nodes[f:])
+
+    def nth(self, n):
+        return NodeBox(self.nodes[n])
 
     def first(self, fx, default=None):
         if self.nodes:
