@@ -5,7 +5,7 @@ You can even extend reconfigure with your own classes for your custom configurat
 
 Quick example:
 
-```
+```python
 >>> from reconfigure.configs import FSTabConfig
 >>> from reconfigure.builders.fstab import FilesystemBuilder
 >>> config = FSTabConfig(path='/etc/fstab')
@@ -48,7 +48,7 @@ proc    /proc   proc    nodev,noexec,nosuid     0       0
 * /etc/fstab
 * /etc/resolv.conf
 * /etc/hosts
-* (Ajenti)[http://ajenti.org]
+* [Ajenti](http://ajenti.org)
 * nginx
 
 ### How it works
@@ -59,7 +59,7 @@ The processing chain consists of three main components:
 
 The parser transforms the raw text config into a Node Tree, which only represents structure of the config file. This is awfully similar to Abstract Syntax Trees.
 Example:
-```
+```python
 >>> from reconfigure.parsers import NginxParser
 >>> parser = NginxParser()
 >>> content = open('/etc/nginx/nginx.conf').read()
@@ -117,7 +117,7 @@ The Node Trees have the same format for every config, so Parsers abstract us awa
 Includers handle the include directives in configs and track which statement belongs to which file.
 Let's continue from the previous example:
 
-```
+```python
 >>> nodetree = parser.parse()
 
 >>> from reconfigure.includers import NginxIncluder
@@ -161,3 +161,37 @@ Let's continue from the previous example:
 ```
 
 You can see that include directives has been converted into special "include nodes" and all relevant files has been recursively parsed and included.
+
+
+#### Builder
+Builders are the most important components: they convert Node Tree into the final objects
+
+_Note: not all nodes are recognized so far_
+
+
+```python
+>>> from reconfigure.builders import NginxBuilder
+>>> NginxBuilder().build(nodetree)
+{
+    http {
+        servers [
+            {
+                server_names ['localhost']
+                root /srv/wp
+                locations [
+                    {
+                        pattern /
+                        root /srv/wp
+                    }, 
+                    {
+                        pattern ~ \.php$
+                        root None
+                    }
+                ]
+            }, 
+            {
+                server_names ['d.local', 'd.local.info', 'd.wifi']
+                root None
+                locations [
+            ......
+```
