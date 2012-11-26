@@ -33,7 +33,8 @@ class Reconfig (object):
 
         result = {}
         for k in tree:
-            result[k] = self.parser.stringify(tree[k])
+            result[k or self.origin] = self.parser.stringify(tree[k])
+        print result
         if self.origin is not None:
             for k in result:
                 open(k, 'w').write(result[k])

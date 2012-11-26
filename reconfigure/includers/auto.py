@@ -8,6 +8,9 @@ class AutoIncluder (BaseIncluder):
     def is_include(self, node):
         return None
 
+    def remove_include(self, node):
+        return None
+
     def compose(self, origin, tree):
         self.compose_rec(origin, origin, tree)
         return tree
@@ -44,9 +47,14 @@ class AutoIncluder (BaseIncluder):
 
     def decompose_rec(self, node, result):
         for child in node.children:
-            if child.origin != node.origin:
-                node.children.remove(child)
-                result.setdefault(child.origin, RootNode()).children.append(self.decompose_rec(child, result))
+            if child.__class__ == IncludeNode:
+                replacement = self.remove_include(child)
+                if replacement:
+                    node.children[node.children.index(child)] = replacement
             else:
-                self.decompose_rec(child, result)
+                if child.origin != node.origin:
+                    node.children.remove(child)
+                    result.setdefault(child.origin, RootNode()).children.append(self.decompose_rec(child, result))
+                else:
+                    self.decompose_rec(child, result)
         return node

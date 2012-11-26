@@ -60,9 +60,12 @@ class NodeBox (object):
     def __init__(self, node):
         self.node = node
 
-    def name(self, name):
-        self.node.name = name
-        return self
+    def name(self, name=None):
+        if name:
+            self.node.name = name
+            return self
+        else:
+            return self.node.name
 
     def children(self):
         return NodeSet(self.node.children)
@@ -82,8 +85,12 @@ class NodeBox (object):
         else:
             return NodeSet(nodes)
 
+    def has(self, key):
+        return any(self.children().each(lambda i, e: e.name == key))
+
     def get(self, key):
-        return self.node.get(key)
+        l = self.children().pick(lambda e: e.name == key)
+        return None if len(l.nodes) == 0 else l[0]
 
     def set(self, key, value, condition=True):
         if condition:

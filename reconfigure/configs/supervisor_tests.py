@@ -24,5 +24,5 @@ class NginxConfigTest (unittest.TestCase):
 
         print config.tree
 
-        #print config.save()['test']
+        print config.save()
         # TODO

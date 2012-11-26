@@ -12,7 +12,8 @@ class SupervisorBuilder (AutoBaseBuilder):
 
 
 class ProgramBuilder (AutoBaseBuilder):
-    fields = ['command']
+    fields = ['command', 'autostart', 'autorestart', 'startsecs', 'startretries', \
+        'user', 'directory', 'umask', 'environment']
 
     @staticmethod
     def empty():
@@ -24,12 +25,16 @@ class ProgramBuilder (AutoBaseBuilder):
 
     def _build(self, node):
         return self.object(
+            name=node.name().split(':')[1],
             **dict(
-                (f, node.get(f).value if node.get(f) else '')
+                (f, node.get(f).value if node.has(f) else '')
                 for f in ProgramBuilder.fields
             )
         )
 
     def _unbuild(self, obj, node):
+        node.name('program:%s' % obj.name)
         for f in ProgramBuilder.fields:
-            node.set(f, getattr(obj, f))
+            v = getattr(obj, f)
+            if v != '':
+                node.set(f, v)
