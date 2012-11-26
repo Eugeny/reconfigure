@@ -82,6 +82,7 @@ class PropertyNode (Node):
 class IncludeNode (Node):
     def __init__(self, files):
         Node.__init__(self)
+        self.name = '<include>'
         self.files = files
 
     def __str__(self):

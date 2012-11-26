@@ -1,3 +1,5 @@
+import pprint
+
 from reconfigure.builders.base import BaseBuilder
 from reconfigure.nodes import Node, PropertyNode
 
@@ -33,10 +35,19 @@ class Data (object):
     def __init__(self, **props):
         self.__dict__.update(props)
 
+    def to_json(self):
+        d = {}
+        for k in self.__dict__:
+            if not k in ['_source', '_builder']:
+                v = getattr(self, k)
+                if v.__class__ == Data:
+                    d[k] = v.to_json()
+                else:
+                    d[k] = v
+        return d
+
     def __str__(self):
-        s = '{\n'
-        s += '\n'.join('\t' + k + ' ' + str(getattr(self, k)) for k in self.__dict__ if not k in ['_source', '_builder'])
-        return s + '}'
+        return pprint.pformat(self.to_json(), width=2)
 
     def __repr__(self):
         return self.__str__()
