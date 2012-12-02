@@ -22,7 +22,4 @@ class NginxConfigTest (unittest.TestCase):
         config = SupervisorConfig(includer=includer, content=content)
         config.load()
 
-        print config.tree
-
-        print config.save()
         # TODO

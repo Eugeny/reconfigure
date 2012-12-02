@@ -31,7 +31,7 @@ class NginxConfigTest (unittest.TestCase):
         config = NginxConfig(includer=includer, content=content)
         config.load()
 
-        print config.tree
+        #print config.tree
 
         #print config.save()['test']
         # TODO
