@@ -1,3 +1,4 @@
+
 from reconfigure.parsers import CrontabParser
 from reconfigure.nodes import RootNode, Node, PropertyNode
 import unittest
@@ -9,6 +10,8 @@ class CrontabParserTest (unittest.TestCase):
                             '@reboot ls -al',
                             '1 * 0 1 2 date -s',
                             'NAME = TEST',
+                            '* * * * dd',   #Wrong line
+                            ' = FAIL',      #wrong line
                             ])
         self.tree = RootNode(None, 
             [
@@ -52,4 +55,5 @@ class CrontabParserTest (unittest.TestCase):
         parsed_tree = parser.parse(self.content)
         self.assertEqual(str(parsed_tree), str(self.tree))
 
-        
+if __name__ == '__main__':
+    unittest.main()
