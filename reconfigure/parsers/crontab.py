@@ -13,34 +13,32 @@ class CrontabParser(BaseParser):
             if line.startswith('#'):
                 root.append(PropertyNode('comment', line[1:]))
             elif line.startswith('@'):
-                name, value = line.split(' ', 1)
-                special_node = Node('special')
-                special_node.append(PropertyNode(name, value))
+                special, command = line.split(' ', 1)
+                special_node = Node('special_task')
+                special_node.append(PropertyNode('special', special))
+                special_node.append(PropertyNode('command', command))
                 root.append(special_node)
             else:
-                splitted = line.split(' ', 5)
-                if len(splitted) <= 3 and '=' in line:
+                split_line = line.split(' ', 5)
+                if len(split_line) <= 3 and '=' in line:
                     name, value = [n.strip() for n in line.split('=')]
                     if not name:
                         continue
                     env_node = Node('env_setting')
                     env_node.append(PropertyNode(name, value))
                     root.append(env_node)
-                elif len(splitted) < 6:
-                    continue
-                else:
-                    task_node = Node('task')
-                    task_node.append(PropertyNode('minute', splitted[0]))
-                    task_node.append(PropertyNode('hour', splitted[1]))
-                    task_node.append(PropertyNode('day_of_month', splitted[2]))
-                    task_node.append(PropertyNode('month', splitted[3]))
-                    task_node.append(PropertyNode('day_of_week', splitted[4]))
-                    task_node.append(PropertyNode('command', splitted[5]))
+                elif len(split_line) == 6:
+                    task_node = Node('normal_task')
+                    task_node.append(PropertyNode('minute', split_line[0]))
+                    task_node.append(PropertyNode('hour', split_line[1]))
+                    task_node.append(PropertyNode('day_of_month', split_line[2]))
+                    task_node.append(PropertyNode('month', split_line[3]))
+                    task_node.append(PropertyNode('day_of_week', split_line[4]))
+                    task_node.append(PropertyNode('command', split_line[5]))
                     root.append(task_node)
+                else:
+                    continue
         return root
-
-
-
 
 
 
