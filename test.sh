@@ -1,2 +1,2 @@
 #!/bin/sh
-python -m CoverageTestRunner
+python -m unittest discover -p "*_tests.py"
