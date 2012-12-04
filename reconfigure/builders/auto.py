@@ -114,6 +114,19 @@ class NodeBox (object):
         self.node.append(node)
         return NodeBox(node)
 
+    def is_property_node(self):
+        return isinstance(self.node, PropertyNode)
+
+    def value(self, value=None):
+        if self.is_property_node():
+            if value:
+                self.node.value = value
+                return value
+            else:
+                return self.node.value
+        else:
+            return None
+
 
 class NodeSet (object):
     def __init__(self, nodes):

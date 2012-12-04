@@ -51,7 +51,8 @@ class CrontabParserTest (unittest.TestCase):
                 ),
                 Node('env_setting',
                     [
-                        PropertyNode('NAME', 'TEST'),
+                        PropertyNode('name', 'NAME'),
+                        PropertyNode('value', 'TEST'),
                     ]
                 ),
             ]

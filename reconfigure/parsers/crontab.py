@@ -25,7 +25,8 @@ class CrontabParser(BaseParser):
                     if not name:
                         continue
                     env_node = Node('env_setting')
-                    env_node.append(PropertyNode(name, value))
+                    env_node.append(PropertyNode('name', name))
+                    env_node.append(PropertyNode('value', value))
                     root.append(env_node)
                 elif len(split_line) == 6:
                     task_node = Node('normal_task')
@@ -68,10 +69,10 @@ class CrontabParser(BaseParser):
         return ''
 
     def stringify_env_setting(self, node):
-        if node.children and isinstance(node.children[0], PropertyNode):
-            name, value = node.children[0].name, node.children[0].value
-            if name and value:
-                return ' = '.join([name, value])
+        name = node.get('name')
+        value = node.get('value')
+        if isinstance(name, PropertyNode) and isinstance(value, PropertyNode):
+                return ' = '.join([name.value, value.value])
         return ''
 
     def stringify_normal_task(self, node):
