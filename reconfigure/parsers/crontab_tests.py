@@ -5,6 +5,7 @@ import unittest
 
 class CrontabParserTest (unittest.TestCase):
     def setUp(self):
+        self.parser = CrontabParser()
         self.content = '\n'.join(['#comment line', 
                             '* * * * * date',
                             '@reboot ls -al',
@@ -12,6 +13,12 @@ class CrontabParserTest (unittest.TestCase):
                             'NAME = TEST',
                             '* * * * dd',   #Wrong line
                             ' = FAIL',      #wrong line
+                            ])
+        self.fixed_content = '\n'.join(['#comment line', 
+                            '* * * * * date',
+                            '@reboot ls -al',
+                            '1 * 0 1 2 date -s',
+                            'NAME = TEST',
                             ])
         self.tree = RootNode(None, 
             [
@@ -52,9 +59,16 @@ class CrontabParserTest (unittest.TestCase):
         
 
     def test_parse(self):
-        parser = CrontabParser()
-        parsed_tree = parser.parse(self.content)
-        self.assertEqual(str(parsed_tree), str(self.tree))
+        parsed_tree = self.parser.parse(self.content)
+        self.assertEqual(str(self.tree), str(parsed_tree))
+
+    def test_stringify(self):
+        content = self.parser.stringify(self.tree)
+        self.assertEqual(self.fixed_content, content)
+
+    def test_parse_stringify(self):
+        parsed_tree = self.parser.parse(self.content)
+        self.assertEqual(self.fixed_content, self.parser.stringify(parsed_tree))
 
 if __name__ == '__main__':
     unittest.main()
