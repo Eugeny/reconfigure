@@ -41,5 +41,43 @@ class CrontabParser(BaseParser):
         return root
 
 
+    def stringify(self, tree):
+        result_lines = []
+        stringify_func = {
+            'comment': self.stringify_comment,
+            'special_task': self.stringify_special_task,
+            'env_setting': self.stringify_env_setting,
+            'normal_task': self.stringify_normal_task,
+        }
+        for node in tree:
+            if isinstance(node, Node):
+                string_line = stringify_func.get(node.name, lambda x: '')(node)
+                result_lines.append(string_line)
+        return '\n'.join([line for line in result_lines if line])
 
+    def stringify_comment(self, node):
+        if isinstance(node, PropertyNode):
+            return '#' + node.value
+        return ''
+
+    def stringify_special_task(self, node):
+        special_node = node.get('special')
+        command_node = node.get('command')
+        if isinstance(special_node, PropertyNode) and isinstance(command_node, PropertyNode):
+            return ' '.join([special_node.value, command_node.value])
+        return ''
+
+    def stringify_env_setting(self, node):
+        if node.children and isinstance(node.children[0], PropertyNode):
+            name, value = node.children[0].name, node.children[0].value
+            if name and value:
+                return ' = '.join([name, value])
+        return ''
+
+    def stringify_normal_task(self, node):
+        if all([isinstance(child, PropertyNode) for child in node.children]):
+            values_list = [str(pr_node.value).strip() for pr_node in node.children if pr_node.value]
+            if len(values_list) == 6:
+                return ' '.join(values_list)
+        return ''
 
