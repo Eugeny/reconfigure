@@ -2,7 +2,7 @@ import pprint
 
 from reconfigure.builders.base import BaseBuilder
 from reconfigure.nodes import Node, PropertyNode
-
+from reconfigure.items.base import Data
 
 class AutoBaseBuilder (BaseBuilder):
     def build(self, tree):
@@ -31,29 +31,29 @@ class AutoBaseBuilder (BaseBuilder):
         return d
 
 
-class Data (object):
-    def __init__(self, **props):
-        self.__dict__.update(props)
+# class Data (object):
+#     def __init__(self, **props):
+#         self.__dict__.update(props)
 
-    def to_json(self):
-        d = {}
-        for k in self.__dict__:
-            if not k in ['_source', '_builder']:
-                v = getattr(self, k)
-                if v.__class__ == Data:
-                    d[k] = v.to_json()
-                else:
-                    d[k] = v
-        return d
+#     def to_json(self):
+#         d = {}
+#         for k in self.__dict__:
+#             if not k in ['_source', '_builder']:
+#                 v = getattr(self, k)
+#                 if v.__class__ == Data:
+#                     d[k] = v.to_json()
+#                 else:
+#                     d[k] = v
+#         return d
 
-    def __str__(self):
-        return pprint.pformat(self.to_json(), width=2)
+#     def __str__(self):
+#         return pprint.pformat(self.to_json(), width=2)
 
-    def __repr__(self):
-        return self.__str__()
+#     def __repr__(self):
+#         return self.__str__()
 
-    def unbuild(self):
-        return self._builder.unbuild(self)
+#     def unbuild(self):
+#         return self._builder.unbuild(self)
 
 
 class NodeBox (object):
