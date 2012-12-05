@@ -7,6 +7,7 @@ from nginx import NginxBuilder
 from passwd import PasswdBuilder
 from resolv import ResolvBuilder
 from supervisor import SupervisorBuilder
+from crontab import CrontabBuilder
 
 
 __all__ = [
@@ -19,4 +20,5 @@ __all__ = [
     'PasswdBuilder',
     'ResolvBuilder',
     'SupervisorBuilder',
+    'CrontabBuilder',
 ]
