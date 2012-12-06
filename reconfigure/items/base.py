@@ -7,7 +7,7 @@ class Data (object):
     def to_dict(self):
         res_dict = {}
         for attr_key in self.__dict__:
-            if not attr_key.startswith('_') and not callable(attr_key):
+            if not attr_key.startswith('_') and not callable(getattr(self, attr_key)):
                 attr_value = getattr(self, attr_key)
                 if isinstance(attr_value, Data):
                     res_dict[attr_key] = attr_value.to_json()

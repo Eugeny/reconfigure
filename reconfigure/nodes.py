@@ -6,7 +6,7 @@ class Node (object):
 
     def __str__(self):
         s = '(%s)\n' % self.name
-        for child in self.children:
+        for child in sorted(self.children, key=lambda x: x.name):
             s += '\n'.join('\t' + x for x in str(child).splitlines()) + '\n'
         return s
 
