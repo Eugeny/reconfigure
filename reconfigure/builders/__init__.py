@@ -1,4 +1,5 @@
 from base import BaseBuilder
+from bound import BoundBuilder
 from ajenti import AjentiBuilder
 from fstab import FSTabBuilder
 from group import GroupBuilder
@@ -13,6 +14,7 @@ from auto import AutoBaseBuilder
 
 __all__ = [
     'BaseBuilder',
+    'BoundBuilder',
     'AjentiBuilder',
     'FSTabBuilder',
     'GroupBuilder',

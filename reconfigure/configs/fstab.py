@@ -1,13 +1,14 @@
 from reconfigure.configs.base import Reconfig
 from reconfigure.parsers import SSVParser
-from reconfigure.builders import FSTabBuilder
+from reconfigure.builders import BoundBuilder
+from reconfigure.items.fstab import FSTabData
 
 
 class FSTabConfig (Reconfig):
     def __init__(self, **kwargs):
         k = {
             'parser': SSVParser(),
-            'builder': FSTabBuilder(),
+            'builder': BoundBuilder(FSTabData),
         }
         k.update(kwargs)
         Reconfig.__init__(self, **k)

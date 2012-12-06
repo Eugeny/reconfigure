@@ -16,24 +16,24 @@ class Reconfig (object):
     def load(self):
         if self.origin:
             self.content = open(self.origin, 'r').read()
-        self.tree = self.parser.parse(self.content)
+        self.nodetree = self.parser.parse(self.content)
         if self.includer is not None:
-            self.tree = self.includer.compose(self.origin, self.tree)
+            self.nodetree = self.includer.compose(self.origin, self.nodetree)
         if self.builder is not None:
-            self.tree = self.builder.build(self.tree)
+            self.tree = self.builder.build(self.nodetree)
 
     def save(self):
         tree = self.tree
         if self.builder is not None:
-            tree = self.builder.unbuild(tree)
+            nodetree = self.builder.unbuild(tree) or self.nodetree
         if self.includer is not None:
-            tree = self.includer.decompose(tree)
+            nodetree = self.includer.decompose(nodetree)
         else:
-            tree = {self.origin: tree}
+            nodetree = {self.origin: nodetree}
 
         result = {}
-        for k in tree:
-            result[k or self.origin] = self.parser.stringify(tree[k])
+        for k in nodetree:
+            result[k or self.origin] = self.parser.stringify(nodetree[k])
 
         if self.origin is not None:
             for k in result:

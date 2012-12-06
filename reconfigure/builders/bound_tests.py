@@ -1,4 +1,4 @@
-from reconfigure.builders.bound import BoundData
+from reconfigure.items.bound import BoundData
 from reconfigure.nodes import Node, PropertyNode
 import unittest
 
