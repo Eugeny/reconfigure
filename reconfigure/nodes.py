@@ -3,9 +3,13 @@ class Node (object):
         self.name = name
         self.origin = None
         self.children = children or []
+        self.comment = None
 
     def __str__(self):
-        s = '(%s)\n' % self.name
+        s = '(%s)' % self.name
+        if self.comment:
+            s += ' # %s' % self.comment
+        s += '\n'
         for child in sorted(self.children, key=lambda x: x.name):
             s += '\n'.join('\t' + x for x in str(child).splitlines()) + '\n'
         return s

@@ -1,12 +1,10 @@
 from auto import AutoBaseBuilder
-from reconfigure.items.crontab import CrontabData
-from reconfigure.nodes import PropertyNode, NodeBox
 
 
 class CrontabBuilder (AutoBaseBuilder):
     def _build(self, node):
-        return self.object(CrontabData,
-            lines = node.children().pickall().build(LineBuilder)
+        return self.object(
+            lines=node.children().pickall().build(LineBuilder)
         )
 
     def _unbuild(self, obj, node):
