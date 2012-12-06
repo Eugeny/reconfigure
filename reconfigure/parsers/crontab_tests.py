@@ -21,14 +21,14 @@ class CrontabParserTest (unittest.TestCase):
                             'NAME = TEST',
                             ])
         self.tree = RootNode(None, 
-            [
+            children=[
                 Node('comment',
-                    [
+                    children=[
                         PropertyNode('text', 'comment line'),
                     ]
                 ),
                 Node('normal_task', 
-                    [
+                    children=[
                         PropertyNode('minute', '*'),
                         PropertyNode('hour', '*'),
                         PropertyNode('day_of_month', '*'),
@@ -38,13 +38,13 @@ class CrontabParserTest (unittest.TestCase):
                     ]
                 ),
                 Node('special_task',
-                    [
+                    children=[
                         PropertyNode('special', '@reboot'),
                         PropertyNode('command', 'ls -al'),
                     ]
                 ),
                 Node('normal_task', 
-                    [
+                    children=[
                         PropertyNode('minute', '1'),
                         PropertyNode('hour', '*'),
                         PropertyNode('day_of_month', '0'),
@@ -54,7 +54,7 @@ class CrontabParserTest (unittest.TestCase):
                     ]
                 ),
                 Node('env_setting',
-                    [
+                    children=[
                         PropertyNode('name', 'NAME'),
                         PropertyNode('value', 'TEST'),
                     ]

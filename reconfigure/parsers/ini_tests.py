@@ -1,43 +1,22 @@
-#coding: utf8
-from reconfigure.parsers import *
+from reconfigure.parsers.base_tests import BaseParserTest
+from reconfigure.parsers import IniFileParser
 from reconfigure.nodes import *
 import unittest
 
 
-class IniParserTest (unittest.TestCase):
-    def test_parse_stringify(self):
-        content = """
-            [section1]
-            s1p1 = asd
-            s1p2 = 123
-            s1p3 = asd=543
-
-            [section2]
-            юни = код
-        """
-
-        parser = IniFileParser()
-        tree = parser.parse(content)
-        newcontent = parser.stringify(tree)
-        self.assertEqual(newcontent.split(), content.split())
-
-    def test_sectionless_parse_stringify(self):
-        content = """
-            KEYMAP = us
-            FONT = lat9w-16
-            FONT_MAP = 8859-1_to_uni
-        """
-
-        parser = IniFileParser(True)
-        tree = parser.parse(content)
-        self.assertTrue(tree.get(None) is not None)
-        newcontent = parser.stringify(tree)
-        self.assertEqual(newcontent.split(), content.split())
-
-    def test_raise(self):
-        tree = RootNode()
-        tree.children.append(Node(name='test'))
-        tree.children[0].children.append(Node())
-        parser = IniFileParser()
-
-        self.assertRaises(TypeError, parser.stringify, tree)
+class IniParserTest (BaseParserTest, unittest.TestCase):
+    parser = IniFileParser(sectionless=True)
+    source = """a = b
+[section1]
+s1p1 = asd
+s1p2 = 123
+"""
+    parsed = RootNode(None,
+        Node(None,
+            PropertyNode('a',  'b'),
+        ),
+        Node('section1',
+            PropertyNode('s1p1',  'asd'),
+            PropertyNode('s1p2',  '123'),
+        ),
+    )

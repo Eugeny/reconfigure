@@ -30,7 +30,7 @@ class SSVParser (BaseParser):
                 last_comment = None
             for token in tokens:
                 if token.startswith(self.comment):
-                    node.comment = ' '.join(tokens[tokens.index(token):]).strip(self.comment)
+                    node.comment = ' '.join(tokens[tokens.index(token):])[1:].strip()
                     break
                 node.append(Node(
                     name='token',

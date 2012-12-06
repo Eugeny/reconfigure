@@ -9,14 +9,14 @@ class CrontabBuilderTest (unittest.TestCase):
     def setUp(self):
         self.builder = CrontabBuilder()
         self.tree = RootNode(None, 
-            [
+            children=[
                 Node('comment',
-                    [
+                    children=[
                         PropertyNode('text', 'comment line'),
                     ]
                 ),
                 Node('normal_task', 
-                    [
+                    children=[
                         PropertyNode('minute', '*'),
                         PropertyNode('hour', '*'),
                         PropertyNode('day_of_month', '*'),
@@ -26,13 +26,13 @@ class CrontabBuilderTest (unittest.TestCase):
                     ]
                 ),
                 Node('special_task',
-                    [
+                    children=[
                         PropertyNode('special', '@reboot'),
                         PropertyNode('command', 'ls -al'),
                     ]
                 ),
                 Node('normal_task', 
-                    [
+                    children=[
                         PropertyNode('minute', '1'),
                         PropertyNode('hour', '*'),
                         PropertyNode('day_of_month', '0'),
@@ -42,7 +42,7 @@ class CrontabBuilderTest (unittest.TestCase):
                     ]
                 ),
                 Node('env_setting',
-                    [
+                    children=[
                         PropertyNode('name', 'NAME'),
                         PropertyNode('value', 'TEST'),
                     ]

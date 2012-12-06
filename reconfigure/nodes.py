@@ -1,9 +1,10 @@
 class Node (object):
-    def __init__(self, name=None, children=None):
+    def __init__(self, name=None, *args, **kwargs):
         self.name = name
         self.origin = None
-        self.children = children or []
-        self.comment = None
+        self.children = list(args)
+        self.children.extend(kwargs.get('children', []))
+        self.comment = kwargs.get('comment', None)
 
     def __str__(self):
         s = '(%s)' % self.name
@@ -16,6 +17,19 @@ class Node (object):
 
     def __repr__(self):
         return str(self)
+
+    def __hash__(self):
+        return sum(hash(x) for x in [self.name, self.origin, self.comment] + self.children)
+
+    def __eq__(self, other):
+        if other is None:
+            return False
+
+        return \
+            self.name == other.name and \
+            self.comment == other.comment and \
+            self.origin == other.origin and \
+            set(self.children) == set(other.children)
 
     def __iter__(self):
         return iter(self.children)
