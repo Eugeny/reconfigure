@@ -49,7 +49,10 @@ class Node (object):
     def append(self, node):
         if not node.origin:
             node.origin = self.origin
-        self.replace(None, node)
+        self.children.append(node)
+
+    def remove(self, node):
+        self.children.remove(node)
 
     def replace(self, name, node=None):
         if name:
@@ -62,6 +65,15 @@ class Node (object):
                 self.children.append(node)
 
     def set(self, name, value):
+        # raise Exception('Node.set deprecated')
+        node = self.get(name)
+        if not node:
+            node = PropertyNode(name, value)
+            self.append(node)
+        node.value = value
+        return self
+
+    def set_property(self, name, value):
         node = self.get(name)
         if not node:
             node = PropertyNode(name, value)
