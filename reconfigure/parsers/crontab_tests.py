@@ -22,7 +22,11 @@ class CrontabParserTest (unittest.TestCase):
                             ])
         self.tree = RootNode(None, 
             [
-                PropertyNode('comment', 'comment line'),
+                Node('comment',
+                    [
+                        PropertyNode('text', 'comment line'),
+                    ]
+                ),
                 Node('normal_task', 
                     [
                         PropertyNode('minute', '*'),

@@ -8,6 +8,7 @@ from passwd import PasswdBuilder
 from resolv import ResolvBuilder
 from supervisor import SupervisorBuilder
 from crontab import CrontabBuilder
+from auto import AutoBaseBuilder
 
 
 __all__ = [
@@ -21,4 +22,5 @@ __all__ = [
     'ResolvBuilder',
     'SupervisorBuilder',
     'CrontabBuilder',
+    'AutoBaseBuilder',
 ]

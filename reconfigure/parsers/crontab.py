@@ -11,7 +11,9 @@ class CrontabParser(BaseParser):
         lines = [l.strip() for l in content.splitlines()]
         for line in lines:
             if line.startswith('#'):
-                root.append(PropertyNode('comment', line[1:]))
+                comment_node = Node('comment')
+                comment_node.append(PropertyNode('text', line[1:]))
+                root.append(comment_node)
             elif line.startswith('@'):
                 special, command = line.split(' ', 1)
                 special_node = Node('special_task')
@@ -57,8 +59,9 @@ class CrontabParser(BaseParser):
         return '\n'.join([line for line in result_lines if line])
 
     def stringify_comment(self, node):
-        if isinstance(node, PropertyNode):
-            return '#' + node.value
+        comment_node = node.get('text')
+        if isinstance(comment_node, PropertyNode):
+            return '#' + comment_node.value
         return ''
 
     def stringify_special_task(self, node):
