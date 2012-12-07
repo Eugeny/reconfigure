@@ -21,4 +21,5 @@ class FilesystemData (BoundData):
 
 FSTabData.bind_collection('filesystems', item_class=FilesystemData)
 for i in range(0, len(FilesystemData.fields)):
-    FilesystemData.bind_property('value', FilesystemData.fields[i], object=lambda x: x.children[i])
+    object = lambda i: lambda x: x.children[i]
+    FilesystemData.bind_property('value', FilesystemData.fields[i], object=object(i))

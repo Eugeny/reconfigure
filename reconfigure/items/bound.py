@@ -43,6 +43,10 @@ class BoundData (object):
     def bind(cls, data_property, getter, setter):
         setattr(cls, data_property, property(getter, setter))
 
+    @staticmethod
+    def bind_class(cls, data_property, getter, setter):
+        setattr(cls, data_property, property(getter, setter))
+
     @classmethod
     def bind_property(cls, node_property, data_property, default=None, \
             object=lambda x: x, getter=lambda x: x, setter=lambda x: x):
@@ -56,7 +60,7 @@ class BoundData (object):
         def pset(self, value):
             object(self._node).set_property(node_property, setter(value))
 
-        BoundData.bind(data_property, pget, pset)
+        BoundData.bind_class(cls, data_property, pget, pset)
 
     @classmethod
     def bind_collection(cls, data_property, object=lambda x: x, selector=lambda x: True, item_class=None, \
@@ -72,4 +76,4 @@ class BoundData (object):
                 )
             return getattr(self, '__' + data_property)
 
-        BoundData.bind(data_property, pget, None)
+        BoundData.bind_class(cls, data_property, pget, None)
