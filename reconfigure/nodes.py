@@ -2,8 +2,9 @@ class Node (object):
     def __init__(self, name=None, *args, **kwargs):
         self.name = name
         self.origin = None
-        self.children = list(args)
-        self.children.extend(kwargs.get('children', []))
+        self.children = []
+        for node in list(args) + kwargs.get('children', []):
+            self.append(node)
         self.comment = kwargs.get('comment', None)
 
     def __str__(self):
@@ -49,6 +50,12 @@ class Node (object):
     def __contains__(self, item):
         return item in self.children
 
+    def indexof(self, node):
+        if node in self.children:
+            return self.children.index(node)
+        else:
+            return None
+
     def get(self, name, default=None):
         for child in self.children:
             if child.name == name:
@@ -64,6 +71,7 @@ class Node (object):
         if not node.origin:
             node.origin = self.origin
         self.children.append(node)
+        node.parent = self
 
     def remove(self, node):
         self.children.remove(node)
@@ -104,6 +112,14 @@ class PropertyNode (Node):
     def __init__(self, name, value):
         Node.__init__(self, name)
         self.value = value
+
+    def __eq__(self, other):
+        if other is None:
+            return False
+
+        return \
+            Node.__eq__(self, other) and \
+            self.value == other.value
 
     def __str__(self):
         return '%s = %s' % (self.name, self.value)

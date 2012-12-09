@@ -1,13 +1,14 @@
 from reconfigure.configs.base import Reconfig
 from reconfigure.parsers import SSVParser
-from reconfigure.builders import ResolvBuilder
+from reconfigure.builders import BoundBuilder
+from reconfigure.items.resolv import ResolvData
 
 
 class ResolvConfig (Reconfig):
     def __init__(self, **kwargs):
         k = {
-            'parser': SSVParser(),
-            'builder': ResolvBuilder(),
+            'parser': SSVParser(maxsplit=1),
+            'builder': BoundBuilder(ResolvData),
         }
         k.update(kwargs)
         Reconfig.__init__(self, **k)

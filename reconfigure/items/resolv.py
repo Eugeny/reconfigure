@@ -1,31 +1,19 @@
-from reconfigure.nodes import *
+from reconfigure.nodes import Node, PropertyNode
+from reconfigure.items.bound import BoundData
 
 
-class Item (object):
-    def __init__(self):
-        self._build(Node('nameserver').set('value', '8.8.8.8'))
-
-    def _build(self, tree):
-        self.source = tree
-        self.name = tree.name
-        self.value = tree['value'].value
-        return self
-
-    def _unbuild(self):
-        self.source.name = self.name
-        self.source['value'] = self.value
-        return self.source
+class ResolvData (BoundData):
+    pass
 
 
-class Config (object):
-    def __init__(self):
-        pass
+class ItemData (BoundData):
+    def template(self):
+        return Node('line', children=[
+            Node('token', children=[PropertyNode('value', 'nameserver')]),
+            Node('token', children=[PropertyNode('value', '8.8.8.8')]),
+        ])
 
-    def _build(self, tree):
-        self.source = tree
-        self.items = [Item()._build(node) for node in tree.children]
-        return self
 
-    def _unbuild(self):
-        self.source.children = [c._unbuild() for c in self.items]
-        return self.source
+ResolvData.bind_collection('items', item_class=ItemData)
+ItemData.bind_property('value', 'name', path=lambda x: x.children[0])
+ItemData.bind_property('value', 'value', path=lambda x: x.children[1])

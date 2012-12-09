@@ -19,7 +19,8 @@ class FilesystemData (BoundData):
             Node('token', children=[PropertyNode('value', '0')]),
         ])
 
+
 FSTabData.bind_collection('filesystems', item_class=FilesystemData)
 for i in range(0, len(FilesystemData.fields)):
-    object = lambda i: lambda x: x.children[i]
-    FilesystemData.bind_property('value', FilesystemData.fields[i], object=object(i))
+    path = lambda i: lambda x: x.children[i]
+    FilesystemData.bind_property('value', FilesystemData.fields[i], path=path(i))

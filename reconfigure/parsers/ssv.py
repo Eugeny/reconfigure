@@ -3,8 +3,9 @@ from reconfigure.parsers import BaseParser
 
 
 class SSVParser (BaseParser):
-    def __init__(self, separator=None, comment='#', *args, **kwargs):
+    def __init__(self, separator=None, maxsplit=-1, comment='#', *args, **kwargs):
         self.separator = separator
+        self.maxsplit = maxsplit
         self.comment = comment
         BaseParser.__init__(self, *args, **kwargs)
 
@@ -21,9 +22,9 @@ class SSVParser (BaseParser):
                 else:
                     last_comment = c
                 continue
-            if len(line.split(self.separator)) < 2:
+            if len(line) == 0:
                 continue
-            tokens = line.split(self.separator)
+            tokens = line.split(self.separator, self.maxsplit)
             node = Node('line')
             if last_comment:
                 node.comment = last_comment

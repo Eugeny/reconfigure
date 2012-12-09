@@ -1,18 +1,36 @@
-#coding: utf8
 import unittest
+
 from reconfigure.configs import FSTabConfig
+from reconfigure.configs.base_tests import BaseConfigTest
 
 
-class FSTabConfigTest (unittest.TestCase):
-    def test_config(self):
-        content = """
-            fs1 mp1  ext rw 1 2
-            fs2 mp2 auto none 0 0
-        """
-        config = FSTabConfig(content=content)
-        config.load()
-        newcontent = config.save()[None]
-        self.assertTrue(newcontent.split() == content.split())
+class FSTabConfigTest (BaseConfigTest, unittest.TestCase):
+    sources = {
+        None: """fs1\tmp1\text\trw\t1\t2
+fs2\tmp2\tauto\tnone\t0\t0
+"""
+    }
+    result = {
+        'filesystems': [
+            {
+                'device': 'fs1',
+                'mountpoint': 'mp1',
+                'type': 'ext',
+                'options': 'rw',
+                'freq': '1',
+                'passno': '2'
+            },
+            {
+                'device': 'fs2',
+                'mountpoint': 'mp2',
+                'type': 'auto',
+                'options': 'none',
+                'freq': '0',
+                'passno': '0'
+            },
+        ]
+    }
+    config = FSTabConfig
 
 
 if __name__ == '__main__':

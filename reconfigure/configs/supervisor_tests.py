@@ -1,25 +1,35 @@
-#coding: utf8
 import unittest
-from reconfigure.includers import SupervisorIncluder
+
+from reconfigure.configs.base_tests import BaseConfigTest
 from reconfigure.configs import SupervisorConfig
 
 
-class NginxConfigTest (unittest.TestCase):
-    def test_config(self):
-        content = """
-            [unix_http_server]
-            file=/var/run//supervisor.sock   ; (the path to the socket file)
-            chmod=0700
-            [include]
-            files = test
+class SupervisorConfigTest (BaseConfigTest, unittest.TestCase):
+    sources = {
+        None: """[unix_http_server]
+file = /var/run//supervisor.sock ; (the path to the socket file)
+chmod = 0700
+[include]
+files = test""",
+        'test': """[program:test1]
+command = cat
         """
-        content2 = """
-            [program:test1]
-            command=cat
-        """
+    }
+    result = {
+        "programs": [
+            {
+                "autorestart": None,
+                "name": "test1",
+                "startsecs": None,
+                "umask": None,
+                "environment": None,
+                "command": "cat",
+                "user": None,
+                "startretries": None,
+                "directory": None,
+                "autostart": None
+            }
+        ]
+    }
 
-        includer = SupervisorIncluder(content_map={'test': content2})
-        config = SupervisorConfig(includer=includer, content=content)
-        config.load()
-
-        # TODO
+    config = SupervisorConfig

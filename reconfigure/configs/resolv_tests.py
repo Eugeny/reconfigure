@@ -1,20 +1,33 @@
-#coding: utf8
 import unittest
+
 from reconfigure.configs import ResolvConfig
+from reconfigure.configs.base_tests import BaseConfigTest
 
 
-class ResolvConfigTest (unittest.TestCase):
-    def test_config(self):
-        content = """
-            nameserver 1
-            domain 2
-            search 3 5
-        """
-        config = ResolvConfig(content=content)
-        config.load()
-        self.assertTrue(config.tree.items[2].value == '3 5')
-        newcontent = config.save()[None]
-        self.assertTrue(newcontent.split() == content.split())
+class ResolvConfigTest (BaseConfigTest, unittest.TestCase):
+    sources = {
+        None: """nameserver 1
+domain 2
+search 3 5
+"""
+    }
+    result = {
+        'items': [
+            {
+                'name': 'nameserver',
+                'value': '1',
+            },
+            {
+                'name': 'domain',
+                'value': '2',
+            },
+            {
+                'name': 'search',
+                'value': '3 5',
+            },
+        ]
+    }
+    config = ResolvConfig
 
 
 if __name__ == '__main__':

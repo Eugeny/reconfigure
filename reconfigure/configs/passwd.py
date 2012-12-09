@@ -1,13 +1,14 @@
 from reconfigure.configs.base import Reconfig
 from reconfigure.parsers import SSVParser
-from reconfigure.builders import PasswdBuilder
+from reconfigure.builders import BoundBuilder
+from reconfigure.items.passwd import PasswdData
 
 
 class PasswdConfig (Reconfig):
     def __init__(self, **kwargs):
         k = {
             'parser': SSVParser(separator=':'),
-            'builder': PasswdBuilder(),
+            'builder': BoundBuilder(PasswdData),
         }
         k.update(kwargs)
         Reconfig.__init__(self, **k)
