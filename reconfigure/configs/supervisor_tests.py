@@ -7,7 +7,7 @@ from reconfigure.configs import SupervisorConfig
 class SupervisorConfigTest (BaseConfigTest, unittest.TestCase):
     sources = {
         None: """[unix_http_server]
-file = /var/run//supervisor.sock ; (the path to the socket file)
+file = /var/run//supervisor.sock
 chmod = 0700
 [include]
 files = test""",

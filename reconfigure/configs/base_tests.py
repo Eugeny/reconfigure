@@ -5,6 +5,8 @@ class BaseConfigTest (object):
     config_kwargs = {}
 
     def test_config(self):
+        self.maxDiff = None
+
         config = self.config(content=self.sources[None], **self.config_kwargs)
         if config.includer:
             config.includer.content_map = self.sources

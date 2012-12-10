@@ -1,95 +1,52 @@
 import json
 
-from reconfigure.nodes import *
+from reconfigure.nodes import Node, PropertyNode
+from reconfigure.items.bound import BoundData, BoundDictionary
 
 
-class HttpBinding (object):
-    def __init__(self):
-        self.host = '0.0.0.0'
-        self.port = 8000
-
-    def _build(self, tree):
-        self.source = tree
-        self.host = tree.get('host').value
-        self.port = tree.get('port').value
-        return self
-
-    def _unbuild(self):
-        return Node(name='bind', children=[
-            PropertyNode(name='host', value=self.host),
-            PropertyNode(name='port', value=self.port),
-        ])
+class AjentiData (BoundData):
+    pass
 
 
-class SslParams (object):
-    def __init__(self):
-        self.enable = False
-        self.certificate_path = ''
-        self.key_path = ''
-
-    def _build(self, tree):
-        self.source = tree
-        self.enable = tree.get('enable').value
-        self.certificate_path = tree.get('certificate_path').value
-        self.key_path = tree.get('key_path').value
-        return self
-
-    def _unbuild(self):
-        return Node(name='ssl', children=[
-            PropertyNode(name='enable', value=self.enable),
-            PropertyNode(name='certificate_path', value=self.certificate_path),
-            PropertyNode(name='key_path', value=self.key_path),
-        ])
+class HttpData (BoundData):
+    pass
 
 
-class User (object):
-    def __init__(self, name=None, password=None):
-        self.name = name
-        self.password = password
-        self.configs = {}
-        self.permissions = []
-
-    def _build(self, tree):
-        self.source = tree
-        self.name = tree.name
-        self.password = tree['password'].value
-        self.permissions = tree['permissions'].value
-        for node in tree['configs']:
-            self.configs[node.name] = json.loads(node.value)
-        return self
-
-    def _unbuild(self):
-        return Node(name=self.name, children=[
-            PropertyNode(name='password', value=self.password),
-            PropertyNode(name='permissions', value=self.permissions),
-            Node('configs', children=[
-                PropertyNode(name=k, value=json.dumps(v))
-                for k, v in self.configs.iteritems()
-            ])
-        ])
+class SSLData (BoundData):
+    pass
 
 
-class Config (object):
-    def __init__(self):
-        self.http_binding = HttpBinding()
-        self.ssl = SslParams()
-        self.authentication = False
-        self.users = {'root': User(name='root', password='root')}
+class UserData (BoundData):
+    def template(self):
+        return Node('unnamed',
+            PropertyNode('configs', {}),
+            PropertyNode('password', ''),
+            PropertyNode('permissions', []),
+        )
 
-    def _build(self, tree):
-        self.source = tree
-        self.authentication = tree.get('authentication').value
-        self.http_binding = HttpBinding()._build(tree.get('bind'))
-        self.ssl = SslParams()._build(tree.get('ssl'))
-        self.users = {}
-        for node in tree.get('users').children:
-            self.users[node.name] = User()._build(node)
-        return self
 
-    def _unbuild(self):
-        return RootNode(children=[
-            PropertyNode(name='authentication', value=self.authentication),
-            self.http_binding._unbuild(),
-            self.ssl._unbuild(),
-            Node(name='users', children=[x._unbuild() for x in self.users.values()])
-        ])
+class ConfigData (BoundData):
+    def template(self):
+        return Node()
+
+
+AjentiData.bind_property('authentication', 'authentication')
+AjentiData.bind_child('http_binding', lambda x: x.get('bind'), item_class=HttpData)
+AjentiData.bind_child('ssl', lambda x: x.get('ssl'), item_class=SSLData)
+AjentiData.bind_collection('users', path=lambda x: x.get('users'), item_class=UserData, collection_class=BoundDictionary, key=lambda x: x.name)
+
+HttpData.bind_property('host', 'host')
+HttpData.bind_property('port', 'port')
+
+SSLData.bind_property('certificate_path', 'certificate_path')
+SSLData.bind_property('key_path', 'key_path')
+SSLData.bind_property('enable', 'enable')
+
+ConfigData.bind_name('name')
+
+UserData.bind_name('name')
+UserData.bind_property('password', 'password')
+UserData.bind_property('permissions', 'permissions')
+UserData.bind_collection('configs', lambda x: x.get('configs'), item_class=ConfigData, collection_class=BoundDictionary, key=lambda x: x.name)
+
+ConfigData.bind_attribute('value', 'data', getter=json.loads, setter=json.dumps)
