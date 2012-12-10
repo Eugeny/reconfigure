@@ -15,4 +15,7 @@ class BaseParserTest (object):
             return
 
         unparsed = self.parser.stringify(self.__class__.parsed)
-        self.assertEquals(self.__class__.source.split(), unparsed.split())
+        a, b = self.__class__.source, unparsed
+        if a.split() != b.split():
+            print 'SOURCE: %s\n\nGENERATED: %s' % (a, b)
+            self.assertEquals(a.split(), b.split())

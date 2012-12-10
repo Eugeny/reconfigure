@@ -1,6 +1,6 @@
 from reconfigure.nodes import *
 from reconfigure.parsers import BaseParser
-from ConfigParser import ConfigParser
+from iniparse import INIConfig
 from StringIO import StringIO
 
 
@@ -9,42 +9,51 @@ class IniFileParser (BaseParser):
         self.sectionless = sectionless
         self.nullsection = nullsection
 
+    def _get_comment(self, container):
+        c = container.contents[0].comment
+        return c.strip() if c else None
+
+    def _set_comment(self, container, comment):
+        if comment:
+            container.contents[0].comment = comment
+            container.contents[0].comment_separator = ';'
+
     def parse(self, content):
         content = '\n'.join(filter(None, [x.strip() for x in content.splitlines()]))
         if self.sectionless:
             content = '[' + self.nullsection + ']\n' + content
         data = StringIO(content)
-        cp = ConfigParser()
-        cp.optionxform = str
-        cp.readfp(data)
+        cp = INIConfig(data)
 
         root = RootNode()
-        for section in cp.sections():
+        for section in cp:
             name = section
             if self.sectionless and section == self.nullsection:
                 name = None
             section_node = Node(name)
-            for option in cp.options(section):
-                section_node.children.append(PropertyNode(option, cp.get(section, option)))
+            section_node.comment = self._get_comment(cp[section]._lines[0])
+            for option in cp[section]:
+                node = PropertyNode(option, cp[section][option])
+                node.comment = self._get_comment(cp[section]._options[option])
+                section_node.children.append(node)
             root.children.append(section_node)
         return root
 
     def stringify(self, tree):
-        data = StringIO()
-        cp = ConfigParser()
-        cp.optionxform = str
+        cp = INIConfig()
 
         for section in tree.children:
             if self.sectionless and section.name is None:
                 section.name = self.nullsection
-            cp.add_section(section.name)
             for option in section.children:
                 if not isinstance(option, PropertyNode):
                     raise TypeError('Third level nodes should be PropertyNodes')
-                cp.set(section.name, option.name, option.value)
+                cp[section.name][option.name] = option.value
+                if option.comment:
+                    self._set_comment(cp[section.name]._options[option.name], option.comment)
+            self._set_comment(cp[section.name]._lines[0], section.comment)
 
-        cp.write(data)
-        data = data.getvalue()
+        data = str(cp)
         if self.sectionless:
             data = data.replace('[' + self.nullsection + ']\n', '')
         return data

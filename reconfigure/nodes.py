@@ -10,7 +10,7 @@ class Node (object):
     def __str__(self):
         s = '(%s)' % self.name
         if self.comment:
-            s += ' # %s' % self.comment
+            s += ' (%s)' % self.comment
         s += '\n'
         for child in sorted(self.children, key=lambda x: x.name):
             s += '\n'.join('\t' + x for x in str(child).splitlines()) + '\n'
@@ -109,8 +109,8 @@ class RootNode (Node):
 
 
 class PropertyNode (Node):
-    def __init__(self, name, value):
-        Node.__init__(self, name)
+    def __init__(self, name, value, comment=None):
+        Node.__init__(self, name, comment=comment)
         self.value = value
 
     def __eq__(self, other):
@@ -122,7 +122,10 @@ class PropertyNode (Node):
             self.value == other.value
 
     def __str__(self):
-        return '%s = %s' % (self.name, self.value)
+        s = '%s = %s' % (self.name, self.value)
+        if self.comment:
+            s += ' (%s)' % self.comment
+        return s
 
 
 class IncludeNode (Node):
@@ -133,114 +136,3 @@ class IncludeNode (Node):
 
     def __str__(self):
         return '<include> %s' % self.files
-
-class NodeBox (object):
-    def __init__(self, node):
-        self.node = node
-
-    def name(self, name=None):
-        if name:
-            self.node.name = name
-            return self
-        else:
-            return self.node.name
-
-    def children(self):
-        return NodeSet(self.node.children)
-
-    def append(self, child=None):
-        if not child:
-            nodes = [Node()]
-        elif child.__class__ != list:
-            nodes = [child]
-        else:
-            nodes = child
-        for c in nodes:
-            self.node.append(c)
-
-        if len(nodes) == 1:
-            return NodeBox(nodes[0])
-        else:
-            return NodeSet(nodes)
-
-    def has(self, key):
-        return any(self.children().each(lambda i, e: e.name == key))
-
-    def get(self, key):
-        l = self.children().pick(lambda e: e.name == key)
-        return None if len(l.nodes) == 0 else l[0]
-
-    def set(self, key, value, condition=True):
-        if condition:
-            self.node.set(key, value)
-        return self
-
-    def set_all(self, key, values):
-        self.children().pick(name=key)
-        for v in values:
-            self.node.append(PropertyNode(key, v))
-        return self
-
-    def append_unbuilt(self, obj):
-        if obj.__class__ != list:
-            obj = [obj]
-        for o in obj:
-            self.append(o.unbuild())
-
-    def make_child(self, name):
-        node = Node(name)
-        self.node.append(node)
-        return NodeBox(node)
-
-    def is_property_node(self):
-        return isinstance(self.node, PropertyNode)
-
-    def value(self, value=None):
-        if self.is_property_node():
-            if value:
-                self.node.value = value
-                return value
-            else:
-                return self.node.value
-        else:
-            return None
-
-
-class NodeSet (object):
-    def __init__(self, nodes):
-        self.nodes = nodes
-
-    def __getitem__(self, key):
-        return self.nodes[key]
-
-    def pick(self, cond=lambda x: True, **props):
-        fx = lambda x: cond(x) and all(getattr(x, k) == v for k, v in props.iteritems())
-        r = filter(fx, self.nodes)
-        for n in r:
-            self.nodes.remove(n)
-        return NodeSet(r)
-
-    def pickall(self):
-        r = [x for x in self.nodes]
-        del self.nodes[:]
-        return NodeSet(r)
-
-    def slice(self, f, to=None):
-        if to is not None:
-            return NodeSet(self.nodes[f:to])
-        else:
-            return NodeSet(self.nodes[f:])
-
-    def nth(self, n):
-        return NodeBox(self.nodes[n])
-
-    def first(self, fx, default=None):
-        if self.nodes:
-            return fx(self.nodes[0])
-        return default
-
-    def each(self, fx):
-        return [fx(i, self.nodes[i]) for i in range(0, len(self.nodes))]
-
-    def build(self, buildercls):
-        return [buildercls().build(x) for x in self.nodes]
