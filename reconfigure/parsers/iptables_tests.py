@@ -16,43 +16,38 @@ COMMIT
 """
     parsed = RootNode(None,
         Node('filter',
-            Node('append',
-                PropertyNode('chain', 'INPUT'),
-                Node('option',
-                    Node('argument', PropertyNode('value', '202.54.1.2/32')),
-                    PropertyNode('name', 's')
+            Node('INPUT',
+                PropertyNode('default', 'ACCEPT'),
+                Node('append',
+                    Node('option',
+                        Node('argument', PropertyNode('value', '202.54.1.2/32')),
+                        PropertyNode('name', 's')
+                    ),
+                    Node('option',
+                        Node('argument', PropertyNode('value', 'DROP')),
+                        PropertyNode('name', 'j')
+                    ),
                 ),
-                Node('option',
-                    Node('argument', PropertyNode('value', 'DROP')),
-                    PropertyNode('name', 'j')
+                Node('append',
+                    Node('option',
+                        Node('argument', PropertyNode('value', 'state')),
+                        PropertyNode('name', 'm')
+                    ),
+                    Node('option',
+                        Node('argument', PropertyNode('value', 'NEW,ESTABLISHED')),
+                        PropertyNode('name', 'state')
+                    ),
+                    Node('option',
+                        Node('argument', PropertyNode('value', 'ACCEPT')),
+                        PropertyNode('name', 'j')
+                    ),
                 ),
             ),
-            Node('append',
-                PropertyNode('chain', 'INPUT'),
-                Node('option',
-                    Node('argument', PropertyNode('value', 'state')),
-                    PropertyNode('name', 'm')
-                ),
-                Node('option',
-                    Node('argument', PropertyNode('value', 'NEW,ESTABLISHED')),
-                    PropertyNode('name', 'state')
-                ),
-                Node('option',
-                    Node('argument', PropertyNode('value', 'ACCEPT')),
-                    PropertyNode('name', 'j')
-                ),
+            Node('FORWARD',
+                PropertyNode('default', 'DROP'),
             ),
-            Node('default',
-                PropertyNode('chain', 'INPUT'),
-                PropertyNode('destination', 'ACCEPT'),
-            ),
-            Node('default',
-                PropertyNode('chain', 'FORWARD'),
-                PropertyNode('destination', 'DROP'),
-            ),
-            Node('default',
-                PropertyNode('chain', 'OUTPUT'),
-                PropertyNode('destination', 'ACCEPT'),
+            Node('OUTPUT',
+                PropertyNode('default', 'ACCEPT'),
             ),
         )
     )

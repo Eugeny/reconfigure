@@ -1,3 +1,6 @@
+import json
+
+
 class BaseConfigTest (object):
     sources = ""
     result = None
@@ -14,7 +17,11 @@ class BaseConfigTest (object):
         #print 'RESULT', config.tree.to_dict()
         #print 'SOURCE', self.__class__.result
         #self.assertTrue(self.__class__.result== config.tree.to_dict())
-        self.assertEquals(self.__class__.result, config.tree.to_dict())
+        a, b = self.__class__.result, config.tree.to_dict()
+        if a != b:
+            print 'SOURCE: %s\nGENERATED: %s\n' % (json.dumps(a, indent=4), json.dumps(b, indent=4))
+        self.assertEquals(a, b)
+
         result = config.save()
         #print result
         for k, v in result.iteritems():

@@ -12,7 +12,7 @@ class Node (object):
         if self.comment:
             s += ' (%s)' % self.comment
         s += '\n'
-        for child in sorted(self.children, key=lambda x: x.name):
+        for child in self.children:
             s += '\n'.join('\t' + x for x in str(child).splitlines()) + '\n'
         return s
 

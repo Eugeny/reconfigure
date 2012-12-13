@@ -98,9 +98,9 @@ class BoundDictionary (BoundCollection):
 
 
 class BoundData (object):
-    def __init__(self, node=None):
+    def __init__(self, node=None, **kwargs):
         if not node:
-            node = self.template()
+            node = self.template(**kwargs)
         self._node = node
 
     def template(self):
