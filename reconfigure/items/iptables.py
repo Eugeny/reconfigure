@@ -35,18 +35,37 @@ class RuleData (BoundData):
             for x in self.options
         )
 
+    def get_option(self, *names):
+        for name in names:
+            for option in self.options:
+                if option.name == name:
+                    return option
+
 
 class OptionData (BoundData):
     templates = {
-        'source': Node('option',
-            Node('argument', PropertyNode('value', '127.0.0.1')),
-            PropertyNode('name', 'source')
-        ),
+        'protocol': ['protocol', ['tcp']],
+        'match': ['match', ['multiport']],
+        'source': ['source', ['127.0.0.1']],
+        'destination': ['destination', ['127.0.0.1']],
+        'in-interface': ['in-interface', ['lo']],
+        'out-interface': ['out-interface', ['lo']],
+        'source-port': ['source-port', ['80']],
+        'source-ports': ['source-ports', ['80,443']],
+        'destination-port': ['destination-port', ['80']],
+        'destination-ports': ['destination-ports', ['80,443']],
+        'state': ['state', ['NEW']],
     }
 
     @staticmethod
     def create(template_id):
-        return OptionData(OptionData.templates[template_id])
+        t = OptionData.templates[template_id]
+        return OptionData(Node('option',
+            *(
+                [Node('argument', PropertyNode('value', x)) for x in t[1]]
+                + [PropertyNode('name', t[0])]
+            )
+        ))
 
     @staticmethod
     def create_destination():
