@@ -49,6 +49,11 @@ class BoundCollection (object):
         self.node.remove(item._node)
         self.data.remove(item)
 
+    def pop(self, index):
+        d = self[index]
+        self.remove(d)
+        return d
+
 
 class BoundDictionary (BoundCollection):
     def __init__(self, key=None, **kwargs):

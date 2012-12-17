@@ -70,17 +70,21 @@ COMMIT
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        'name': 'INPUT'
                     },
                     {
                         'default': 'DROP',
-                        'rules': []
+                        'rules': [],
+                        'name': 'FORWARD'
                     },
                     {
                         'default': 'ACCEPT',
-                        'rules': []
+                        'rules': [],
+                        'name': 'OUTPUT'
                     }
-                ]
+                ],
+                'name': 'filter'
             }
         ]
     }

@@ -54,5 +54,5 @@ class IPTablesParser (BaseParser):
                                 if o.name == 'option'
                             )
                         )
-        data += 'COMMIT\n'
+            data += 'COMMIT\n'
         return data
