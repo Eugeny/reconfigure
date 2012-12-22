@@ -166,7 +166,7 @@ class BoundData (object):
                 return getter(default)
 
         def pset(self, value):
-            path(self._node).set_property(node_property, setter(value))
+            setattr(path(self._node), node_property, setter(value))
 
         cls.bind(data_property, pget, pset)
 

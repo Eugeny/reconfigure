@@ -47,6 +47,7 @@ class OptionData (BoundData):
         'protocol': ['protocol', ['tcp']],
         'match': ['match', ['multiport']],
         'source': ['source', ['127.0.0.1']],
+        'mac-source': ['mac-source', ['00:00:00:00:00:00']],
         'destination': ['destination', ['127.0.0.1']],
         'in-interface': ['in-interface', ['lo']],
         'out-interface': ['out-interface', ['lo']],
@@ -55,6 +56,7 @@ class OptionData (BoundData):
         'destination-port': ['destination-port', ['80']],
         'destination-ports': ['destination-ports', ['80,443']],
         'state': ['state', ['NEW']],
+        'reject-with': ['reject-with', ['icmp-net-unreachable']],
     }
 
     @staticmethod
