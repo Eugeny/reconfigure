@@ -4,6 +4,10 @@ import json
 
 
 class JsonParser (BaseParser):
+    """
+    A parser for JSON files (using ``json`` module)
+    """
+
     def parse(self, content):
         node = RootNode()
         self.load_node_rec(node, json.loads(content))

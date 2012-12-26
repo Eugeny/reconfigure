@@ -1,4 +1,16 @@
 class Reconfig (object):
+    """
+    Basic config class. Derivatives normally only need to override the constructor.
+
+    Config data is loaded either from ``path`` or from ``content``
+
+    :param parser: overrides the Parser instance
+    :param includer: overrides the Includer instance
+    :param builder: overrides the Builder instance
+    :param path: config file path. Not compatible with ``content``
+    :param content: config file content. Not compatible with ``path``
+    """
+
     def __init__(self, parser=None, includer=None, builder=None, path=None, content=None):
         self.parser = parser
         self.builder = builder
@@ -14,6 +26,9 @@ class Reconfig (object):
             self.content = content
 
     def load(self):
+        """
+        Loads the config data, parses and builds it. Sets ``tree`` attribute to point to Data tree.
+        """
         if self.origin:
             self.content = open(self.origin, 'r').read()
         self.nodetree = self.parser.parse(self.content)
@@ -23,6 +38,9 @@ class Reconfig (object):
             self.tree = self.builder.build(self.nodetree)
 
     def save(self):
+        """
+        Unbuilds, stringifies and saves the config. If the config was loaded from string, returns ``{ origin: data }`` dict
+        """
         tree = self.tree
         if self.builder is not None:
             nodetree = self.builder.unbuild(tree) or self.nodetree

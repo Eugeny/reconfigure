@@ -5,6 +5,10 @@ from reconfigure.items.passwd import PasswdData
 
 
 class PasswdConfig (Reconfig):
+    """
+    ``/etc/passwd``
+    """
+
     def __init__(self, **kwargs):
         k = {
             'parser': SSVParser(separator=':'),

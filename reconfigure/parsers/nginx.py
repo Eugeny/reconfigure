@@ -4,6 +4,10 @@ import re
 
 
 class NginxParser (BaseParser):
+    """
+    A parser for nginx configs
+    """
+
     def parse(self, content):
         scanner = re.Scanner([
                 (r"[\w_]+?.+?;", lambda s, t: ('option', t)),

@@ -5,6 +5,9 @@ from reconfigure.items.fstab import FSTabData
 
 
 class FSTabConfig (Reconfig):
+    """
+    ``/etc/fstab``
+    """
     def __init__(self, **kwargs):
         k = {
             'parser': SSVParser(),

@@ -5,11 +5,9 @@ import os
 
 
 class AutoIncluder (BaseIncluder):
-    def is_include(self, node):
-        return None
-
-    def remove_include(self, node):
-        return None
+    """
+    This base includer automatically walks the node tree and loads the include files from ``IncludeNode.files`` properties. ``files`` is supposed to contain absolute path, relative path or a shell wildcard.
+    """
 
     def compose(self, origin, tree):
         self.compose_rec(origin, origin, tree)
@@ -58,3 +56,13 @@ class AutoIncluder (BaseIncluder):
                 else:
                     self.decompose_rec(child, result)
         return node
+
+    def is_include(self, node):
+        """
+        Should return whether the node is an include node
+        """
+
+    def remove_include(self, node):
+        """
+        Shoud transform :class:`reconfigure.nodes.IncludeNode` into a normal Node to be stringified into the file
+        """

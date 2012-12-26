@@ -5,6 +5,10 @@ from reconfigure.items.resolv import ResolvData
 
 
 class ResolvConfig (Reconfig):
+    """
+    ``/etc/resolv.conf``
+    """
+
     def __init__(self, **kwargs):
         k = {
             'parser': SSVParser(maxsplit=1),

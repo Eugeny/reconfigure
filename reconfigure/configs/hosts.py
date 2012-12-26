@@ -5,6 +5,9 @@ from reconfigure.items.hosts import HostsData
 
 
 class HostsConfig (Reconfig):
+    """
+    ``/etc/hosts``
+    """
     def __init__(self, **kwargs):
         k = {
             'parser': SSVParser(),

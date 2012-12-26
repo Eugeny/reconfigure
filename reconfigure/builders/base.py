@@ -1,6 +1,16 @@
 class BaseBuilder (object):
+    """
+    A base class for builders
+    """
+
     def build(self, tree):
-        pass
+        """
+        :param tree: :class:`reconfigure.nodes.Node` tree
+        :returns: Data tree
+        """
 
     def unbuild(self, tree):
-        pass
+        """
+        :param tree: Data tree
+        :returns: :class:`reconfigure.nodes.Node` tree
+        """

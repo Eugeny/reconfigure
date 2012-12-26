@@ -1,5 +1,16 @@
 class Node (object):
+    """
+    A base node class for the Node Tree.
+    This class represents a named container node.
+    """
+
     def __init__(self, name=None, *args, **kwargs):
+        """
+        :param name: Node name
+        :param *args: Children
+        :param comment: Node comment string
+        :param origin: Node's source location (usually path to the file)
+        """
         self.name = name
         self.origin = None
         self.children = []
@@ -45,18 +56,24 @@ class Node (object):
         return self.get(key)
 
     def __setitem__(self, key, value):
-        self.set(key, value)
+        self.set_property(key, value)
 
     def __contains__(self, item):
         return item in self.children
 
     def indexof(self, node):
+        """
+        :returns: index of the node in the children array or ``None`` if it's not a child
+        """
         if node in self.children:
             return self.children.index(node)
         else:
             return None
 
     def get(self, name, default=None):
+        """
+        :returns: a child node by its name or ``default``
+        """
         for child in self.children:
             if child.name == name:
                 return child
@@ -65,6 +82,9 @@ class Node (object):
         return default
 
     def get_all(self, name):
+        """
+        :returns: list of child nodes with supplied ``name``
+        """
         return [n for n in self.children if n.name == name]
 
     def append(self, node):
@@ -77,6 +97,11 @@ class Node (object):
         self.children.remove(node)
 
     def replace(self, name, node=None):
+        """
+        Replaces the child nodes by ``name``
+
+        :param node: replacement node or list of nodes
+        """
         if name:
             self.children = [c for c in self.children if c.name != name]
         if node is not None:
@@ -86,16 +111,10 @@ class Node (object):
             else:
                 self.children.append(node)
 
-    def set(self, name, value):
-        # raise Exception('Node.set deprecated')
-        node = self.get(name)
-        if not node:
-            node = PropertyNode(name, value)
-            self.append(node)
-        node.value = value
-        return self
-
     def set_property(self, name, value):
+        """
+        Creates or replaces a child :class:`PropertyNode` by name.
+        """
         node = self.get(name)
         if not node:
             node = PropertyNode(name, value)
@@ -105,11 +124,21 @@ class Node (object):
 
 
 class RootNode (Node):
-    pass
+    """
+    A special node class that indicates tree root
+    """
 
 
 class PropertyNode (Node):
+    """
+    A node that serves as a property of its parent node.
+    """
+
     def __init__(self, name, value, comment=None):
+        """
+        :param name: Property name
+        :param value: Property value
+        """
         Node.__init__(self, name, comment=comment)
         self.value = value
 
@@ -129,7 +158,14 @@ class PropertyNode (Node):
 
 
 class IncludeNode (Node):
+    """
+    A node that indicates a junction point between two config files
+    """
+
     def __init__(self, files):
+        """
+        :param files: an includer-dependent config location specifier
+        """
         Node.__init__(self)
         self.name = '<include>'
         self.files = files

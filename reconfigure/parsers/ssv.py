@@ -3,6 +3,14 @@ from reconfigure.parsers import BaseParser
 
 
 class SSVParser (BaseParser):
+    """
+    A parser for files containing space-separated value (notably, ``/etc/fstab`` and friends)
+
+    :param separator: separator character, defaults to whitespace
+    :param maxsplit: max number of tokens per line, defaults to infinity
+    :param comment: character denoting comments
+    """
+
     def __init__(self, separator=None, maxsplit=-1, comment='#', *args, **kwargs):
         self.separator = separator
         self.maxsplit = maxsplit

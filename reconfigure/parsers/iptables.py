@@ -3,6 +3,10 @@ from reconfigure.parsers import BaseParser
 
 
 class IPTablesParser (BaseParser):
+    """
+    A parser for ``iptables`` configuration as produced by ``iptables-save``
+    """
+
     def parse(self, content):
         content = filter(None, [x.strip() for x in content.splitlines() if not x.startswith('#')])
         root = RootNode()

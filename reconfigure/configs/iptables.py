@@ -5,6 +5,9 @@ from reconfigure.items.iptables import IPTablesData
 
 
 class IPTablesConfig (Reconfig):
+    """
+    ``iptables-save`` and ``iptables-restore``
+    """
     def __init__(self, **kwargs):
         k = {
             'parser': IPTablesParser(),

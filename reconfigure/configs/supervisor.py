@@ -6,6 +6,10 @@ from reconfigure.items.supervisor import SupervisorData
 
 
 class SupervisorConfig (Reconfig):
+    """
+    ``/etc/supervisor/supervisord.conf``
+    """
+
     def __init__(self, **kwargs):
         k = {
             'parser': IniFileParser(),

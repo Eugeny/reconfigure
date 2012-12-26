@@ -5,6 +5,12 @@ from StringIO import StringIO
 
 
 class IniFileParser (BaseParser):
+    """
+    A parser for standard ``.ini`` config files.
+
+    :param sectionless: if ``True``, allows a section-less attributes appear in the beginning of file
+    """
+
     def __init__(self, sectionless=False, nullsection='__default__'):
         self.sectionless = sectionless
         self.nullsection = nullsection

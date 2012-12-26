@@ -5,6 +5,10 @@ from reconfigure.items.group import GroupsData
 
 
 class GroupConfig (Reconfig):
+    """
+    ``/etc/group``
+    """
+
     def __init__(self, **kwargs):
         k = {
             'parser': SSVParser(separator=':'),

@@ -13,3 +13,5 @@ dist/*.gz
 build/*
 debian/files
 debian/*stamp*
+
+docs/build
