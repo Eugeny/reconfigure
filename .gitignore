@@ -15,3 +15,5 @@ debian/files
 debian/*stamp*
 
 docs/build
+
+nosetests*
