@@ -1,7 +1,5 @@
-import json
-
 from reconfigure.nodes import Node, PropertyNode
-from reconfigure.items.bound import BoundData, BoundDictionary
+from reconfigure.items.bound import BoundData
 
 
 class SambaData (BoundData):
