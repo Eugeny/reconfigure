@@ -32,5 +32,6 @@ GlobalData.bind_property('bind interfaces only', 'bind_interfaces_only')
 GlobalData.bind_property('log file', 'log_file')
 GlobalData.bind_property('security', 'security')
 
+ShareData.bind_name('name')
 for x, y in zip(ShareData.fields, ShareData.defaults):
     ShareData.bind_property(x, x.replace(' ', '_'), default=y)

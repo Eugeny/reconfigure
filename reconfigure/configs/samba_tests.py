@@ -40,6 +40,7 @@ directory mask = 0700
         },
         "shares": [
             {
+                "name": "homes",
                 "comment": "Home Directories",
                 "browseable": "no",
                 "create_mask": "0744",
@@ -49,6 +50,7 @@ directory mask = 0700
                 "path": ""
             },
             {
+                "name": "profiles",
                 "comment": "Users profiles",
                 "browseable": "no",
                 "create_mask": "0600",
