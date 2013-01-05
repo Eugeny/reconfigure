@@ -148,7 +148,7 @@ class BoundData (object):
             if prop:
                 return getter(prop.value)
             else:
-                return getter(default)
+                return default
 
         def pset(self, value):
             path(self._node).set_property(node_property, setter(value))

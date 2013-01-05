@@ -42,21 +42,21 @@ directory mask = 0700
             {
                 "name": "homes",
                 "comment": "Home Directories",
-                "browseable": "no",
+                "browseable": False,
                 "create_mask": "0744",
                 "directory_mask": "0755",
-                "read_only": "yes",
-                "guest_ok": "no",
+                "read_only": True,
+                "guest_ok": False,
                 "path": ""
             },
             {
                 "name": "profiles",
                 "comment": "Users profiles",
-                "browseable": "no",
+                "browseable": False,
                 "create_mask": "0600",
                 "directory_mask": "0700",
-                "read_only": "yes",
-                "guest_ok": "no",
+                "read_only": True,
+                "guest_ok": False,
                 "path": "/home/samba/profiles"
             }
         ]
