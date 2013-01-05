@@ -31,5 +31,11 @@ GlobalData.bind_property('log file', 'log_file')
 GlobalData.bind_property('security', 'security')
 
 ShareData.bind_name('name')
-for x, y in zip(ShareData.fields, ShareData.defaults):
-    ShareData.bind_property(x, x.replace(' ', '_'), default=y)
+ShareData.bind_property('path', 'path', default='')
+ShareData.bind_property('comment', 'comment', default='')
+ShareData.bind_property('create mask', 'create_mask', default='0744')
+ShareData.bind_property('directory mask', 'directory_mask', default='0755')
+
+for x, y in [('guest ok', False), ('browseable', True), ('read only', True)]:
+    ShareData.bind_property(x, x.replace(' ', '_'), default=y,
+        getter=lambda x: x == 'yes', setter=lambda x: 'yes' if x else 'no')
