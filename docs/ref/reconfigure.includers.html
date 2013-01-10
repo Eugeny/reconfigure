@@ -1,0 +1,215 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>reconfigure.includers &mdash; Reconfigure 1.0a1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/air.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Reconfigure 1.0a1 documentation" href="../index.html" />
+    <link rel="next" title="reconfigure.builders" href="reconfigure.builders.html" />
+    <link rel="prev" title="reconfigure.nodes" href="reconfigure.nodes.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reconfigure.builders.html" title="reconfigure.builders"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="reconfigure.nodes.html" title="reconfigure.nodes"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Reconfigure 1.0a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-reconfigure.includers">
+<span id="reconfigure-includers"></span><h1>reconfigure.includers<a class="headerlink" href="#module-reconfigure.includers" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="reconfigure.includers.BaseIncluder">
+<em class="property">class </em><tt class="descclassname">reconfigure.includers.</tt><tt class="descname">BaseIncluder</tt><big>(</big><em>parser=None</em>, <em>content_map={}</em><big>)</big><a class="headerlink" href="#reconfigure.includers.BaseIncluder" title="Permalink to this definition">¶</a></dt>
+<dd><p>A base includer class</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parser</strong> &#8211; Parser instance that was used to parse the root config file</li>
+<li><strong>content_map</strong> &#8211; a dict that overrides config content for specific paths</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="reconfigure.includers.BaseIncluder.compose">
+<tt class="descname">compose</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.includers.BaseIncluder.compose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should locate the include nodes in the Node tree, replace them with <a class="reference internal" href="reconfigure.nodes.html#reconfigure.nodes.IncludeNode" title="reconfigure.nodes.IncludeNode"><tt class="xref py py-class docutils literal"><span class="pre">reconfigure.nodes.IncludeNode</span></tt></a>, parse the specified include files and append them to tree, with correct node <tt class="docutils literal"><span class="pre">origin</span></tt> attributes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.includers.BaseIncluder.decompose">
+<tt class="descname">decompose</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.includers.BaseIncluder.decompose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should detach the included subtrees from the Node tree and return a <tt class="docutils literal"><span class="pre">{</span> <span class="pre">origin:</span> <span class="pre">content-node-tree</span> <span class="pre">}</span></tt> dict.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.includers.AutoIncluder">
+<em class="property">class </em><tt class="descclassname">reconfigure.includers.</tt><tt class="descname">AutoIncluder</tt><big>(</big><em>parser=None</em>, <em>content_map={}</em><big>)</big><a class="headerlink" href="#reconfigure.includers.AutoIncluder" title="Permalink to this definition">¶</a></dt>
+<dd><p>This base includer automatically walks the node tree and loads the include files from <tt class="docutils literal"><span class="pre">IncludeNode.files</span></tt> properties. <tt class="docutils literal"><span class="pre">files</span></tt> is supposed to contain absolute path, relative path or a shell wildcard.</p>
+<dl class="method">
+<dt id="reconfigure.includers.AutoIncluder.compose">
+<tt class="descname">compose</tt><big>(</big><em>origin</em>, <em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.includers.AutoIncluder.compose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.includers.AutoIncluder.compose_rec">
+<tt class="descname">compose_rec</tt><big>(</big><em>root</em>, <em>origin</em>, <em>node</em><big>)</big><a class="headerlink" href="#reconfigure.includers.AutoIncluder.compose_rec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.includers.AutoIncluder.decompose">
+<tt class="descname">decompose</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.includers.AutoIncluder.decompose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.includers.AutoIncluder.decompose_rec">
+<tt class="descname">decompose_rec</tt><big>(</big><em>node</em>, <em>result</em><big>)</big><a class="headerlink" href="#reconfigure.includers.AutoIncluder.decompose_rec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.includers.AutoIncluder.is_include">
+<tt class="descname">is_include</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.includers.AutoIncluder.is_include" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should return whether the node is an include node</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.includers.AutoIncluder.remove_include">
+<tt class="descname">remove_include</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.includers.AutoIncluder.remove_include" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shoud transform <a class="reference internal" href="reconfigure.nodes.html#reconfigure.nodes.IncludeNode" title="reconfigure.nodes.IncludeNode"><tt class="xref py py-class docutils literal"><span class="pre">reconfigure.nodes.IncludeNode</span></tt></a> into a normal Node to be stringified into the file</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.includers.NginxIncluder">
+<em class="property">class </em><tt class="descclassname">reconfigure.includers.</tt><tt class="descname">NginxIncluder</tt><big>(</big><em>parser=None</em>, <em>content_map={}</em><big>)</big><a class="headerlink" href="#reconfigure.includers.NginxIncluder" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="reconfigure.includers.NginxIncluder.is_include">
+<tt class="descname">is_include</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.includers.NginxIncluder.is_include" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.includers.NginxIncluder.remove_include">
+<tt class="descname">remove_include</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.includers.NginxIncluder.remove_include" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.includers.SupervisorIncluder">
+<em class="property">class </em><tt class="descclassname">reconfigure.includers.</tt><tt class="descname">SupervisorIncluder</tt><big>(</big><em>parser=None</em>, <em>content_map={}</em><big>)</big><a class="headerlink" href="#reconfigure.includers.SupervisorIncluder" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="reconfigure.includers.SupervisorIncluder.is_include">
+<tt class="descname">is_include</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.includers.SupervisorIncluder.is_include" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.includers.SupervisorIncluder.remove_include">
+<tt class="descname">remove_include</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.includers.SupervisorIncluder.remove_include" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="reconfigure.nodes.html"
+                        title="previous chapter">reconfigure.nodes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="reconfigure.builders.html"
+                        title="next chapter">reconfigure.builders</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/ref/reconfigure.includers.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reconfigure.builders.html" title="reconfigure.builders"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="reconfigure.nodes.html" title="reconfigure.nodes"
+             >previous</a> |</li>
+        <li><a href="../index.html">Reconfigure 1.0a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Eugeny Pankov.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

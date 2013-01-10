@@ -1,0 +1,379 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>reconfigure.items.bound &mdash; Reconfigure 1.0a1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/air.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Reconfigure 1.0a1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Reconfigure 1.0a1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for reconfigure.items.bound</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">json</span>
+
+
+<div class="viewcode-block" id="BoundCollection"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundCollection">[docs]</a><span class="k">class</span> <span class="nc">BoundCollection</span> <span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Binds a list-like object to a set of nodes</span>
+
+<span class="sd">    :param node: target node (its children will be bound)</span>
+<span class="sd">    :param item_class: :class:`BoundData` class for items</span>
+<span class="sd">    :param selector: ``lambda x: bool``, used to filter out a subset of nodes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">item_class</span><span class="p">,</span> <span class="n">selector</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selector</span> <span class="o">=</span> <span class="n">selector</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">item_class</span> <span class="o">=</span> <span class="n">item_class</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sorting</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rebuild</span><span class="p">()</span>
+
+<div class="viewcode-block" id="BoundCollection.sort"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundCollection.sort">[docs]</a>    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sorting</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sorting</span> <span class="o">=</span> <span class="n">sorting</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rebuild</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="BoundCollection.rebuild"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundCollection.rebuild">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Discards cached collection and rebuilds it from the nodes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:]</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">item_class</span><span class="p">(</span><span class="n">node</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="BoundCollection.to_dict"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundCollection.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&#39;to_dict&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="BoundCollection.to_json"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundCollection.to_json">[docs]</a>    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">__iter__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BoundCollection.append"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundCollection.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">_node</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BoundCollection.remove"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundCollection.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">_node</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BoundCollection.pop"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundCollection.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">d</span>
+
+</div></div>
+<div class="viewcode-block" id="BoundDictionary"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundDictionary">[docs]</a><span class="k">class</span> <span class="nc">BoundDictionary</span> <span class="p">(</span><span class="n">BoundCollection</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Binds a dict-like object to a set of nodes. Accepts same params as :class:`BoundCollection` plus ``key``</span>
+
+<span class="sd">    :param key: ``lambda value: object``, is used to get key for value in the collection</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="n">BoundCollection</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BoundDictionary.rebuild"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundDictionary.rebuild">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BoundCollection</span><span class="o">.</span><span class="n">rebuild</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datadict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BoundDictionary.to_dict"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundDictionary.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&#39;to_dict&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iteritems</span><span class="p">())</span>
+</div>
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">datadict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datadict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datadict</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">datadict</span><span class="o">.</span><span class="n">__iter__</span><span class="p">()</span>
+
+<div class="viewcode-block" id="BoundDictionary.iteritems"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundDictionary.iteritems">[docs]</a>    <span class="k">def</span> <span class="nf">iteritems</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">datadict</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="BoundDictionary.setdefault"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundDictionary.setdefault">[docs]</a>    <span class="k">def</span> <span class="nf">setdefault</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="BoundDictionary.values"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundDictionary.values">[docs]</a>    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+</div>
+<div class="viewcode-block" id="BoundDictionary.update"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundDictionary.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">other</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+</div>
+<div class="viewcode-block" id="BoundDictionary.pop"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundDictionary.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+
+</div></div>
+<div class="viewcode-block" id="BoundData"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundData">[docs]</a><span class="k">class</span> <span class="nc">BoundData</span> <span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Binds itself to a node.</span>
+
+<span class="sd">    ``bind_*`` classmethods should be called on module-level, after subclass declaration.</span>
+
+<span class="sd">    :param node: all bindings will be relative to this node</span>
+<span class="sd">    :param kwargs: if ``node`` is ``None``, ``template(**kwargs)`` will be used to create node tree fragment</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">template</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_node</span> <span class="o">=</span> <span class="n">node</span>
+
+<div class="viewcode-block" id="BoundData.template"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundData.template">[docs]</a>    <span class="k">def</span> <span class="nf">template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Override to create empty objects.</span>
+
+<span class="sd">        :returns: a :class:`reconfigure.nodes.Node` tree that will be used as a template for new BoundData instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="BoundData.to_dict"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundData.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">res_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">attr_key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__dict__</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">attr_key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">_bound</span><span class="p">:</span>
+                <span class="n">attr_value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr_key</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr_value</span><span class="p">,</span> <span class="n">BoundData</span><span class="p">):</span>
+                    <span class="n">res_dict</span><span class="p">[</span><span class="n">attr_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr_value</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr_value</span><span class="p">,</span> <span class="n">BoundCollection</span><span class="p">):</span>
+                    <span class="n">res_dict</span><span class="p">[</span><span class="n">attr_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr_value</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">res_dict</span><span class="p">[</span><span class="n">attr_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr_value</span>
+        <span class="k">return</span> <span class="n">res_dict</span>
+</div>
+<div class="viewcode-block" id="BoundData.to_json"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundData.to_json">[docs]</a>    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BoundData.bind"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundData.bind">[docs]</a>    <span class="k">def</span> <span class="nf">bind</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data_property</span><span class="p">,</span> <span class="n">getter</span><span class="p">,</span> <span class="n">setter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates an arbitrary named property in the class with given getter and setter. Not usually used directly.</span>
+
+<span class="sd">        :param data_property: property name</span>
+<span class="sd">        :param getter: ``lambda: object``, property getter</span>
+<span class="sd">        :param setter: ``lambda value: None``, property setter</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;_bound&#39;</span><span class="p">):</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">_bound</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">_bound</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_property</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data_property</span><span class="p">,</span> <span class="nb">property</span><span class="p">(</span><span class="n">getter</span><span class="p">,</span> <span class="n">setter</span><span class="p">))</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BoundData.bind_property"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundData.bind_property">[docs]</a>    <span class="k">def</span> <span class="nf">bind_property</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">node_property</span><span class="p">,</span> <span class="n">data_property</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> \
+            <span class="n">path</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">setter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Binds the value of a child :class:`reconfigure.node.PropertyNode` to a property</span>
+
+<span class="sd">        :param node_property: ``PropertyNode``&#39;s ``name``</span>
+<span class="sd">        :param data_property: property name to be created</span>
+<span class="sd">        :param default: default value of the property (is ``PropertyNode`` doesn&#39;t exist)</span>
+<span class="sd">        :param path: ``lambda self.node: PropertyNode``, can be used to point binding to another Node instead of ``self.node``.</span>
+<span class="sd">        :param getter: ``lambda object: object``, used to transform value when getting</span>
+<span class="sd">        :param setter: ``lambda object: object``, used to transform value when setting</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">pget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">prop</span> <span class="o">=</span> <span class="n">path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">node_property</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">prop</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">getter</span><span class="p">(</span><span class="n">prop</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">default</span>
+
+        <span class="k">def</span> <span class="nf">pset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="n">path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="p">)</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="n">node_property</span><span class="p">,</span> <span class="n">setter</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+
+        <span class="n">cls</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">data_property</span><span class="p">,</span> <span class="n">pget</span><span class="p">,</span> <span class="n">pset</span><span class="p">)</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BoundData.bind_attribute"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundData.bind_attribute">[docs]</a>    <span class="k">def</span> <span class="nf">bind_attribute</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">node_attribute</span><span class="p">,</span> <span class="n">data_property</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> \
+            <span class="n">path</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">setter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Binds the value of node object&#39;s attribute to a property</span>
+
+<span class="sd">        :param node_attribute: ``Node``&#39;s attribute name</span>
+<span class="sd">        :param data_property: property name to be created</span>
+<span class="sd">        :param default: default value of the property (is ``PropertyNode`` doesn&#39;t exist)</span>
+<span class="sd">        :param path: ``lambda self.node: PropertyNode``, can be used to point binding to another Node instead of ``self.node``.</span>
+<span class="sd">        :param getter: ``lambda object: object``, used to transform value when getting</span>
+<span class="sd">        :param setter: ``lambda object: object``, used to transform value when setting</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">pget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">prop</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="p">),</span> <span class="n">node_attribute</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">prop</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">getter</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">getter</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">pset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="p">),</span> <span class="n">node_attribute</span><span class="p">,</span> <span class="n">setter</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+
+        <span class="n">cls</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">data_property</span><span class="p">,</span> <span class="n">pget</span><span class="p">,</span> <span class="n">pset</span><span class="p">)</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BoundData.bind_collection"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundData.bind_collection">[docs]</a>    <span class="k">def</span> <span class="nf">bind_collection</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data_property</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">selector</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="n">item_class</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> \
+        <span class="n">collection_class</span><span class="o">=</span><span class="n">BoundCollection</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Binds the subset of node&#39;s children to a collection property</span>
+
+<span class="sd">        :param data_property: property name to be created</span>
+<span class="sd">        :param path: ``lambda self.node: PropertyNode``, can be used to point binding to another Node instead of ``self.node``.</span>
+<span class="sd">        :param selector: ``lambda Node: bool``, can be used to filter out a subset of child nodes</span>
+<span class="sd">        :param item_class: a :class:`BoundData` subclass to be used for collection items</span>
+<span class="sd">        :param collection_class: a :class:`BoundCollection` subclass to be used for collection property itself</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">pget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;__&#39;</span> <span class="o">+</span> <span class="n">data_property</span><span class="p">):</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;__&#39;</span> <span class="o">+</span> <span class="n">data_property</span><span class="p">,</span>
+                    <span class="n">collection_class</span><span class="p">(</span>
+                        <span class="n">node</span><span class="o">=</span><span class="n">path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="p">),</span>
+                        <span class="n">item_class</span><span class="o">=</span><span class="n">item_class</span><span class="p">,</span>
+                        <span class="n">selector</span><span class="o">=</span><span class="n">selector</span><span class="p">,</span>
+                        <span class="o">**</span><span class="n">kwargs</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;__&#39;</span> <span class="o">+</span> <span class="n">data_property</span><span class="p">)</span>
+
+        <span class="n">cls</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">data_property</span><span class="p">,</span> <span class="n">pget</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BoundData.bind_name"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundData.bind_name">[docs]</a>    <span class="k">def</span> <span class="nf">bind_name</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data_property</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">setter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Binds the value of node&#39;s ``name`` attribute to a property</span>
+
+<span class="sd">        :param data_property: property name to be created</span>
+<span class="sd">        :param getter: ``lambda object: object``, used to transform value when getting</span>
+<span class="sd">        :param setter: ``lambda object: object``, used to transform value when setting</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">pget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">getter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">pset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">setter</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="n">cls</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">data_property</span><span class="p">,</span> <span class="n">pget</span><span class="p">,</span> <span class="n">pset</span><span class="p">)</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BoundData.bind_child"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundData.bind_child">[docs]</a>    <span class="k">def</span> <span class="nf">bind_child</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data_property</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">item_class</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Directly binds a child Node to a BoundData property</span>
+
+<span class="sd">        :param data_property: property name to be created</span>
+<span class="sd">        :param path: ``lambda self.node: PropertyNode``, can be used to point binding to another Node instead of ``self.node``.</span>
+<span class="sd">        :param item_class: a :class:`BoundData` subclass to be used for the property value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">pget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;__&#39;</span> <span class="o">+</span> <span class="n">data_property</span><span class="p">):</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;__&#39;</span> <span class="o">+</span> <span class="n">data_property</span><span class="p">,</span>
+                    <span class="n">item_class</span><span class="p">(</span>
+                        <span class="n">path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="p">),</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;__&#39;</span> <span class="o">+</span> <span class="n">data_property</span><span class="p">)</span>
+
+        <span class="n">cls</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">data_property</span><span class="p">,</span> <span class="n">pget</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Reconfigure 1.0a1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Eugeny Pankov.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

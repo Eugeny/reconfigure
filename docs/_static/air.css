@@ -1,0 +1,331 @@
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic&subset=latin,cyrillic,latin-ext);
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+audio:not([controls]) {
+  display: none;
+}
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+}
+
+a:hover,
+a:active {
+  outline: 0;
+}
+
+sub,
+sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+img {
+  width: auto\9;
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+
+#map_canvas img {
+  max-width: none;
+}
+
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  font-size: 100%;
+  vertical-align: middle;
+}
+
+button,
+input {
+  *overflow: visible;
+  line-height: normal;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+
+input[type="search"] {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+  -webkit-appearance: textfield;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+
+* {
+  outline: 0;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: #7799aa;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #c5d4db;
+}
+
+#syntax .reserved {
+  font-style: normal;
+  font-weight: bold;
+  color: #cc4400;
+}
+
+#syntax .identifier {
+  font-style: normal;
+  font-weight: bold;
+  color: #339933;
+}
+
+#syntax .normal {
+  font-style: normal;
+  color: #666666;
+}
+
+#syntax .argument {
+  font-style: normal;
+  color: #667799;
+}
+
+.finita {
+  display: block;
+  width: 500px;
+  font-size: 48px;
+  color: #dddddd;
+  text-align: center;
+  content: '~';
+}
+
+body {
+  font-family: 'PT Sans', sans-serif;
+  color: #666666;
+}
+
+body > div {
+  width: 960px;
+  margin: auto;
+  overflow: hidden;
+}
+
+body > div.related {
+  padding: 5px 0 2px;
+  margin: 0 auto 5px;
+  border-top: 1px solid #7799aa;
+}
+
+body > div.related:first-child {
+  border-top: none;
+  border-bottom: 1px solid #7799aa;
+}
+
+body > div.related h3 {
+  display: none;
+}
+
+body > div.related ul {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+body > div.related ul li {
+  float: left;
+  color: transparent;
+  list-style: none;
+}
+
+body > div.related ul li.right {
+  float: right;
+}
+
+body > div.document {
+  font-size: 13px;
+}
+
+body > div.document .documentwrapper {
+  float: left;
+  width: 660px;
+  padding: 0 10px 30px;
+}
+
+body > div.document .documentwrapper .body .headerlink,
+body > div.document .documentwrapper .body .viewcode-link {
+  margin: 0 0 0 5px;
+  font-size: 50%;
+  vertical-align: 75%;
+}
+
+body > div.document .documentwrapper .body p {
+  margin: 5px 0 10px;
+}
+
+body > div.document .documentwrapper .body table {
+  border-spacing: 0;
+}
+
+body > div.document .documentwrapper .body table th,
+body > div.document .documentwrapper .body table td {
+  padding: 0 5px 0 0;
+  margin: 0;
+}
+
+body > div.document .documentwrapper .body ul {
+  padding: 0 0 0 10px;
+  margin: 0;
+}
+
+body > div.document .documentwrapper .body dd ul li {
+  list-style: none;
+}
+
+body > div.document .documentwrapper .body .class .property {
+  font-style: normal;
+  font-weight: bold;
+  color: #cc4400;
+}
+
+body > div.document .documentwrapper .body .class > dd:after {
+  display: block;
+  width: 500px;
+  font-size: 48px;
+  color: #dddddd;
+  text-align: center;
+  content: '~';
+}
+
+body > div.document .documentwrapper .body .class em {
+  font-style: normal;
+  color: #667799;
+}
+
+body > div.document .documentwrapper .body .class .method {
+  margin: 10px 0 0 10px;
+}
+
+body > div.document .documentwrapper .body tt.descname {
+  font-style: normal;
+  font-weight: bold;
+  color: #339933;
+}
+
+body > div.document .documentwrapper .body big {
+  font-size: 100%;
+}
+
+body > div.document .documentwrapper .body .highlight {
+  padding: 0 0 0 10px;
+  margin: 0 0 0 10px;
+  font-size: 12px;
+  background: none;
+  border-left: 3px solid #dddddd;
+}
+
+body > div.document .documentwrapper dt {
+  font-family: monospace;
+}
+
+body > div.document .sphinxsidebar {
+  float: right;
+  width: 260px;
+  padding: 0 10px 0;
+  font-size: 12px;
+}
+
+body > div.document .sphinxsidebar h1,
+body > div.document .sphinxsidebar h2,
+body > div.document .sphinxsidebar h3,
+body > div.document .sphinxsidebar h4,
+body > div.document .sphinxsidebar h5 {
+  margin: 5px 0 0;
+}
+
+body > div.document .sphinxsidebar p {
+  margin: 0;
+}
+
+body > div.document .sphinxsidebar p.searchtip {
+  font-style: italic;
+  opacity: .25;
+}
+
+body > div.document .sphinxsidebar .search {
+  padding: 5px;
+}
+
+body > div.document .sphinxsidebar .search input {
+  border: 1px solid #dddddd;
+}
+
+body > div.document .sphinxsidebar ul {
+  padding: 0 0 0 5px;
+  margin: 0;
+}
+
+body > div.document .sphinxsidebar ul li {
+  list-style: none;
+}

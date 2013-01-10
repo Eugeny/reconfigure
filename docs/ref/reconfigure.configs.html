@@ -1,0 +1,204 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>reconfigure.configs &mdash; Reconfigure 1.0a1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/air.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Reconfigure 1.0a1 documentation" href="../index.html" />
+    <link rel="next" title="reconfigure.parsers" href="reconfigure.parsers.html" />
+    <link rel="prev" title="Bound Data" href="../docs/architecture/bound.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reconfigure.parsers.html" title="reconfigure.parsers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../docs/architecture/bound.html" title="Bound Data"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Reconfigure 1.0a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-reconfigure.configs">
+<span id="reconfigure-configs"></span><h1>reconfigure.configs<a class="headerlink" href="#module-reconfigure.configs" title="Permalink to this headline">¶</a></h1>
+<p>Configs are ready-to-use objects that link together Parsers, Includers and Builders to provide direct conversion between config files and Data tree.</p>
+<dl class="class">
+<dt id="reconfigure.configs.Reconfig">
+<em class="property">class </em><tt class="descclassname">reconfigure.configs.</tt><tt class="descname">Reconfig</tt><big>(</big><em>parser=None</em>, <em>includer=None</em>, <em>builder=None</em>, <em>path=None</em>, <em>content=None</em><big>)</big><a class="headerlink" href="#reconfigure.configs.Reconfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic config class. Derivatives normally only need to override the constructor.</p>
+<p>Config data is loaded either from <tt class="docutils literal"><span class="pre">path</span></tt> or from <tt class="docutils literal"><span class="pre">content</span></tt></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parser</strong> &#8211; overrides the Parser instance</li>
+<li><strong>includer</strong> &#8211; overrides the Includer instance</li>
+<li><strong>builder</strong> &#8211; overrides the Builder instance</li>
+<li><strong>path</strong> &#8211; config file path. Not compatible with <tt class="docutils literal"><span class="pre">content</span></tt></li>
+<li><strong>content</strong> &#8211; config file content. Not compatible with <tt class="docutils literal"><span class="pre">path</span></tt></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="reconfigure.configs.Reconfig.load">
+<tt class="descname">load</tt><big>(</big><big>)</big><a class="headerlink" href="#reconfigure.configs.Reconfig.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the config data, parses and builds it. Sets <tt class="docutils literal"><span class="pre">tree</span></tt> attribute to point to Data tree.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.configs.Reconfig.save">
+<tt class="descname">save</tt><big>(</big><big>)</big><a class="headerlink" href="#reconfigure.configs.Reconfig.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unbuilds, stringifies and saves the config. If the config was loaded from string, returns <tt class="docutils literal"><span class="pre">{</span> <span class="pre">origin:</span> <span class="pre">data</span> <span class="pre">}</span></tt> dict</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.configs.AjentiConfig">
+<em class="property">class </em><tt class="descclassname">reconfigure.configs.</tt><tt class="descname">AjentiConfig</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#reconfigure.configs.AjentiConfig" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.configs.FSTabConfig">
+<em class="property">class </em><tt class="descclassname">reconfigure.configs.</tt><tt class="descname">FSTabConfig</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#reconfigure.configs.FSTabConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">/etc/fstab</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.configs.GroupConfig">
+<em class="property">class </em><tt class="descclassname">reconfigure.configs.</tt><tt class="descname">GroupConfig</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#reconfigure.configs.GroupConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">/etc/group</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.configs.HostsConfig">
+<em class="property">class </em><tt class="descclassname">reconfigure.configs.</tt><tt class="descname">HostsConfig</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#reconfigure.configs.HostsConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">/etc/hosts</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.configs.IPTablesConfig">
+<em class="property">class </em><tt class="descclassname">reconfigure.configs.</tt><tt class="descname">IPTablesConfig</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#reconfigure.configs.IPTablesConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">iptables-save</span></tt> and <tt class="docutils literal"><span class="pre">iptables-restore</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.configs.PasswdConfig">
+<em class="property">class </em><tt class="descclassname">reconfigure.configs.</tt><tt class="descname">PasswdConfig</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#reconfigure.configs.PasswdConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">/etc/passwd</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.configs.ResolvConfig">
+<em class="property">class </em><tt class="descclassname">reconfigure.configs.</tt><tt class="descname">ResolvConfig</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#reconfigure.configs.ResolvConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">/etc/resolv.conf</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.configs.SambaConfig">
+<em class="property">class </em><tt class="descclassname">reconfigure.configs.</tt><tt class="descname">SambaConfig</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#reconfigure.configs.SambaConfig" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.configs.SupervisorConfig">
+<em class="property">class </em><tt class="descclassname">reconfigure.configs.</tt><tt class="descname">SupervisorConfig</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#reconfigure.configs.SupervisorConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">/etc/supervisor/supervisord.conf</span></tt></p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../docs/architecture/bound.html"
+                        title="previous chapter">Bound Data</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="reconfigure.parsers.html"
+                        title="next chapter">reconfigure.parsers</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/ref/reconfigure.configs.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reconfigure.parsers.html" title="reconfigure.parsers"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../docs/architecture/bound.html" title="Bound Data"
+             >previous</a> |</li>
+        <li><a href="../index.html">Reconfigure 1.0a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Eugeny Pankov.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

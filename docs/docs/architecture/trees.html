@@ -1,0 +1,314 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Trees &mdash; Reconfigure 1.0a1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/air.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Reconfigure 1.0a1 documentation" href="../../index.html" />
+    <link rel="up" title="Architecture" href="../architecture.html" />
+    <link rel="next" title="Bound Data" href="bound.html" />
+    <link rel="prev" title="Architecture" href="../architecture.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bound.html" title="Bound Data"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../architecture.html" title="Architecture"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Reconfigure 1.0a1 documentation</a> &raquo;</li>
+          <li><a href="../architecture.html" accesskey="U">Architecture</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="trees">
+<h1>Trees<a class="headerlink" href="#trees" title="Permalink to this headline">¶</a></h1>
+<p>Reconfigure operates with three types of data:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Raw config text</li>
+<li>Node tree</li>
+<li>Data tree</li>
+</ul>
+</div></blockquote>
+<div class="section" id="config-text">
+<h2>Config text<a class="headerlink" href="#config-text" title="Permalink to this headline">¶</a></h2>
+<p>This is a raw content, as read from the config file. It is fed to <em class="xref std std-ref">Parsers</em> to produce the <a class="reference internal" href="#node-tree"><em>Node trees</em></a>.</p>
+</div>
+<div class="section" id="node-trees">
+<span id="node-tree"></span><h2>Node trees<a class="headerlink" href="#node-trees" title="Permalink to this headline">¶</a></h2>
+<p>Node tree is an object tree built from <a class="reference internal" href="../../ref/reconfigure.nodes.html#reconfigure.nodes.Node" title="reconfigure.nodes.Node"><tt class="xref py py-class docutils literal"><span class="pre">reconfigure.nodes.Node</span></tt></a> objects, representing the syntax structure of the file. This is very similar to Abstract Syntax Trees.</p>
+<p>Node trees are produced by <em class="xref std std-ref">Parser</em> classes.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;/etc/samba/smb.conf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span>
+<span class="go">&#39;#\n# Sample configuration file for the Samba suite for Debian GNU/Linux.\</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">reconfigure.parsers</span> <span class="kn">import</span> <span class="n">IniFileParser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parser</span> <span class="o">=</span> <span class="n">IniFileParser</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node_tree</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">node_tree</span>
+<span class="go">(None)</span>
+<span class="go">        (global)</span>
+<span class="go">                workgroup = WORKGROUP</span>
+<span class="go">                server string = %h server (Samba, Ubuntu)</span>
+<span class="go">                dns proxy = no</span>
+<span class="go">                log file = /var/log/samba/log.%m</span>
+<span class="go">                max log size = 1000</span>
+<span class="go">                syslog = 0</span>
+<span class="go">                panic action = /usr/share/samba/panic-action %d</span>
+<span class="go">                encrypt passwords = true</span>
+<span class="go">                passdb backend = tdbsam</span>
+<span class="go">                obey pam restrictions = yes</span>
+<span class="go">                unix password sync = yes</span>
+<span class="go">                passwd program = /usr/bin/passwd %u</span>
+<span class="go">                passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .</span>
+<span class="go">                pam password change = yes</span>
+<span class="go">                map to guest = bad user</span>
+<span class="go">                usershare allow guests = yes</span>
+<span class="go">        (printers)</span>
+<span class="go">                comment = All Printers</span>
+<span class="go">                browseable = no</span>
+<span class="go">                path = /var/spool/samba</span>
+<span class="go">                printable = yes</span>
+<span class="go">                guest ok = no</span>
+<span class="go">                read only = yes</span>
+<span class="go">                create mask = 0700</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node_tree</span>
+<span class="go">&lt;reconfigure.nodes.RootNode object at 0x219a150&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">&lt;reconfigure.nodes.Node object at 0x219a950&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;global&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">&lt;reconfigure.nodes.PropertyNode object at 0x219aa10&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;workgroup&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="go">&#39;WORKGROUP&#39;</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="../../ref/reconfigure.nodes.html#reconfigure.nodes.Node" title="reconfigure.nodes.Node"><tt class="xref py py-class docutils literal"><span class="pre">reconfigure.nodes.Node</span></tt></a>  reference page contains more information on how to manipulate node trees.</p>
+<p>Parsers work both ways - you can call <tt class="docutils literal"><span class="pre">stringify()</span></tt> and get the text representation back. Even more, you can feed the node tree to <em>another</em> parser and get the config in other format:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">reconfigure.parsers</span> <span class="kn">import</span> <span class="n">JsonParser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">json_parser</span> <span class="o">=</span> <span class="n">JsonParser</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">json_parser</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">node_tree</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">json_parser</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">node_tree</span><span class="p">)</span>
+<span class="go">{</span>
+<span class="go">    &quot;global&quot;: {</span>
+<span class="go">        &quot;encrypt passwords&quot;: &quot;true&quot;,</span>
+<span class="go">        &quot;pam password change&quot;: &quot;yes&quot;,</span>
+<span class="go">        &quot;passdb backend&quot;: &quot;tdbsam&quot;,</span>
+<span class="go">        &quot;passwd program&quot;: &quot;/usr/bin/passwd %u&quot;,</span>
+<span class="go">        ...</span>
+<span class="go">    },</span>
+<span class="go">    &quot;print$&quot;: {</span>
+<span class="go">        &quot;comment&quot;: &quot;Printer Drivers&quot;,</span>
+<span class="go">        &quot;path&quot;: &quot;/var/lib/samba/printers&quot;,</span>
+<span class="go">        &quot;read only&quot;: &quot;yes&quot;,</span>
+<span class="go">        ...</span>
+</pre></div>
+</div>
+<p>Node trees might look useful to you, but they are not nearly as cool as <a class="reference internal" href="#data-tree"><em>Data trees</em></a></p>
+</div>
+<div class="section" id="data-trees">
+<span id="data-tree"></span><h2>Data trees<a class="headerlink" href="#data-trees" title="Permalink to this headline">¶</a></h2>
+<p>Data tree represents the actual, meaningful ideas stored in the config. Straight to example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">reconfigure.builders</span> <span class="kn">import</span> <span class="n">BoundBuilder</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">reconfigure.items.samba</span> <span class="kn">import</span> <span class="n">SambaData</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">builder</span> <span class="o">=</span> <span class="n">BoundBuilder</span><span class="p">(</span><span class="n">SambaData</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_tree</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">node_tree</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_tree</span>
+<span class="go">{</span>
+<span class="go">    &quot;global&quot;: {</span>
+<span class="go">        &quot;server_string&quot;: &quot;%h server (Samba, Ubuntu)&quot;,</span>
+<span class="go">        &quot;workgroup&quot;: &quot;WORKGROUP&quot;,</span>
+<span class="go">        &quot;interfaces&quot;: &quot;&quot;,</span>
+<span class="go">        &quot;bind_interfaces_only&quot;: true,</span>
+<span class="go">        &quot;security&quot;: &quot;user&quot;,</span>
+<span class="go">        &quot;log_file&quot;: &quot;/var/log/samba/log.%m&quot;</span>
+<span class="go">    },</span>
+<span class="go">    &quot;shares&quot;: [</span>
+<span class="go">        {</span>
+<span class="go">            &quot;comment&quot;: &quot;All Printers&quot;,</span>
+<span class="go">            &quot;browseable&quot;: false,</span>
+<span class="go">            &quot;create_mask&quot;: &quot;0700&quot;,</span>
+<span class="go">            &quot;name&quot;: &quot;printers&quot;,</span>
+<span class="go">            &quot;directory_mask&quot;: &quot;0755&quot;,</span>
+<span class="go">            &quot;read_only&quot;: true,</span>
+<span class="go">            &quot;guest_ok&quot;: false,</span>
+<span class="go">            &quot;path&quot;: &quot;/var/spool/samba&quot;</span>
+<span class="go">        },</span>
+<span class="go">        {</span>
+<span class="go">            &quot;comment&quot;: &quot;Printer Drivers&quot;,</span>
+<span class="go">            &quot;browseable&quot;: true,</span>
+<span class="go">            &quot;create_mask&quot;: &quot;0744&quot;,</span>
+<span class="go">            &quot;name&quot;: &quot;print$&quot;,</span>
+<span class="go">            &quot;directory_mask&quot;: &quot;0755&quot;,</span>
+<span class="go">            &quot;read_only&quot;: true,</span>
+<span class="go">            &quot;guest_ok&quot;: false,</span>
+<span class="go">            &quot;path&quot;: &quot;/var/lib/samba/printers&quot;</span>
+<span class="go">        }</span>
+<span class="go">    ]</span>
+<span class="go">}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_tree</span><span class="o">.</span><span class="n">shares</span>
+<span class="go">&lt;reconfigure.items.bound.BoundCollection object at 0x23d0610&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">_</span><span class="o">.</span><span class="n">path</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">data_tree</span><span class="o">.</span><span class="n">shares</span><span class="p">]</span>
+<span class="go">[&#39;/var/spool/samba&#39;, &#39;/var/lib/samba/printers&#39;]</span>
+</pre></div>
+</div>
+<p>Data trees may consist of any Python objects, but the common approach is to use <a class="reference internal" href="bound.html#bound-data"><em>Bound Data</em></a></p>
+<p>Data trees can be manipulated as you wish:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">reconfigure.items.samba</span> <span class="kn">import</span> <span class="n">ShareData</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">share</span> <span class="o">=</span> <span class="n">ShareData</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">share</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/home/user&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">share</span><span class="o">.</span><span class="n">comment</span> <span class="o">=</span> <span class="s">&#39;New share&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_tree</span><span class="o">.</span><span class="n">shares</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">share</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_tree</span>
+<span class="go">{</span>
+<span class="go">    ....</span>
+<span class="go">    &quot;shares&quot;: [</span>
+<span class="go">    {</span>
+<span class="go">        &quot;comment&quot;: &quot;All Printers&quot;,</span>
+<span class="go">        &quot;browseable&quot;: false,</span>
+<span class="go">        &quot;create_mask&quot;: &quot;0700&quot;,</span>
+<span class="go">        &quot;name&quot;: &quot;printers&quot;,</span>
+<span class="go">        &quot;directory_mask&quot;: &quot;0755&quot;,</span>
+<span class="go">        &quot;read_only&quot;: true,</span>
+<span class="go">        &quot;guest_ok&quot;: false,</span>
+<span class="go">        &quot;path&quot;: &quot;/var/spool/samba&quot;</span>
+<span class="go">    },</span>
+<span class="go">    {</span>
+<span class="go">        &quot;comment&quot;: &quot;Printer Drivers&quot;,</span>
+<span class="go">        &quot;browseable&quot;: true,</span>
+<span class="go">        &quot;create_mask&quot;: &quot;0744&quot;,</span>
+<span class="go">        &quot;name&quot;: &quot;print$&quot;,</span>
+<span class="go">        &quot;directory_mask&quot;: &quot;0755&quot;,</span>
+<span class="go">        &quot;read_only&quot;: true,</span>
+<span class="go">        &quot;guest_ok&quot;: false,</span>
+<span class="go">        &quot;path&quot;: &quot;/var/lib/samba/printers&quot;</span>
+<span class="go">    },</span>
+<span class="go">    {</span>
+<span class="go">        &quot;comment&quot;: &quot;New share&quot;,</span>
+<span class="go">        &quot;browseable&quot;: true,</span>
+<span class="go">        &quot;create_mask&quot;: &quot;0744&quot;,</span>
+<span class="go">        &quot;name&quot;: &quot;share&quot;,</span>
+<span class="go">        &quot;directory_mask&quot;: &quot;0755&quot;,</span>
+<span class="go">        &quot;read_only&quot;: true,</span>
+<span class="go">        &quot;guest_ok&quot;: false,</span>
+<span class="go">        &quot;path&quot;: &quot;/home/user&quot;</span>
+<span class="go">    }</span>
+<span class="go">]</span>
+</pre></div>
+</div>
+<p>After you&#8217;re done with the modifications, the data tree must be converted back to the node tree:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">node_tree</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">unbuild</span><span class="p">(</span><span class="n">data_tree</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Trees</a><ul>
+<li><a class="reference internal" href="#config-text">Config text</a></li>
+<li><a class="reference internal" href="#node-trees">Node trees</a></li>
+<li><a class="reference internal" href="#data-trees">Data trees</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../architecture.html"
+                        title="previous chapter">Architecture</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bound.html"
+                        title="next chapter">Bound Data</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/docs/architecture/trees.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bound.html" title="Bound Data"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../architecture.html" title="Architecture"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Reconfigure 1.0a1 documentation</a> &raquo;</li>
+          <li><a href="../architecture.html" >Architecture</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Eugeny Pankov.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

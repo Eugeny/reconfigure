@@ -1,0 +1,304 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>reconfigure.parsers &mdash; Reconfigure 1.0a1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/air.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Reconfigure 1.0a1 documentation" href="../index.html" />
+    <link rel="next" title="reconfigure.nodes" href="reconfigure.nodes.html" />
+    <link rel="prev" title="reconfigure.configs" href="reconfigure.configs.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reconfigure.nodes.html" title="reconfigure.nodes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="reconfigure.configs.html" title="reconfigure.configs"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Reconfigure 1.0a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-reconfigure.parsers">
+<span id="reconfigure-parsers"></span><h1>reconfigure.parsers<a class="headerlink" href="#module-reconfigure.parsers" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="reconfigure.parsers.BaseParser">
+<em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">BaseParser</tt><a class="headerlink" href="#reconfigure.parsers.BaseParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>A base parser class</p>
+<dl class="method">
+<dt id="reconfigure.parsers.BaseParser.parse">
+<tt class="descname">parse</tt><big>(</big><em>content</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.BaseParser.parse" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>content</strong> &#8211; string config content</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a <a class="reference internal" href="reconfigure.nodes.html#reconfigure.nodes.Node" title="reconfigure.nodes.Node"><tt class="xref py py-class docutils literal"><span class="pre">reconfigure.nodes.Node</span></tt></a> tree</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.BaseParser.stringify">
+<tt class="descname">stringify</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.BaseParser.stringify" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tree</strong> &#8211; a <a class="reference internal" href="reconfigure.nodes.html#reconfigure.nodes.Node" title="reconfigure.nodes.Node"><tt class="xref py py-class docutils literal"><span class="pre">reconfigure.nodes.Node</span></tt></a> tree</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">string config content</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.parsers.IniFileParser">
+<em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">IniFileParser</tt><big>(</big><em>sectionless=False</em>, <em>nullsection='__default__'</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.IniFileParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>A parser for standard <tt class="docutils literal"><span class="pre">.ini</span></tt> config files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sectionless</strong> &#8211; if <tt class="docutils literal"><span class="pre">True</span></tt>, allows a section-less attributes appear in the beginning of file</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="reconfigure.parsers.IniFileParser.parse">
+<tt class="descname">parse</tt><big>(</big><em>content</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.IniFileParser.parse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.IniFileParser.stringify">
+<tt class="descname">stringify</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.IniFileParser.stringify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.parsers.IPTablesParser">
+<em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">IPTablesParser</tt><a class="headerlink" href="#reconfigure.parsers.IPTablesParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>A parser for <tt class="docutils literal"><span class="pre">iptables</span></tt> configuration as produced by <tt class="docutils literal"><span class="pre">iptables-save</span></tt></p>
+<dl class="method">
+<dt id="reconfigure.parsers.IPTablesParser.parse">
+<tt class="descname">parse</tt><big>(</big><em>content</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.IPTablesParser.parse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.IPTablesParser.stringify">
+<tt class="descname">stringify</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.IPTablesParser.stringify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.parsers.JsonParser">
+<em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">JsonParser</tt><a class="headerlink" href="#reconfigure.parsers.JsonParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>A parser for JSON files (using <tt class="docutils literal"><span class="pre">json</span></tt> module)</p>
+<dl class="method">
+<dt id="reconfigure.parsers.JsonParser.load_node_rec">
+<tt class="descname">load_node_rec</tt><big>(</big><em>node</em>, <em>json</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.JsonParser.load_node_rec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.JsonParser.parse">
+<tt class="descname">parse</tt><big>(</big><em>content</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.JsonParser.parse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.JsonParser.save_node_rec">
+<tt class="descname">save_node_rec</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.JsonParser.save_node_rec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.JsonParser.stringify">
+<tt class="descname">stringify</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.JsonParser.stringify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.parsers.NginxParser">
+<em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">NginxParser</tt><a class="headerlink" href="#reconfigure.parsers.NginxParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>A parser for nginx configs</p>
+<dl class="method">
+<dt id="reconfigure.parsers.NginxParser.parse">
+<tt class="descname">parse</tt><big>(</big><em>content</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.NginxParser.parse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.NginxParser.stringify">
+<tt class="descname">stringify</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.NginxParser.stringify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.NginxParser.stringify_rec">
+<tt class="descname">stringify_rec</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.NginxParser.stringify_rec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.parsers.SSVParser">
+<em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">SSVParser</tt><big>(</big><em>separator=None</em>, <em>maxsplit=-1</em>, <em>comment='#'</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.SSVParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>A parser for files containing space-separated value (notably, <tt class="docutils literal"><span class="pre">/etc/fstab</span></tt> and friends)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>separator</strong> &#8211; separator character, defaults to whitespace</li>
+<li><strong>maxsplit</strong> &#8211; max number of tokens per line, defaults to infinity</li>
+<li><strong>comment</strong> &#8211; character denoting comments</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="reconfigure.parsers.SSVParser.parse">
+<tt class="descname">parse</tt><big>(</big><em>content</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.SSVParser.parse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.SSVParser.stringify">
+<tt class="descname">stringify</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.SSVParser.stringify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.parsers.CrontabParser">
+<em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">CrontabParser</tt><big>(</big><em>remove_comments=False</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="reconfigure.parsers.CrontabParser.parse">
+<tt class="descname">parse</tt><big>(</big><em>content</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.parse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.CrontabParser.stringify">
+<tt class="descname">stringify</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.stringify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.CrontabParser.stringify_comment">
+<tt class="descname">stringify_comment</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.stringify_comment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.CrontabParser.stringify_env_setting">
+<tt class="descname">stringify_env_setting</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.stringify_env_setting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.CrontabParser.stringify_normal_task">
+<tt class="descname">stringify_normal_task</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.stringify_normal_task" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.CrontabParser.stringify_special_task">
+<tt class="descname">stringify_special_task</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.stringify_special_task" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="reconfigure.configs.html"
+                        title="previous chapter">reconfigure.configs</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="reconfigure.nodes.html"
+                        title="next chapter">reconfigure.nodes</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/ref/reconfigure.parsers.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reconfigure.nodes.html" title="reconfigure.nodes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="reconfigure.configs.html" title="reconfigure.configs"
+             >previous</a> |</li>
+        <li><a href="../index.html">Reconfigure 1.0a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Eugeny Pankov.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
