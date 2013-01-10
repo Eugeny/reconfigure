@@ -27,9 +27,6 @@ class Node (object):
             s += '\n'.join('\t' + x for x in str(child).splitlines()) + '\n'
         return s
 
-    def __repr__(self):
-        return str(self)
-
     def __hash__(self):
         return sum(hash(x) for x in [self.name, self.origin, self.comment] + self.children)
 

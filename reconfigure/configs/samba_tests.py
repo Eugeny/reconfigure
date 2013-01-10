@@ -34,7 +34,7 @@ directory mask = 0700
             "server_string": "%h server (Samba, Ubuntu)",
             "workgroup": "WORKGROUP",
             "interfaces": "127.0.0.0/8 eth0",
-            "bind_interfaces_only": "yes",
+            "bind_interfaces_only": True,
             "security": "user",
             "log_file": "/var/log/samba/log.%m"
         },
