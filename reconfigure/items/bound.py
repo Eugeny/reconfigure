@@ -29,9 +29,6 @@ class BoundCollection (object):
     def __str__(self):
         return self.to_json()
 
-    def __repr__(self):
-        return self.to_json()
-
     def __iter__(self):
         return self.data.__iter__()
 

@@ -10,12 +10,12 @@ Reconfigure operates with three types of data:
 Config text 
 ===========
 
-This is a raw content, as read from the config file. It is fed to :ref:`Parsers` to produce the :ref:`Node tree`.
+This is a raw content, as read from the config file. It is fed to :ref:`Parsers` to produce the :ref:`Node trees`.
 
-.. _Node tree:
+.. _Node trees:
 
-Node tree
-=========
+Node trees
+==========
 
 Node tree is an object tree built from :class:`reconfigure.nodes.Node` objects, representing the syntax structure of the file. This is very similar to Abstract Syntax Trees.
 
@@ -91,4 +91,105 @@ Parsers work both ways - you can call ``stringify()`` and get the text represent
             "path": "/var/lib/samba/printers", 
             "read only": "yes", 
             ...
+
+Node trees might look useful to you, but they are not nearly as cool as :ref:`Data trees`
+
+.. _Data trees:
+
+Data trees
+==========
+
+Data tree represents the actual, meaningful ideas stored in the config. Straight to example::
+
+    >>> from reconfigure.builders import BoundBuilder
+    >>> from reconfigure.items.samba import SambaData
+    >>> builder = BoundBuilder(SambaData)
+    >>> data_tree = builder.build(node_tree)
+    >>> data_tree
+    {
+        "global": {
+            "server_string": "%h server (Samba, Ubuntu)", 
+            "workgroup": "WORKGROUP", 
+            "interfaces": "", 
+            "bind_interfaces_only": true, 
+            "security": "user", 
+            "log_file": "/var/log/samba/log.%m"
+        }, 
+        "shares": [
+            {
+                "comment": "All Printers", 
+                "browseable": false, 
+                "create_mask": "0700", 
+                "name": "printers", 
+                "directory_mask": "0755", 
+                "read_only": true, 
+                "guest_ok": false, 
+                "path": "/var/spool/samba"
+            }, 
+            {
+                "comment": "Printer Drivers", 
+                "browseable": true, 
+                "create_mask": "0744", 
+                "name": "print$", 
+                "directory_mask": "0755", 
+                "read_only": true, 
+                "guest_ok": false, 
+                "path": "/var/lib/samba/printers"
+            }
+        ]
+    }
+
+    >>> data_tree.shares
+    <reconfigure.items.bound.BoundCollection object at 0x23d0610>
+    >>> [_.path for _ in data_tree.shares]
+    ['/var/spool/samba', '/var/lib/samba/printers']
+
+Data trees may consist of any Python objects, but the common approach is to use :class:`reconfigure.items.bound.BoundData`
+
+Data trees can be manipulated as you wish::
+
+    >>> from reconfigure.items.samba import ShareData
+    >>> share = ShareData()
+    >>> share.path = '/home/user'
+    >>> share.comment = 'New share'
+    >>> data_tree.shares.append(share)
+    >>> data_tree
+    {
+        ....
+        "shares": [
+        {
+            "comment": "All Printers", 
+            "browseable": false, 
+            "create_mask": "0700", 
+            "name": "printers", 
+            "directory_mask": "0755", 
+            "read_only": true, 
+            "guest_ok": false, 
+            "path": "/var/spool/samba"
+        }, 
+        {
+            "comment": "Printer Drivers", 
+            "browseable": true, 
+            "create_mask": "0744", 
+            "name": "print$", 
+            "directory_mask": "0755", 
+            "read_only": true, 
+            "guest_ok": false, 
+            "path": "/var/lib/samba/printers"
+        }, 
+        {
+            "comment": "New share", 
+            "browseable": true, 
+            "create_mask": "0744", 
+            "name": "share", 
+            "directory_mask": "0755", 
+            "read_only": true, 
+            "guest_ok": false, 
+            "path": "/home/user"
+        }
+    ]
+
+After you're done with the modifications, the data tree must be converted back to the node tree::
+
+    >>> node_tree = builder.unbuild(data_tree)
 
