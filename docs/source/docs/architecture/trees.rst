@@ -10,9 +10,9 @@ Reconfigure operates with three types of data:
 Config text 
 ===========
 
-This is a raw content, as read from the config file. It is fed to :ref:`Parsers` to produce the :ref:`Node trees`.
+This is a raw content, as read from the config file. It is fed to :ref:`Parsers` to produce the :ref:`Node trees<node-tree>`.
 
-.. _Node trees:
+.. _node-tree:
 
 Node trees
 ==========
@@ -92,9 +92,9 @@ Parsers work both ways - you can call ``stringify()`` and get the text represent
             "read only": "yes", 
             ...
 
-Node trees might look useful to you, but they are not nearly as cool as :ref:`Data trees`
+Node trees might look useful to you, but they are not nearly as cool as :ref:`Data trees <data-tree>`
 
-.. _Data trees:
+.. _data-tree:
 
 Data trees
 ==========
@@ -144,7 +144,7 @@ Data tree represents the actual, meaningful ideas stored in the config. Straight
     >>> [_.path for _ in data_tree.shares]
     ['/var/spool/samba', '/var/lib/samba/printers']
 
-Data trees may consist of any Python objects, but the common approach is to use :class:`reconfigure.items.bound.BoundData`
+Data trees may consist of any Python objects, but the common approach is to use :ref:`Bound data`
 
 Data trees can be manipulated as you wish::
 
