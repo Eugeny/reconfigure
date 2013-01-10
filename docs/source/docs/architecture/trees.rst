@@ -7,10 +7,12 @@ Reconfigure operates with three types of data:
   * Node tree
   * Data tree
 
+.. _raw-config:
+
 Config text 
 ===========
 
-This is a raw content, as read from the config file. It is fed to :ref:`Parsers` to produce the :ref:`Node trees<node-tree>`.
+This is a raw content, as read from the config file. It is fed to :ref:`Parsers <parser>` to produce the :ref:`Node trees<node-tree>`.
 
 .. _node-tree:
 

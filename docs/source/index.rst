@@ -6,15 +6,24 @@
 Welcome to Reconfigure's documentation!
 =======================================
 
+Links:
+------
+
+  * `Source at GitHub <http://github.com/Eugeny/reconfigure>`_
+  * Questions? `Email author <mailto:e@ajeni.org>`_
+
 Contents:
+---------
 
 .. toctree::
    :maxdepth: 2
 
+   docs/quickstart
    docs/architecture
 
 
-Reference:
+API Reference:
+--------------
 
 .. toctree::
    :maxdepth: 2
