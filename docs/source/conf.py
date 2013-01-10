@@ -30,9 +30,9 @@ pygments_style = 'sphinx'
 
 
 # -- Options for HTML output ---------------------------------------------------
-html_theme = 'nature'
+html_theme = 'air'
 #html_theme_options = {}
-#html_theme_path = []
+html_theme_path = ['../../../sphinx-themes']
 
 #html_title = None
 #html_short_title = None

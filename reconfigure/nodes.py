@@ -100,7 +100,15 @@ class Node (object):
         """
         Replaces the child nodes by ``name``
 
-        :param node: replacement node or list of nodes
+        :param node: replacement node or list of nodes 
+
+        ::
+
+            n.append(Node('a'))
+            n.append(Node('a'))
+            n.replace('a', None)
+            assert(len(n.get_all('a')) == 0)
+
         """
         if name:
             self.children = [c for c in self.children if c.name != name]

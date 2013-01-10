@@ -11,6 +11,14 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   docs/architecture
+
+
+Reference:
+
+.. toctree::
+   :maxdepth: 2
+
    ref/reconfigure.configs
    ref/reconfigure.parsers
    ref/reconfigure.nodes

@@ -1,0 +1,5 @@
+Trees
+*****
+
+.. toctree::
+   architecture/trees
