@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Trees &mdash; Reconfigure 1.0a1 documentation</title>
+    <title>Trees &mdash; Reconfigure documentation</title>
     
     <link rel="stylesheet" href="../../_static/air.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="Reconfigure 1.0a1 documentation" href="../../index.html" />
+    <link rel="top" title="Reconfigure documentation" href="../../index.html" />
     <link rel="up" title="Architecture" href="../architecture.html" />
     <link rel="next" title="Bound Data" href="bound.html" />
     <link rel="prev" title="Architecture" href="../architecture.html" /> 
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="../architecture.html" title="Architecture"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">Reconfigure 1.0a1 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">Reconfigure docs</a> &raquo;</li>
           <li><a href="../architecture.html" accesskey="U">Architecture</a> &raquo;</li> 
       </ul>
     </div>  
@@ -66,13 +66,13 @@
 </ul>
 </div></blockquote>
 <div class="section" id="config-text">
-<h2>Config text<a class="headerlink" href="#config-text" title="Permalink to this headline">¶</a></h2>
-<p>This is a raw content, as read from the config file. It is fed to <em class="xref std std-ref">Parsers</em> to produce the <a class="reference internal" href="#node-tree"><em>Node trees</em></a>.</p>
+<span id="raw-config"></span><h2>Config text<a class="headerlink" href="#config-text" title="Permalink to this headline">¶</a></h2>
+<p>This is a raw content, as read from the config file. It is fed to <a class="reference internal" href="components.html#parser"><em>Parsers</em></a> to produce the <a class="reference internal" href="#node-tree"><em>Node trees</em></a>.</p>
 </div>
 <div class="section" id="node-trees">
 <span id="node-tree"></span><h2>Node trees<a class="headerlink" href="#node-trees" title="Permalink to this headline">¶</a></h2>
 <p>Node tree is an object tree built from <a class="reference internal" href="../../ref/reconfigure.nodes.html#reconfigure.nodes.Node" title="reconfigure.nodes.Node"><tt class="xref py py-class docutils literal"><span class="pre">reconfigure.nodes.Node</span></tt></a> objects, representing the syntax structure of the file. This is very similar to Abstract Syntax Trees.</p>
-<p>Node trees are produced by <em class="xref std std-ref">Parser</em> classes.</p>
+<p>Node trees are produced by <a class="reference internal" href="components.html#parser"><em>Parsers</em></a> classes.</p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;/etc/samba/smb.conf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">text</span>
@@ -302,7 +302,7 @@
         <li class="right" >
           <a href="../architecture.html" title="Architecture"
              >previous</a> |</li>
-        <li><a href="../../index.html">Reconfigure 1.0a1 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">Reconfigure docs</a> &raquo;</li>
           <li><a href="../architecture.html" >Architecture</a> &raquo;</li> 
       </ul>
     </div>

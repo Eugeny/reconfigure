@@ -6,3 +6,5 @@ Architecture
 
    architecture/trees
    architecture/bound
+   architecture/components
+   architecture/config

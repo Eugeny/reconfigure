@@ -1,0 +1,209 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Components &mdash; Reconfigure documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/air.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Reconfigure documentation" href="../../index.html" />
+    <link rel="up" title="Architecture" href="../architecture.html" />
+    <link rel="next" title="Reconfig objects" href="config.html" />
+    <link rel="prev" title="Bound Data" href="bound.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="Reconfig objects"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="bound.html" title="Bound Data"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Reconfigure docs</a> &raquo;</li>
+          <li><a href="../architecture.html" accesskey="U">Architecture</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="components">
+<h1>Components<a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="parsers">
+<span id="parser"></span><h2>Parsers<a class="headerlink" href="#parsers" title="Permalink to this headline">¶</a></h2>
+<p>Parsers are <a class="reference internal" href="../../ref/reconfigure.parsers.html#reconfigure.parsers.BaseParser" title="reconfigure.parsers.BaseParser"><tt class="xref py py-class docutils literal"><span class="pre">reconfigure.parsers.BaseParser</span></tt></a> subclasses which transform <a class="reference internal" href="trees.html#raw-config"><em>raw config content</em></a> into <a class="reference internal" href="trees.html#node-tree"><em>node trees</em></a> and vice versa</p>
+<p>Making your own parser is as easy as subclassing <a class="reference internal" href="../../ref/reconfigure.parsers.html#reconfigure.parsers.BaseParser" title="reconfigure.parsers.BaseParser"><tt class="xref py py-class docutils literal"><span class="pre">reconfigure.parsers.BaseParser</span></tt></a> and overriding <tt class="docutils literal"><span class="pre">parse</span></tt> and <tt class="docutils literal"><span class="pre">stringify</span></tt> methods.</p>
+</div>
+<div class="section" id="includers">
+<span id="includer"></span><h2>Includers<a class="headerlink" href="#includers" title="Permalink to this headline">¶</a></h2>
+<p>Includers are used to handle the &#8220;include&#8221; directives in config files. Includers assemble the config file by finding the included files and parsing them and attaching them to the <a class="reference internal" href="trees.html#node-tree"><em>node tree</em></a> of the main config. Reconfigure keeps track of which node belongs to which file by setting <tt class="docutils literal"><span class="pre">origin</span></tt> attribute on the included nodes</p>
+<p>Example of includer in action:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">reconfigure.parsers</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">reconfigure.includers</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parser</span> <span class="o">=</span> <span class="n">IniFileParser</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">includer</span> <span class="o">=</span> <span class="n">SupervisorIncluder</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nodes</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;/etc/supervisor/supervisord.conf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">nodes</span>
+<span class="go">(None)</span>
+<span class="go">        (unix_http_server)</span>
+<span class="go">                file = /var/run//supervisor.sock ((the path to the socket file))</span>
+<span class="go">                chmod = 0700 (sockef file mode (default 0700))</span>
+<span class="go">        (supervisord)</span>
+<span class="go">                logfile = /var/log/supervisor/supervisord.log ((main log file;default $CWD/supervisord.log))</span>
+<span class="go">                pidfile = /var/run/supervisord.pid ((supervisord pidfile;default supervisord.pid))</span>
+<span class="go">                childlogdir = /var/log/supervisor ((&#39;AUTO&#39; child log dir, default $TEMP))</span>
+<span class="go">        (rpcinterface:supervisor)</span>
+<span class="go">                supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface</span>
+<span class="go">        (supervisorctl)</span>
+<span class="go">                serverurl = unix:///var/run//supervisor.sock (use a unix:// URL  for a unix socket)</span>
+<span class="go">        (include)</span>
+<span class="go">                files = /etc/supervisor/conf.d/*.conf</span>
+</pre></div>
+</div>
+<p>Note the &#8220;include&#8221; node in the end. Now we&#8217;ll run an includer over this tree:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">nodes</span> <span class="o">=</span> <span class="n">includer</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="s">&#39;/etc/supervisor/supervisord.conf&#39;</span><span class="p">,</span> <span class="n">nodes</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">nodes</span>
+<span class="go">(None)</span>
+<span class="go">        (unix_http_server)</span>
+<span class="go">                file = /var/run//supervisor.sock ((the path to the socket file))</span>
+<span class="go">                chmod = 0700 (sockef file mode (default 0700))</span>
+<span class="go">        (supervisord)</span>
+<span class="go">                logfile = /var/log/supervisor/supervisord.log ((main log file;default $CWD/supervisord.log))</span>
+<span class="go">                pidfile = /var/run/supervisord.pid ((supervisord pidfile;default supervisord.pid))</span>
+<span class="go">                childlogdir = /var/log/supervisor ((&#39;AUTO&#39; child log dir, default $TEMP))</span>
+<span class="go">        (rpcinterface:supervisor)</span>
+<span class="go">                supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface</span>
+<span class="go">        (supervisorctl)</span>
+<span class="go">                serverurl = unix:///var/run//supervisor.sock (use a unix:// URL  for a unix socket)</span>
+<span class="go">        &lt;include&gt; /etc/supervisor/conf.d/*.conf</span>
+<span class="go">        (program:test)</span>
+<span class="go">                command = cat</span>
+</pre></div>
+</div>
+<p>Note how the include directive has turned into a junction point (<a class="reference internal" href="../../ref/reconfigure.nodes.html#reconfigure.nodes.IncludeNode" title="reconfigure.nodes.IncludeNode"><tt class="xref py py-class docutils literal"><span class="pre">reconfigure.nodes.IncludeNode</span></tt></a>) and content of included files was parsed and attached.</p>
+<p>Calling <tt class="docutils literal"><span class="pre">decompose</span></tt> method will split the tree back into separate files:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">includer</span><span class="o">.</span><span class="n">decompose</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+<span class="go">{</span>
+<span class="go">    &#39;/etc/supervisor/conf.d/1.conf&#39;: &lt;reconfigure.nodes.RootNode object at 0x2c5cf10&gt;,</span>
+<span class="go">    &#39;/etc/supervisor/supervisord.conf&#39;: &lt;reconfigure.nodes.RootNode object at 0x2c5cb50&gt;</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<div class="section" id="writing-your-own-includer">
+<h3>Writing your own includer<a class="headerlink" href="#writing-your-own-includer" title="Permalink to this headline">¶</a></h3>
+<p>If you&#8217;re up to writing a custom includer, take a look at <a class="reference internal" href="../../ref/reconfigure.includers.html#reconfigure.includers.AutoIncluder" title="reconfigure.includers.AutoIncluder"><tt class="xref py py-class docutils literal"><span class="pre">reconfigure.includers.AutoIncluder</span></tt></a>. It already implements the tree-walking and attachment logic, so you only need to implement two methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">is_include(node)</span></tt>: should check if the <tt class="docutils literal"><span class="pre">node</span></tt> is an include directive for this file format, and if it is, return a glob (wildcard) or path to the included files</li>
+<li><tt class="docutils literal"><span class="pre">remove_include(include_node)</span></tt>: given an <a class="reference internal" href="../../ref/reconfigure.nodes.html#reconfigure.nodes.IncludeNode" title="reconfigure.nodes.IncludeNode"><tt class="xref py py-class docutils literal"><span class="pre">reconfigure.nodes.IncludeNode</span></tt></a>, should transform it back into file-format-specific include directive and return it (as a <a class="reference internal" href="trees.html#node-tree"><em>node tree</em></a> chunk)</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="builders">
+<span id="builder"></span><h2>Builders<a class="headerlink" href="#builders" title="Permalink to this headline">¶</a></h2>
+<p>Builders transform <a class="reference internal" href="trees.html#node-tree"><em>node trees</em></a> into <a class="reference internal" href="trees.html#data-tree"><em>data trees</em></a>.</p>
+<p>To write your own builder, subclass <a class="reference internal" href="../../ref/reconfigure.builders.html#reconfigure.builders.BaseBuilder" title="reconfigure.builders.BaseBuilder"><tt class="xref py py-class docutils literal"><span class="pre">reconfigure.builders.BaseBuilder</span></tt></a> and override <tt class="docutils literal"><span class="pre">build</span></tt> and <tt class="docutils literal"><span class="pre">unbuild</span></tt> methods.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Components</a><ul>
+<li><a class="reference internal" href="#parsers">Parsers</a></li>
+<li><a class="reference internal" href="#includers">Includers</a><ul>
+<li><a class="reference internal" href="#writing-your-own-includer">Writing your own includer</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#builders">Builders</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bound.html"
+                        title="previous chapter">Bound Data</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="config.html"
+                        title="next chapter">Reconfig objects</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/docs/architecture/components.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="Reconfig objects"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="bound.html" title="Bound Data"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Reconfigure docs</a> &raquo;</li>
+          <li><a href="../architecture.html" >Architecture</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Eugeny Pankov.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
