@@ -2,6 +2,14 @@ import json
 
 
 class BoundCollection (object):
+    """
+    Binds a list-like object to a set of nodes
+
+    :param node: target node (its children will be bound)
+    :param item_class: :class:`BoundData` class for items
+    :param selector: ``lambda x: bool``, used to filter out a subset of nodes
+    """
+
     def __init__(self, node, item_class, selector=lambda x: True):
         self.node = node
         self.selector = selector
@@ -15,6 +23,9 @@ class BoundCollection (object):
         self.rebuild()
 
     def rebuild(self):
+        """
+        Discards cached collection and rebuilds it from the nodes
+        """
         del self.data[:]
         for node in self.node.children:
             if self.selector(node):
@@ -53,6 +64,12 @@ class BoundCollection (object):
 
 
 class BoundDictionary (BoundCollection):
+    """
+    Binds a dict-like object to a set of nodes. Accepts same params as :class:`BoundCollection` plus ``key``
+
+    :param key: ``lambda value: object``, is used to get key for value in the collection
+    """
+
     def __init__(self, key=None, **kwargs):
         self.key = key
         BoundCollection.__init__(self, **kwargs)
@@ -100,12 +117,26 @@ class BoundDictionary (BoundCollection):
 
 
 class BoundData (object):
+    """
+    Binds itself to a node.
+
+    ``bind_*`` classmethods should be called on module-level, after subclass declaration.
+
+    :param node: all bindings will be relative to this node
+    :param kwargs: if ``node`` is ``None``, ``template(**kwargs)`` will be used to create node tree fragment
+    """
+
     def __init__(self, node=None, **kwargs):
         if not node:
             node = self.template(**kwargs)
         self._node = node
 
-    def template(self):
+    def template(self, **kwargs):
+        """
+        Override to create empty objects.
+
+        :returns: a :class:`reconfigure.nodes.Node` tree that will be used as a template for new BoundData instance
+        """
         return None
 
     def to_dict(self):
@@ -127,11 +158,15 @@ class BoundData (object):
     def __str__(self):
         return self.to_json()
 
-    def __repr__(self):
-        return self.to_json()
-
     @classmethod
     def bind(cls, data_property, getter, setter):
+        """
+        Creates an arbitrary named property in the class with given getter and setter. Not usually used directly.
+
+        :param data_property: property name
+        :param getter: ``lambda: object``, property getter
+        :param setter: ``lambda value: None``, property setter
+        """
         if not hasattr(cls, '_bound'):
             cls._bound = []
         cls._bound.append(data_property)
@@ -140,6 +175,16 @@ class BoundData (object):
     @classmethod
     def bind_property(cls, node_property, data_property, default=None, \
             path=lambda x: x, getter=lambda x: x, setter=lambda x: x):
+        """
+        Binds the value of a child :class:`reconfigure.node.PropertyNode` to a property
+
+        :param node_property: ``PropertyNode``'s ``name``
+        :param data_property: property name to be created
+        :param default: default value of the property (is ``PropertyNode`` doesn't exist)
+        :param path: ``lambda self.node: PropertyNode``, can be used to point binding to another Node instead of ``self.node``.
+        :param getter: ``lambda object: object``, used to transform value when getting
+        :param setter: ``lambda object: object``, used to transform value when setting
+        """
         def pget(self):
             prop = path(self._node).get(node_property)
             if prop:
@@ -153,23 +198,42 @@ class BoundData (object):
         cls.bind(data_property, pget, pset)
 
     @classmethod
-    def bind_attribute(cls, node_property, data_property, default=None, \
+    def bind_attribute(cls, node_attribute, data_property, default=None, \
             path=lambda x: x, getter=lambda x: x, setter=lambda x: x):
+        """
+        Binds the value of node object's attribute to a property
+
+        :param node_attribute: ``Node``'s attribute name
+        :param data_property: property name to be created
+        :param default: default value of the property (is ``PropertyNode`` doesn't exist)
+        :param path: ``lambda self.node: PropertyNode``, can be used to point binding to another Node instead of ``self.node``.
+        :param getter: ``lambda object: object``, used to transform value when getting
+        :param setter: ``lambda object: object``, used to transform value when setting
+        """
         def pget(self):
-            prop = getattr(path(self._node), node_property)
+            prop = getattr(path(self._node), node_attribute)
             if prop:
                 return getter(prop)
             else:
                 return getter(default)
 
         def pset(self, value):
-            setattr(path(self._node), node_property, setter(value))
+            setattr(path(self._node), node_attribute, setter(value))
 
         cls.bind(data_property, pget, pset)
 
     @classmethod
     def bind_collection(cls, data_property, path=lambda x: x, selector=lambda x: True, item_class=None, \
         collection_class=BoundCollection, **kwargs):
+        """
+        Binds the subset of node's children to a collection property
+
+        :param data_property: property name to be created
+        :param path: ``lambda self.node: PropertyNode``, can be used to point binding to another Node instead of ``self.node``.
+        :param selector: ``lambda Node: bool``, can be used to filter out a subset of child nodes
+        :param item_class: a :class:`BoundData` subclass to be used for collection items
+        :param collection_class: a :class:`BoundCollection` subclass to be used for collection property itself
+        """
         def pget(self):
             if not hasattr(self, '__' + data_property):
                 setattr(self, '__' + data_property,
@@ -186,6 +250,13 @@ class BoundData (object):
 
     @classmethod
     def bind_name(cls, data_property, getter=lambda x: x, setter=lambda x: x):
+        """
+        Binds the value of node's ``name`` attribute to a property
+
+        :param data_property: property name to be created
+        :param getter: ``lambda object: object``, used to transform value when getting
+        :param setter: ``lambda object: object``, used to transform value when setting
+        """
         def pget(self):
             return getter(self._node.name)
 
@@ -196,6 +267,13 @@ class BoundData (object):
 
     @classmethod
     def bind_child(cls, data_property, path=lambda x: x, item_class=None):
+        """
+        Directly binds a child Node to a BoundData property
+
+        :param data_property: property name to be created
+        :param path: ``lambda self.node: PropertyNode``, can be used to point binding to another Node instead of ``self.node``.
+        :param item_class: a :class:`BoundData` subclass to be used for the property value
+        """
         def pget(self):
             if not hasattr(self, '__' + data_property):
                 setattr(self, '__' + data_property,
