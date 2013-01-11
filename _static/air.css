@@ -218,6 +218,12 @@ body > div.document .documentwrapper .body .viewcode-link {
   margin: 0 0 0 5px;
   font-size: 50%;
   vertical-align: 75%;
+  opacity: .125;
+}
+
+body > div.document .documentwrapper .body .headerlink:hover,
+body > div.document .documentwrapper .body .viewcode-link:hover {
+  opacity: .5;
 }
 
 body > div.document .documentwrapper .body p {
