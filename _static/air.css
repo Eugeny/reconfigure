@@ -122,12 +122,12 @@ body {
 }
 
 a {
-  color: #7799aa;
+  color: #557799;
   text-decoration: none;
 }
 
 a:hover {
-  color: #c5d4db;
+  color: #a2b7cb;
 }
 
 #syntax .reserved {
@@ -144,7 +144,7 @@ a:hover {
 
 #syntax .normal {
   font-style: normal;
-  color: #666666;
+  color: #333333;
 }
 
 #syntax .argument {
@@ -163,7 +163,7 @@ a:hover {
 
 body {
   font-family: 'PT Sans', sans-serif;
-  color: #666666;
+  color: #333333;
 }
 
 body > div {
@@ -175,12 +175,12 @@ body > div {
 body > div.related {
   padding: 5px 0 2px;
   margin: 0 auto 5px;
-  border-top: 1px solid #7799aa;
+  border-top: 1px solid #557799;
 }
 
 body > div.related:first-child {
   border-top: none;
-  border-bottom: 1px solid #7799aa;
+  border-bottom: 1px solid #557799;
 }
 
 body > div.related h3 {
@@ -236,7 +236,7 @@ body > div.document .documentwrapper .body table td {
 
 body > div.document .documentwrapper .body ul {
   padding: 0 0 0 10px;
-  margin: 0;
+  margin: 0 0 0 30px;
 }
 
 body > div.document .documentwrapper .body dd ul li {

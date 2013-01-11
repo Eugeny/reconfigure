@@ -3,9 +3,9 @@ Trees
 
 Reconfigure operates with three types of data:
 
-  * Raw config text
-  * Node tree
-  * Data tree
+* Raw config text
+* Node tree
+* Data tree
 
 .. _raw-config:
 
