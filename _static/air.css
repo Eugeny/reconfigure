@@ -195,12 +195,13 @@ body > div.related ul {
 
 body > div.related ul li {
   float: left;
-  color: transparent;
+  margin: 0 0 0 5px;
   list-style: none;
 }
 
 body > div.related ul li.right {
   float: right;
+  color: transparent;
 }
 
 body > div.document {
