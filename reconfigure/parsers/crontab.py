@@ -29,7 +29,6 @@ class CrontabParser(BaseParser):
                     node = Node('env_setting', comment=comment)
                     node.append(PropertyNode('name', name))
                     node.append(PropertyNode('value', value))
-                    root.append(node)
                 elif len(split_line) == 6:
                     node = Node('normal_task', comment=comment)
                     node.append(PropertyNode('minute', split_line[0]))
@@ -38,7 +37,6 @@ class CrontabParser(BaseParser):
                     node.append(PropertyNode('month', split_line[3]))
                     node.append(PropertyNode('day_of_week', split_line[4]))
                     node.append(PropertyNode('command', split_line[5]))
-                    root.append(node)
                 else:
                     continue
             root.append(node)
