@@ -11,6 +11,7 @@ from iptables import IPTablesConfig
 #from nginx import NginxConfig
 from passwd import PasswdConfig
 from resolv import ResolvConfig
+from samba import SambaConfig
 from supervisor import SupervisorConfig
 
 
@@ -24,5 +25,6 @@ __all__ = [
     #'NginxConfig',
     'PasswdConfig',
     'ResolvConfig',
+    'SambaConfig',
     'SupervisorConfig',
 ]

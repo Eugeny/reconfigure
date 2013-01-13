@@ -39,7 +39,6 @@ HttpData.bind_property('host', 'host')
 HttpData.bind_property('port', 'port')
 
 SSLData.bind_property('certificate_path', 'certificate_path')
-SSLData.bind_property('key_path', 'key_path')
 SSLData.bind_property('enable', 'enable')
 
 ConfigData.bind_name('name')

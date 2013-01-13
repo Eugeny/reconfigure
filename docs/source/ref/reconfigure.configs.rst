@@ -1,3 +1,5 @@
+.. _reconfigure.configs:
+
 reconfigure.configs
 *******************
 

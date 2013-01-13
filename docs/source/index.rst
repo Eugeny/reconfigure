@@ -6,7 +6,26 @@
 Welcome to Reconfigure's documentation!
 =======================================
 
+Links:
+------
+
+* `Source at GitHub <http://github.com/Eugeny/reconfigure>`_
+* Questions? `Email me <mailto:e@ajeni.org>`_
+* `PyPI <http://pypi.python.org/pypi?:action=display&name=reconfigure>`_
+* `CI <http://ajenti.org:9090/job/reconfigure/>`_
+
 Contents:
+---------
+
+.. toctree::
+   :maxdepth: 2
+
+   docs/quickstart
+   docs/architecture
+
+
+API Reference:
+--------------
 
 .. toctree::
    :maxdepth: 2

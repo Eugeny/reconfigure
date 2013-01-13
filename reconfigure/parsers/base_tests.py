@@ -3,6 +3,10 @@ class BaseParserTest (object):
     parsed = None
     parser = None
 
+    @property
+    def stringified(self):
+        return self.source
+
     def test_parse(self):
         if not self.__class__.parser:
             return
@@ -15,7 +19,7 @@ class BaseParserTest (object):
             return
 
         unparsed = self.parser.stringify(self.__class__.parsed)
-        a, b = self.__class__.source, unparsed
+        a, b = self.stringified, unparsed
         if a.split() != b.split():
             print 'SOURCE: %s\n\nGENERATED: %s' % (a, b)
             self.assertEquals(a.split(), b.split())

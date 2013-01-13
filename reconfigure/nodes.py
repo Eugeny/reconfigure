@@ -27,9 +27,6 @@ class Node (object):
             s += '\n'.join('\t' + x for x in str(child).splitlines()) + '\n'
         return s
 
-    def __repr__(self):
-        return str(self)
-
     def __hash__(self):
         return sum(hash(x) for x in [self.name, self.origin, self.comment] + self.children)
 
@@ -100,7 +97,15 @@ class Node (object):
         """
         Replaces the child nodes by ``name``
 
-        :param node: replacement node or list of nodes
+        :param node: replacement node or list of nodes 
+
+        ::
+
+            n.append(Node('a'))
+            n.append(Node('a'))
+            n.replace('a', None)
+            assert(len(n.get_all('a')) == 0)
+
         """
         if name:
             self.children = [c for c in self.children if c.name != name]

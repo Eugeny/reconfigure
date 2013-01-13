@@ -59,7 +59,7 @@ class AutoIncluder (BaseIncluder):
 
     def is_include(self, node):
         """
-        Should return whether the node is an include node
+        Should return whether the node is an include node and return file pattern glob if it is
         """
 
     def remove_include(self, node):

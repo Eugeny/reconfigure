@@ -23,8 +23,7 @@ class AjentiConfigTest (BaseConfigTest, unittest.TestCase):
     },
     "ssl": {
         "enable": false,
-        "certificate_path": "",
-        "key_path": ""
+        "certificate_path": ""
     }
 }
 """
@@ -32,7 +31,7 @@ class AjentiConfigTest (BaseConfigTest, unittest.TestCase):
     result = {
         'authentication': False,
         'http_binding': {'host': '0.0.0.0', 'port': 8000},
-        'ssl': {'certificate_path': '', 'enable': False, 'key_path': ''},
+        'ssl': {'certificate_path': '', 'enable': False},
         'users': {'test': {
             'configs': {'a': {'data': {}, 'name': 'a'}},
             'name': 'test',
