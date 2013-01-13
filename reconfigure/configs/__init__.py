@@ -13,6 +13,7 @@ from passwd import PasswdConfig
 from resolv import ResolvConfig
 from samba import SambaConfig
 from supervisor import SupervisorConfig
+from crontab import CrontabConfig
 
 
 __all__ = [
@@ -27,4 +28,5 @@ __all__ = [
     'ResolvConfig',
     'SambaConfig',
     'SupervisorConfig',
+    'CrontabConfig'
 ]
