@@ -17,3 +17,5 @@ debian/*stamp*
 docs/build
 
 nosetests*
+
+.idea
