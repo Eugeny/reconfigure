@@ -31,6 +31,8 @@ class ConfigData (BoundData):
 
 
 AjentiData.bind_property('authentication', 'authentication')
+AjentiData.bind_property('installation_id', 'installation_id')
+AjentiData.bind_property('enable_feedback', 'enable_feedback')
 AjentiData.bind_child('http_binding', lambda x: x.get('bind'), item_class=HttpData)
 AjentiData.bind_child('ssl', lambda x: x.get('ssl'), item_class=SSLData)
 AjentiData.bind_collection('users', path=lambda x: x.get('users'), item_class=UserData, collection_class=BoundDictionary, key=lambda x: x.name)
