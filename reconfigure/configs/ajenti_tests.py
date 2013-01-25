@@ -1,4 +1,5 @@
 import unittest
+import json
 
 from reconfigure.configs import AjentiConfig
 from reconfigure.configs.base_tests import BaseConfigTest
@@ -7,11 +8,13 @@ from reconfigure.configs.base_tests import BaseConfigTest
 class AjentiConfigTest (BaseConfigTest, unittest.TestCase):
     sources = {
         None: """{
+    "authentication": false,
     "bind": {
         "host": "0.0.0.0",
         "port": 8000
     },
-    "authentication": false,
+    "enable_feedback": true,
+    "installation_id": null,
     "users": {
         "test": {
             "configs": { "a": "{}" },
@@ -30,6 +33,8 @@ class AjentiConfigTest (BaseConfigTest, unittest.TestCase):
     }
     result = {
         'authentication': False,
+        'enable_feedback': True,
+        'installation_id': None,
         'http_binding': {'host': '0.0.0.0', 'port': 8000},
         'ssl': {'certificate_path': '', 'enable': False},
         'users': {'test': {
@@ -41,6 +46,8 @@ class AjentiConfigTest (BaseConfigTest, unittest.TestCase):
     }
 
     config = AjentiConfig
+
+    stringify_filter = staticmethod(json.loads)
 
 
 if __name__ == '__main__':

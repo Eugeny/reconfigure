@@ -6,6 +6,7 @@ class BaseConfigTest (object):
     result = None
     config = None
     config_kwargs = {}
+    stringify_filter = staticmethod(lambda x: x.split())
 
     def test_config(self):
         self.maxDiff = None
@@ -24,5 +25,10 @@ class BaseConfigTest (object):
 
         result = config.save()
         #print result
+        s_filter = self.__class__.stringify_filter
         for k, v in result.iteritems():
-            self.assertEquals(self.__class__.sources[k].split(), v.split())
+
+            self.assertEquals(
+                s_filter(self.__class__.sources[k]),
+                s_filter(v)
+            )

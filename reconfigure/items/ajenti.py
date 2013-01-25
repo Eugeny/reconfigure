@@ -27,7 +27,7 @@ class UserData (BoundData):
 
 class ConfigData (BoundData):
     def template(self):
-        return Node()
+        return PropertyNode('', '{}')
 
 
 AjentiData.bind_property('authentication', 'authentication')

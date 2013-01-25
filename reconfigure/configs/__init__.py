@@ -8,7 +8,6 @@ from fstab import FSTabConfig
 from group import GroupConfig
 from hosts import HostsConfig
 from iptables import IPTablesConfig
-#from nginx import NginxConfig
 from passwd import PasswdConfig
 from resolv import ResolvConfig
 from samba import SambaConfig
@@ -23,7 +22,6 @@ __all__ = [
     'GroupConfig',
     'HostsConfig',
     'IPTablesConfig',
-    #'NginxConfig',
     'PasswdConfig',
     'ResolvConfig',
     'SambaConfig',
