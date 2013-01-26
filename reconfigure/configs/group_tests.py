@@ -1,10 +1,8 @@
-import unittest
-
 from reconfigure.configs import GroupConfig
-from reconfigure.configs.base_tests import BaseConfigTest
+from reconfigure.configs.base_test import BaseConfigTest
 
 
-class GroupConfigTest (BaseConfigTest, unittest.TestCase):
+class GroupConfigTest (BaseConfigTest):
     sources = {
         None: """sys:x:3:
 adm:x:4:eugeny
@@ -29,5 +27,4 @@ adm:x:4:eugeny
     config = GroupConfig
 
 
-if __name__ == '__main__':
-    unittest.main()
+del BaseConfigTest

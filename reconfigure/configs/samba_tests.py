@@ -1,10 +1,8 @@
-import unittest
-
 from reconfigure.configs import SambaConfig
-from reconfigure.configs.base_tests import BaseConfigTest
+from reconfigure.configs.base_test import BaseConfigTest
 
 
-class SambaConfigTest (BaseConfigTest, unittest.TestCase):
+class SambaConfigTest (BaseConfigTest):
     sources = {
         None: """
 [global]
@@ -65,5 +63,4 @@ directory mask = 0700
     config = SambaConfig
 
 
-if __name__ == '__main__':
-    unittest.main()
+del BaseConfigTest

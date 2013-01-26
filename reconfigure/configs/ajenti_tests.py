@@ -1,11 +1,10 @@
-import unittest
 import json
 
 from reconfigure.configs import AjentiConfig
-from reconfigure.configs.base_tests import BaseConfigTest
+from reconfigure.configs.base_test import BaseConfigTest
 
 
-class AjentiConfigTest (BaseConfigTest, unittest.TestCase):
+class AjentiConfigTest (BaseConfigTest):
     sources = {
         None: """{
     "authentication": false,
@@ -50,5 +49,4 @@ class AjentiConfigTest (BaseConfigTest, unittest.TestCase):
     stringify_filter = staticmethod(json.loads)
 
 
-if __name__ == '__main__':
-    unittest.main()
+del BaseConfigTest

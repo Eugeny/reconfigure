@@ -1,10 +1,8 @@
-import unittest
-
 from reconfigure.configs import CrontabConfig
-from reconfigure.configs.base_tests import BaseConfigTest
+from reconfigure.configs.base_test import BaseConfigTest
 
 
-class CrontabConfigTest (BaseConfigTest, unittest.TestCase):
+class CrontabConfigTest (BaseConfigTest):
     sources = {
         None: """#comment line
 * * * * * date
@@ -52,5 +50,4 @@ NAME = TEST"""
     config = CrontabConfig
 
 
-if __name__ == '__main__':
-    unittest.main()
+del BaseConfigTest

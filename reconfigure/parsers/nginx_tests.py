@@ -1,10 +1,9 @@
-from reconfigure.parsers.base_tests import BaseParserTest
+from reconfigure.parsers.base_test import BaseParserTest
 from reconfigure.parsers import NginxParser
 from reconfigure.nodes import *
-import unittest
 
 
-class NginxParserTest (BaseParserTest, unittest.TestCase):
+class NginxParserTest (BaseParserTest):
     parser = NginxParser()
     source = """p1 asd;
 
@@ -27,3 +26,6 @@ sec {
             )
         )
     )
+
+
+del BaseParserTest

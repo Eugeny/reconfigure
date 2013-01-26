@@ -1,10 +1,9 @@
-from reconfigure.parsers.base_tests import BaseParserTest
+from reconfigure.parsers.base_test import BaseParserTest
 from reconfigure.parsers import IPTablesParser
 from reconfigure.nodes import *
-import unittest
 
 
-class IPTablesParserTest (BaseParserTest, unittest.TestCase):
+class IPTablesParserTest (BaseParserTest):
     parser = IPTablesParser()
     source = """*filter
 :INPUT ACCEPT [0:0]
@@ -53,5 +52,4 @@ COMMIT
     )
 
 
-if __name__ == '__main__':
-    unittest.main()
+del BaseParserTest

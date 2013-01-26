@@ -1,10 +1,8 @@
-import unittest
-
 from reconfigure.configs import FSTabConfig
-from reconfigure.configs.base_tests import BaseConfigTest
+from reconfigure.configs.base_test import BaseConfigTest
 
 
-class FSTabConfigTest (BaseConfigTest, unittest.TestCase):
+class FSTabConfigTest (BaseConfigTest):
     sources = {
         None: """fs1\tmp1\text\trw\t1\t2
 fs2\tmp2\tauto\tnone\t0\t0
@@ -33,5 +31,4 @@ fs2\tmp2\tauto\tnone\t0\t0
     config = FSTabConfig
 
 
-if __name__ == '__main__':
-    unittest.main()
+del BaseConfigTest

@@ -1,10 +1,8 @@
-import unittest
-
 from reconfigure.configs import ResolvConfig
-from reconfigure.configs.base_tests import BaseConfigTest
+from reconfigure.configs.base_test import BaseConfigTest
 
 
-class ResolvConfigTest (BaseConfigTest, unittest.TestCase):
+class ResolvConfigTest (BaseConfigTest):
     sources = {
         None: """nameserver 1
 domain 2
@@ -30,5 +28,4 @@ search 3 5
     config = ResolvConfig
 
 
-if __name__ == '__main__':
-    unittest.main()
+del BaseConfigTest

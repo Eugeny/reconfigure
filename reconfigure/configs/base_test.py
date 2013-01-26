@@ -1,7 +1,8 @@
+import unittest
 import json
 
 
-class BaseConfigTest (object):
+class BaseConfigTest (unittest.TestCase):
     sources = ""
     result = None
     config = None

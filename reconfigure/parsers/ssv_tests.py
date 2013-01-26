@@ -1,10 +1,9 @@
-from reconfigure.parsers.base_tests import BaseParserTest
+from reconfigure.parsers.base_test import BaseParserTest
 from reconfigure.parsers import SSVParser
 from reconfigure.nodes import *
-import unittest
 
 
-class SSVParserTest (BaseParserTest, unittest.TestCase):
+class SSVParserTest (BaseParserTest):
     parser = SSVParser()
     source = """# line1
 # long comment
@@ -22,3 +21,6 @@ efgh # line2
             comment='line2',
         ),
     )
+
+
+del BaseParserTest

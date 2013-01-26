@@ -1,10 +1,8 @@
-import unittest
-
 from reconfigure.configs import IPTablesConfig
-from reconfigure.configs.base_tests import BaseConfigTest
+from reconfigure.configs.base_test import BaseConfigTest
 
 
-class IPTablesConfigTest (BaseConfigTest, unittest.TestCase):
+class IPTablesConfigTest (BaseConfigTest):
     sources = {
         None: '''*filter
 :INPUT ACCEPT [0:0]
@@ -92,5 +90,4 @@ COMMIT
     config = IPTablesConfig
 
 
-if __name__ == '__main__':
-    unittest.main()
+del BaseConfigTest

@@ -1,10 +1,8 @@
-import unittest
-
 from reconfigure.configs import PasswdConfig
-from reconfigure.configs.base_tests import BaseConfigTest
+from reconfigure.configs.base_test import BaseConfigTest
 
 
-class PasswdConfigTest (BaseConfigTest, unittest.TestCase):
+class PasswdConfigTest (BaseConfigTest):
     sources = {
         None: """backup:x:34:34:backup:/var/backups:/bin/sh
 list:x:38:38:Mailing List Manager:/var/list:/bin/sh
@@ -35,5 +33,4 @@ list:x:38:38:Mailing List Manager:/var/list:/bin/sh
     config = PasswdConfig
 
 
-if __name__ == '__main__':
-    unittest.main()
+del BaseConfigTest

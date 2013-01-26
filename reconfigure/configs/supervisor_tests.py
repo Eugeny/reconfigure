@@ -1,10 +1,8 @@
-import unittest
-
-from reconfigure.configs.base_tests import BaseConfigTest
 from reconfigure.configs import SupervisorConfig
+from reconfigure.configs.base_test import BaseConfigTest
 
 
-class SupervisorConfigTest (BaseConfigTest, unittest.TestCase):
+class SupervisorConfigTest (BaseConfigTest):
     sources = {
         None: """[unix_http_server]
 file = /var/run//supervisor.sock ;comment
@@ -33,3 +31,6 @@ command = cat
     }
 
     config = SupervisorConfig
+
+
+del BaseConfigTest

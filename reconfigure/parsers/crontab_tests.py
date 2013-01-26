@@ -1,10 +1,9 @@
-
 from reconfigure.parsers import CrontabParser
 from reconfigure.nodes import RootNode, Node, PropertyNode
-import unittest
-from reconfigure.parsers.base_tests import BaseParserTest
+from reconfigure.parsers.base_test import BaseParserTest
 
-class CrontabParserTest (BaseParserTest, unittest.TestCase):
+
+class CrontabParserTest (BaseParserTest):
     parser = CrontabParser()
 
     source = '\n'.join(['#comment line',
@@ -54,5 +53,5 @@ class CrontabParserTest (BaseParserTest, unittest.TestCase):
 #                        ' = FAIL',      #wrong line
 #    ])
 
-if __name__ == '__main__':
-    unittest.main()
+
+del BaseParserTest

@@ -1,10 +1,9 @@
-from reconfigure.parsers.base_tests import BaseParserTest
+from reconfigure.parsers.base_test import BaseParserTest
 from reconfigure.parsers import IniFileParser
 from reconfigure.nodes import *
-import unittest
 
 
-class IniParserTest (BaseParserTest, unittest.TestCase):
+class IniParserTest (BaseParserTest):
     parser = IniFileParser(sectionless=True)
     source = """a = b
 
@@ -24,5 +23,4 @@ s1p2 = 123
     )
 
 
-if __name__ == '__main__':
-    unittest.main()
+del BaseParserTest

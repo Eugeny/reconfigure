@@ -1,10 +1,9 @@
-from reconfigure.parsers.base_tests import BaseParserTest
+from reconfigure.parsers.base_test import BaseParserTest
 from reconfigure.parsers import JsonParser
 from reconfigure.nodes import *
-import unittest
 
 
-class JsonParserTest (BaseParserTest, unittest.TestCase):
+class JsonParserTest (BaseParserTest):
     parser = JsonParser()
     source = """{
     "p2": 123,
@@ -20,3 +19,6 @@ class JsonParserTest (BaseParserTest, unittest.TestCase):
             PropertyNode('s1p1',  'qwerty'),
         ),
     )
+
+
+del BaseParserTest

@@ -23,7 +23,7 @@ class SquidParser (BaseParser):
             if len(line) == 0:
                 continue
             tokens = line.split()
-            node = Node('line')
+            node = Node('line', Node('arguments'))
             if last_comment:
                 node.comment = last_comment
                 last_comment = None
@@ -36,7 +36,7 @@ class SquidParser (BaseParser):
                 if index == 0:
                     node.set_property('name', token)
                 else:
-                    node.set_property('argument%i' % index, token)
+                    node.get('arguments').set_property(str(index), token)
                 index += 1
             root.append(node)
         return root
@@ -47,7 +47,7 @@ class SquidParser (BaseParser):
         for node in tree.children:
             if node.comment and '\n' in node.comment:
                 r += ''.join('%s %s\n' % ('#', x) for x in node.comment.splitlines())
-            r += ' '.join(x.value for x in node.children)
+            r += node.get('name').value + ' ' + ' '.join(x.value for x in node.get('arguments').children)
             if node.comment and not '\n' in node.comment:
                 r += ' # %s' % node.comment
             r += '\n'

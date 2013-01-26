@@ -1,4 +1,7 @@
-class BaseParserTest (object):
+import unittest
+
+
+class BaseParserTest (unittest.TestCase):
     source = ""
     parsed = None
     parser = None

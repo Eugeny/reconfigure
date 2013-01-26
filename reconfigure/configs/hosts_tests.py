@@ -1,10 +1,8 @@
-import unittest
-
 from reconfigure.configs import HostsConfig
-from reconfigure.configs.base_tests import BaseConfigTest
+from reconfigure.configs.base_test import BaseConfigTest
 
 
-class FSTabConfigTest (BaseConfigTest, unittest.TestCase):
+class FSTabConfigTest (BaseConfigTest):
     sources = {
         None: """a1 h1 a2 a3 a4
 a5 h2
@@ -39,5 +37,4 @@ a6 h3 a7
     config = HostsConfig
 
 
-if __name__ == '__main__':
-    unittest.main()
+del BaseConfigTest
