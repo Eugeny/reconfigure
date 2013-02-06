@@ -43,7 +43,6 @@ class SquidParser (BaseParser):
 
     def stringify(self, tree):
         r = ''
-        print tree
         for node in tree.children:
             if node.comment and '\n' in node.comment:
                 r += ''.join('%s %s\n' % ('#', x) for x in node.comment.splitlines())

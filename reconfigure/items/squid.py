@@ -33,15 +33,15 @@ class HTTPPortData (BoundData):
     def template(self):
         return Node('line',
             PropertyNode('name', 'http_port'),
-            PropertyNode('port', '3128'),
+            Node('arguments', PropertyNode('1', '3128'))
         )
 
 
 class HTTPSPortData (BoundData):
     def template(self):
         return Node('line',
-            PropertyNode('name', 'http_port'),
-            PropertyNode('port', '3128'),
+            PropertyNode('name', 'https_port'),
+            Node('arguments', PropertyNode('1', '3128'))
         )
 
 
