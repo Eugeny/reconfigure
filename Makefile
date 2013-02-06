@@ -23,22 +23,22 @@ cdoc:
 	rm -rf $(DOCBUILDDIR)/*
 	make doc
 
-install: build
+install:
 	$(PYTHON) setup.py install --root $(DESTDIR) $(COMPILE) --prefix $(PREFIX)
 
-rpm: build
+rpm:
 	rm -rf dist/*.rpm
 	$(PYTHON) setup.py sdist 
 	#$(PYTHON) setup.py bdist_rpm --spec-file dist/$(PROJECT).spec #--post-install=rpm/postinstall --pre-uninstall=rpm/preuninstall
 	rpmbuild -bb dist/$(PROJECT).spec
 	mv ~/rpmbuild/RPMS/noarch/$(PROJECT)*.rpm dist
 
-deb: build
+deb:
 	rm -rf dist/*.deb
 	$(PYTHON) setup.py sdist $(COMPILE) --dist-dir=../
 	rename -f 's/$(PROJECT)-(.*)\.tar\.gz/$(PROJECT)_$$1\.orig\.tar\.gz/' ../*
 	dpkg-buildpackage -b -rfakeroot -us -uc
-	rm ../$(PROJECT)*.orig.tar.gz
+	rm ../$(PROJECT)*.orig.tar.gz || true
 	rm ../$(PROJECT)*.changes
 	mv ../$(PROJECT)*.deb dist/
 

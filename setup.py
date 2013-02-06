@@ -7,7 +7,6 @@ setup(
     name='reconfigure',
     version='1.0',
     install_requires=[
-        'iniparse',
     ],
     description='An ORM for config files',
     author='Eugeny Pankov',

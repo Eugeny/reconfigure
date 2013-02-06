@@ -1,0 +1,14 @@
+Source: python-reconfigure
+Section: python
+Priority: optional
+Maintainer: Eugeny Pankov <e@ajenti.org>
+Build-Depends: debhelper (>=8.0.0), python-support (>= 0.6), cdbs (>= 0.4.49)
+XS-Python-Version: >=2.6
+Standards-Version: 3.9.1
+
+Package: python-reconfigure
+Architecture: all
+Homepage: http://eugeny.github.com/reconfigure
+XB-Python-Version: ${python:Versions}
+Depends: ${misc:Depends}, ${python:Depends}
+Description: Simple config file management library
