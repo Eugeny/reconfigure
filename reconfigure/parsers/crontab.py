@@ -1,6 +1,7 @@
 from reconfigure.nodes import RootNode, Node, PropertyNode
 from reconfigure.parsers import BaseParser
 
+
 class CrontabParser(BaseParser):
 
     def __init__(self, remove_comments=False):
@@ -44,7 +45,6 @@ class CrontabParser(BaseParser):
         root.comment = comment
         return root
 
-
     def stringify(self, tree):
         result_lines = []
         stringify_func = {
@@ -80,4 +80,3 @@ class CrontabParser(BaseParser):
             if len(values_list) == 6:
                 return ' '.join(values_list)
         return ''
-
