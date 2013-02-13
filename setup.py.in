@@ -5,7 +5,7 @@ from setuptools import find_packages
 
 setup(
     name='reconfigure',
-    version='0.1',
+    version='__VERSION__',
     install_requires=[
     ],
     description='An ORM for config files',
