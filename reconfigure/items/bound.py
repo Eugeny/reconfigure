@@ -15,11 +15,6 @@ class BoundCollection (object):
         self.selector = selector
         self.item_class = item_class
         self.data = []
-        self.sorting = lambda x: x
-        self.rebuild()
-
-    def sort(self, sorting):
-        self.sorting = sorting
         self.rebuild()
 
     def rebuild(self):
@@ -174,6 +169,7 @@ class BoundData (object):
 
     @classmethod
     def bind_property(cls, node_property, data_property, default=None, \
+            default_remove=[], \
             path=lambda x: x, getter=lambda x: x, setter=lambda x: x):
         """
         Binds the value of a child :class:`reconfigure.node.PropertyNode` to a property
@@ -181,6 +177,7 @@ class BoundData (object):
         :param node_property: ``PropertyNode``'s ``name``
         :param data_property: property name to be created
         :param default: default value of the property (is ``PropertyNode`` doesn't exist)
+        :param default_remove: if setting a value contained in default_remove, the target property is removed
         :param path: ``lambda self.node: PropertyNode``, can be used to point binding to another Node instead of ``self.node``.
         :param getter: ``lambda object: object``, used to transform value when getting
         :param setter: ``lambda object: object``, used to transform value when setting
@@ -193,7 +190,12 @@ class BoundData (object):
                 return default
 
         def pset(self, value):
-            path(self._node).set_property(node_property, setter(value))
+            if setter(value) in default_remove:
+                node = path(self._node).get(node_property)
+                if node:
+                    path(self._node).remove(node)
+            else:
+                path(self._node).set_property(node_property, setter(value))
 
         cls.bind(data_property, pget, pset)
 

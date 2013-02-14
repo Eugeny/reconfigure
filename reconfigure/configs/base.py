@@ -36,6 +36,7 @@ class Reconfig (object):
             self.nodetree = self.includer.compose(self.origin, self.nodetree)
         if self.builder is not None:
             self.tree = self.builder.build(self.nodetree)
+        return self
 
     def save(self):
         """

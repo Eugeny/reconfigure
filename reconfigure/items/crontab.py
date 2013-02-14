@@ -10,6 +10,9 @@ class CrontabData(BoundData):
 class CrontabNormalTaskData(BoundData):
     fields = ['minute', 'hour', 'day_of_month', 'month', 'day_of_week', 'command']
 
+    def describe(self):
+        return ' '.join(getattr(self, x) for x in self.fields)
+
     def template(self, **kwargs):
         return Node('normal_task', children=[
             PropertyNode('minute', '0'),
@@ -17,7 +20,7 @@ class CrontabNormalTaskData(BoundData):
             PropertyNode('day_of_month', '1'),
             PropertyNode('month', '1'),
             PropertyNode('day_of_week', '1'),
-            PropertyNode('command', '')
+            PropertyNode('command', 'false')
         ])
 
 
@@ -27,7 +30,7 @@ class CrontabSpecialTaskData(BoundData):
     def template(self, **kwargs):
         return Node('special_task', children=[
             PropertyNode('special', '@reboot'),
-            PropertyNode('command', '')
+            PropertyNode('command', 'false')
         ])
 
 

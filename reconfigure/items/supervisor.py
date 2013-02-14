@@ -19,4 +19,4 @@ class ProgramData (BoundData):
 SupervisorData.bind_collection('programs', item_class=ProgramData, selector=lambda x: x.name.startswith('program:'))
 ProgramData.bind_name('name', getter=lambda x: x[8:], setter=lambda x: 'program:%s' % x)
 for i in range(0, len(ProgramData.fields)):
-    ProgramData.bind_property(ProgramData.fields[i], ProgramData.fields[i])
+    ProgramData.bind_property(ProgramData.fields[i], ProgramData.fields[i], default_remove=[None, ''])
