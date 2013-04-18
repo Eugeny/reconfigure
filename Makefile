@@ -3,7 +3,7 @@ DESTDIR=/
 BUILDIR=$(CURDIR)/debian/reconfigure
 RPMTOPDIR=$(CURDIR)/build
 PROJECT=reconfigure
-VERSION=0.1
+VERSION=0.1.2
 PREFIX=/usr
 
 SPHINXOPTS    =
