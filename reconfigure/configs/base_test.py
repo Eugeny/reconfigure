@@ -25,10 +25,9 @@ class BaseConfigTest (unittest.TestCase):
         self.assertEquals(a, b)
 
         result = config.save()
-        #print result
         s_filter = self.__class__.stringify_filter
+        #print s_filter(result[None])
         for k, v in result.iteritems():
-
             self.assertEquals(
                 s_filter(self.__class__.sources[k]),
                 s_filter(v)
