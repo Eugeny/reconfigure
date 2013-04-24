@@ -50,7 +50,7 @@ class Node (object):
         return True
 
     def __getitem__(self, key):
-        if type(key) is int:
+        if type(key) in (int, slice):
             return self.children[key]
         return self.get(key)
 
