@@ -9,45 +9,55 @@ class SSVParser (BaseParser):
     :param separator: separator character, defaults to whitespace
     :param maxsplit: max number of tokens per line, defaults to infinity
     :param comment: character denoting comments
+    :param continuation: line continuation character, None to disable
     """
 
-    def __init__(self, separator=None, maxsplit=-1, comment='#', *args, **kwargs):
+    def __init__(self, separator=None, maxsplit=-1, comment='#', continuation=None, *args, **kwargs):
         self.separator = separator
         self.maxsplit = maxsplit
         self.comment = comment
+        self.continuation = continuation
         BaseParser.__init__(self, *args, **kwargs)
 
     def parse(self, content):
-        lines = filter(None, [x.strip() for x in content.splitlines()])
+        rawlines = content.splitlines()
+        lines = []
+        while rawlines:
+            l = rawlines.pop(0).strip()
+            while self.continuation and rawlines and l.endswith(self.continuation):
+                l = l[:-len(self.continuation)]
+                l += rawlines.pop(0)
+            lines.append(l)
         root = RootNode()
         last_comment = None
         for line in lines:
             line = line.strip()
-            if line.startswith(self.comment):
-                c = line.strip(self.comment).strip()
+            if line:
+                if line.startswith(self.comment):
+                    c = line.strip(self.comment).strip()
+                    if last_comment:
+                        last_comment += '\n' + c
+                    else:
+                        last_comment = c
+                    continue
+                if len(line) == 0:
+                    continue
+                tokens = line.split(self.separator, self.maxsplit)
+                node = Node('line')
                 if last_comment:
-                    last_comment += '\n' + c
-                else:
-                    last_comment = c
-                continue
-            if len(line) == 0:
-                continue
-            tokens = line.split(self.separator, self.maxsplit)
-            node = Node('line')
-            if last_comment:
-                node.comment = last_comment
-                last_comment = None
-            for token in tokens:
-                if token.startswith(self.comment):
-                    node.comment = ' '.join(tokens[tokens.index(token):])[1:].strip()
-                    break
-                node.append(Node(
-                    name='token',
-                    children=[
-                        PropertyNode(name='value', value=token)
-                    ]
-                ))
-            root.append(node)
+                    node.comment = last_comment
+                    last_comment = None
+                for token in tokens:
+                    if token.startswith(self.comment):
+                        node.comment = ' '.join(tokens[tokens.index(token):])[1:].strip()
+                        break
+                    node.append(Node(
+                        name='token',
+                        children=[
+                            PropertyNode(name='value', value=token)
+                        ]
+                    ))
+                root.append(node)
         return root
 
     def stringify(self, tree):

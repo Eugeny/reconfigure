@@ -15,6 +15,8 @@ class BaseParserTest (unittest.TestCase):
             return
 
         nodetree = self.parser.parse(self.__class__.source)
+        if self.__class__.parsed != nodetree:
+            print 'TARGET: %s\n\nPARSED: %s' % (self.__class__.parsed, nodetree)
         self.assertEquals(self.__class__.parsed, nodetree)
 
     def test_stringify(self):
