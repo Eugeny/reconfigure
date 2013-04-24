@@ -50,9 +50,13 @@ class Node (object):
         return True
 
     def __getitem__(self, key):
+        if type(key) is int:
+            return self.children[key]
         return self.get(key)
 
     def __setitem__(self, key, value):
+        if type(key) is int:
+            self.children[key] = value
         self.set_property(key, value)
 
     def __contains__(self, item):
