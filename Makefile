@@ -3,7 +3,8 @@ DESTDIR=/
 BUILDIR=$(CURDIR)/debian/reconfigure
 RPMTOPDIR=$(CURDIR)/build
 PROJECT=reconfigure
-VERSION=0.1.2
+DEBPROJECT=python-reconfigure
+VERSION=0.1.3
 PREFIX=/usr
 
 SPHINXOPTS    =
@@ -14,6 +15,8 @@ DOCSOURCEDIR   = docs/source
 ALLSPHINXOPTS   = -d $(DOCBUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) $(DOCSOURCEDIR)
 
 all:
+
+build:
 
 doc:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(DOCBUILDDIR)/html
@@ -47,13 +50,13 @@ deb: build tgz
 	cat debian/changelog.in | sed s/__VERSION__/$(VERSION)/g | sed "s/__DATE__/$(DATE)/g" > debian/changelog
 
 	cp dist/$(PROJECT)*.tar.gz ..
-	rename -f 's/$(PROJECT)-(.*)\.tar\.gz/$(PROJECT)_$$1\.orig\.tar\.gz/' ../*
+	rename -f 's/$(PROJECT)-(.*)\.tar\.gz/$(DEBPROJECT)_$$1\.orig\.tar\.gz/' ../*
 	dpkg-buildpackage -b -rfakeroot -us -uc
 
-	mv ../$(PROJECT)*.deb dist/
+	mv ../$(DEBPROJECT)*.deb dist/
 	
-	rm ../$(PROJECT)*.orig.tar.gz
-	rm ../$(PROJECT)*.changes
+	rm ../$(DEBPROJECT)*.orig.tar.gz
+	rm ../$(DEBPROJECT)*.changes
 	rm debian/changelog
 
 upload-deb: deb
@@ -77,3 +80,4 @@ clean:
 	rm -rf $(DOCBUILDDIR)/*
 	rm -rf build/ debian/$(PROJECT)* debian/*stamp* debian/files MANIFEST *.egg-info
 	find . -name '*.pyc' -delete
+
