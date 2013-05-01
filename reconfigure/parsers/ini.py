@@ -29,7 +29,7 @@ class IniFileParser (BaseParser):
         if self.sectionless:
             content = '[' + self.nullsection + ']\n' + content
         data = StringIO(content)
-        cp = INIConfig(data)
+        cp = INIConfig(data, optionxformvalue=lambda x: x)
 
         root = RootNode()
         for section in cp:

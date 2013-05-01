@@ -105,7 +105,7 @@ class SectionLine(LineType):
 
 
 class OptionLine(LineType):
-    def __init__(self, name, value, separator=' = ', comment=None,
+    def __init__(self, name, value, separator='=', comment=None,
                  comment_separator=None, comment_offset=-1, line=None):
         super(OptionLine, self).__init__(line)
         self.name = name

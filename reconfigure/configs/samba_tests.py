@@ -6,24 +6,24 @@ class SambaConfigTest (BaseConfigTest):
     sources = {
         None: """
 [global]
-workgroup = WORKGROUP
-server string = %h server (Samba, Ubuntu)
-interfaces = 127.0.0.0/8 eth0
-bind interfaces only = yes
-log file = /var/log/samba/log.%m
-security = user
+workgroup=WORKGROUP
+server string=%h server (Samba, Ubuntu)
+interfaces=127.0.0.0/8 eth0
+bind interfaces only=yes
+log file=/var/log/samba/log.%m
+security=user
 
 [homes]
-comment = Home Directories
-browseable = no
+comment=Home Directories
+browseable=no
 
 [profiles]
-comment = Users profiles
-path = /home/samba/profiles
-guest ok = no
-browseable = no
-create mask = 0600
-directory mask = 0700
+comment=Users profiles
+path=/home/samba/profiles
+guest ok=no
+browseable=no
+create mask=0600
+directory mask=0700
 """
     }
 

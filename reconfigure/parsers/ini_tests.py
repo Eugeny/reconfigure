@@ -5,11 +5,11 @@ from reconfigure.nodes import *
 
 class IniParserTest (BaseParserTest):
     parser = IniFileParser(sectionless=True)
-    source = """a = b
+    source = """a=b
 
 [section1] ;section comment
-s1p1 = asd ;comment 2
-s1p2 = 123
+s1p1=asd ;comment 2
+s1p2=123
 """
     parsed = RootNode(None,
         Node(None,

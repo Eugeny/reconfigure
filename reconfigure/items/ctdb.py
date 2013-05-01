@@ -2,6 +2,20 @@ from reconfigure.nodes import Node, PropertyNode
 from reconfigure.items.bound import BoundData
 
 
+class CTDBData (BoundData):
+    pass
+
+CTDBData.bind_property('CTDB_RECOVERY_LOCK', 'recovery_lock_file', path=lambda x: x.get(None))
+CTDBData.bind_property('CTDB_PUBLIC_INTERFACE', 'public_interface', path=lambda x: x.get(None))
+CTDBData.bind_property('CTDB_PUBLIC_ADDRESSES', 'public_addresses_file', default='/etc/ctdb/public_addresses', path=lambda x: x.get(None))
+CTDBData.bind_property('CTDB_MANAGES_SAMBA', 'manages_samba', path=lambda x: x.get(None))
+CTDBData.bind_property('CTDB_NODES', 'nodes_file', default='/etc/ctdb/nodes', path=lambda x: x.get(None))
+CTDBData.bind_property('CTDB_LOGFILE', 'log_file', path=lambda x: x.get(None))
+CTDBData.bind_property('CTDB_DEBUGLEVEL', 'debug_level', default='2', path=lambda x: x.get(None))
+CTDBData.bind_property('CTDB_PUBLIC_NETWORK', 'public_network', default='', path=lambda x: x.get(None))
+CTDBData.bind_property('CTDB_PUBLIC_GATEWAY', 'public_gateway', default='', path=lambda x: x.get(None))
+
+
 class NodesData (BoundData):
     pass
 

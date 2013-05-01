@@ -5,12 +5,12 @@ from reconfigure.configs.base_test import BaseConfigTest
 class SupervisorConfigTest (BaseConfigTest):
     sources = {
         None: """[unix_http_server]
-file = /var/run//supervisor.sock ;comment
-chmod = 0700
+file=/var/run//supervisor.sock ;comment
+chmod=0700
 [include]
-files = test""",
+files=test""",
         'test': """[program:test1]
-command = cat
+command=cat
         """
     }
     result = {

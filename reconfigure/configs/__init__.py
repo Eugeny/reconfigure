@@ -5,7 +5,7 @@ Configs are ready-to-use objects that link together Parsers, Includers and Build
 from base import Reconfig
 from ajenti import AjentiConfig
 from crontab import CrontabConfig
-from ctdb import CTDBNodesConfig, CTDBPublicAddressesConfig
+from ctdb import CTDBConfig, CTDBNodesConfig, CTDBPublicAddressesConfig
 from exports import ExportsConfig
 from fstab import FSTabConfig
 from group import GroupConfig
@@ -22,6 +22,7 @@ __all__ = [
     'Reconfig',
     'AjentiConfig',
     'CrontabConfig',
+    'CTDBConfig',
     'CTDBNodesConfig',
     'CTDBPublicAddressesConfig',
     'ExportsConfig',
