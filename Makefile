@@ -4,7 +4,7 @@ BUILDIR=$(CURDIR)/debian/reconfigure
 RPMTOPDIR=$(CURDIR)/build
 PROJECT=reconfigure
 DEBPROJECT=python-reconfigure
-VERSION=0.1.3
+VERSION=0.1.4
 PREFIX=/usr
 
 SPHINXOPTS    =
