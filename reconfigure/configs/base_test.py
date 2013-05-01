@@ -10,6 +10,9 @@ class BaseConfigTest (unittest.TestCase):
     stringify_filter = staticmethod(lambda x: x.split())
 
     def test_config(self):
+        if not self.config:
+            return
+
         self.maxDiff = None
 
         config = self.config(content=self.sources[None], **self.config_kwargs)
