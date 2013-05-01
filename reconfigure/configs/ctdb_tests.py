@@ -28,7 +28,7 @@ class CTDBPublicAddressesConfigTest (BaseConfigTest):
 """
     }
     result = {
-        'nodes': [
+        'addresses': [
             {
                 'address': '10.10.1.1',
                 'interface': 'eth0',

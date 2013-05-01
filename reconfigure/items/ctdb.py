@@ -28,6 +28,6 @@ class PublicAddressData (BoundData):
             Node('token', children=[PropertyNode('value', 'eth0')]),
         ])
 
-PublicAddressesData.bind_collection('nodes', item_class=PublicAddressData)
+PublicAddressesData.bind_collection('addresses', item_class=PublicAddressData)
 PublicAddressData.bind_property('value', 'address', path=lambda x: x.children[0])
 PublicAddressData.bind_property('value', 'interface', path=lambda x: x.children[1])
