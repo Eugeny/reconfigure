@@ -64,7 +64,7 @@ CTDB_PUBLIC_GATEWAY="10.0.0.9"
         "public_gateway": "\"10.0.0.9\"",
         "public_network": "\"10.0.0.0/24\"",
         "log_file": "/var/log/log.ctdb",
-        "manages_samba": "yes"
+        "manages_samba": True
     }
 
     config = CTDBConfig
