@@ -13,7 +13,7 @@ class GlobalData (BoundData):
 
 class ShareData (BoundData):
     fields = ['path', 'appledouble', 'valid users', 'cnid scheme', 'ea', 'password']
-    defaults = ['', 'ea', None, 'dbd', 'none', None]
+    defaults = ['', 'ea', '', 'dbd', 'none', '']
 
     def template(self):
         return Node(
