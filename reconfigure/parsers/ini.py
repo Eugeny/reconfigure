@@ -50,14 +50,16 @@ class IniFileParser (BaseParser):
 
         for section in tree.children:
             if self.sectionless and section.name is None:
-                section.name = self.nullsection
+                sectionname = self.nullsection
+            else:
+                sectionname = section.name
             for option in section.children:
                 if not isinstance(option, PropertyNode):
                     raise TypeError('Third level nodes should be PropertyNodes')
-                cp[section.name][option.name] = option.value
+                cp[sectionname][option.name] = option.value
                 if option.comment:
-                    self._set_comment(cp[section.name]._options[option.name], option.comment)
-            self._set_comment(cp[section.name]._lines[0], section.comment)
+                    self._set_comment(cp[sectionname]._options[option.name], option.comment)
+            self._set_comment(cp[sectionname]._lines[0], section.comment)
 
         data = str(cp)
         if self.sectionless:
