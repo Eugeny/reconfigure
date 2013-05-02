@@ -18,7 +18,7 @@ class ShareData (BoundData):
     def template(self):
         return Node(
             'share',
-            *[PropertyNode(x, y) for x, y in zip(ShareData.fields, ShareData.defaults)]
+            *[PropertyNode(x.replace(' ', '_'), y) for x, y in zip(ShareData.fields, ShareData.defaults)]
         )
 
 
