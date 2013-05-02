@@ -31,8 +31,6 @@ GlobalData.bind_property('cnid listen', 'cnid_listen', default='localhost:4700')
 GlobalData.bind_property(
     'zeroconf', 'zeroconf', default=True,
     getter=yn_getter, setter=yn_setter)
-GlobalData.bind_property('log file', 'log_file', default='')
-GlobalData.bind_property('security', 'security', default='user')
 
 ShareData.bind_name('name')
 for f, d in zip(ShareData.fields, ShareData.defaults):
