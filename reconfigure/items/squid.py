@@ -13,17 +13,23 @@ class ACLData (BoundData):
         for arg in args:
             children += [PropertyNode(str(index), arg)]
             index += 1
-        return Node('line',
+        return Node(
+            'line',
             PropertyNode('name', 'acl'),
-            Node('arguments',
+            Node(
+                'arguments',
                 *children
             )
         )
 
+    def describe(self):
+        return ' '.join(x.value for x in self.options)
+
 
 class HTTPAccessData (BoundData):
     def template(self):
-        return Node('line',
+        return Node(
+            'line',
             PropertyNode('name', 'http_access'),
             Node('arguments', PropertyNode('1', ''))
         )
@@ -31,7 +37,8 @@ class HTTPAccessData (BoundData):
 
 class HTTPPortData (BoundData):
     def template(self):
-        return Node('line',
+        return Node(
+            'line',
             PropertyNode('name', 'http_port'),
             Node('arguments', PropertyNode('1', '3128'))
         )
@@ -39,7 +46,8 @@ class HTTPPortData (BoundData):
 
 class HTTPSPortData (BoundData):
     def template(self):
-        return Node('line',
+        return Node(
+            'line',
             PropertyNode('name', 'https_port'),
             Node('arguments', PropertyNode('1', '3128'))
         )
@@ -51,9 +59,11 @@ class ArgumentData (BoundData):
 
 
 def __bind_by_name(cls, prop, name, itemcls):
-    cls.bind_collection(prop,
+    cls.bind_collection(
+        prop,
         selector=lambda x: x.get('name').value == name,
-        item_class=itemcls)
+        item_class=itemcls
+    )
 
 __bind_by_name(SquidData, 'acl', 'acl', ACLData)
 __bind_by_name(SquidData, 'http_access', 'http_access', HTTPAccessData)
@@ -66,8 +76,10 @@ def __bind_first_arg(cls, prop):
 
 
 def __bind_other_args(cls, prop, itemcls):
-    cls.bind_collection(prop, path=lambda x: x.get('arguments'),
-        selector=lambda x: x.parent.children.index(x) > 0, item_class=itemcls)
+    cls.bind_collection(
+        prop, path=lambda x: x.get('arguments'),
+        selector=lambda x: x.parent.children.index(x) > 0, item_class=itemcls
+    )
 
 __bind_first_arg(ACLData, 'name')
 __bind_other_args(ACLData, 'options', ArgumentData)
