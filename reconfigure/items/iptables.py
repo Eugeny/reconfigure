@@ -57,6 +57,7 @@ class OptionData (BoundData):
         'destination-ports': ['destination-ports', ['80,443']],
         'state': ['state', ['NEW']],
         'reject-with': ['reject-with', ['icmp-net-unreachable']],
+        'custom': ['name', ['value']],
     }
 
     @staticmethod

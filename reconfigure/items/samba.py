@@ -12,8 +12,14 @@ class GlobalData (BoundData):
 
 
 class ShareData (BoundData):
-    fields = ['comment', 'path', 'guest ok', 'browseable', 'create mask', 'directory mask', 'read only']
-    defaults = ['', '', 'no', 'yes', '0744', '0755', 'yes']
+    fields = [
+        'comment', 'path', 'guest ok', 'browseable', 'create mask', 'directory mask', 'read only',
+        'follow symlinks', 'wide links',
+    ]
+    defaults = [
+        '', '', 'no', 'yes', '0744', '0755', 'yes',
+        'yes', 'no',
+    ]
 
     def template(self):
         return Node(
@@ -41,7 +47,13 @@ ShareData.bind_property('comment', 'comment', default='')
 ShareData.bind_property('create mask', 'create_mask', default='0744')
 ShareData.bind_property('directory mask', 'directory_mask', default='0755')
 
-for x, y in [('guest ok', False), ('browseable', True), ('read only', True)]:
+for x, y in [
+    ('guest ok', False),
+    ('browseable', True),
+    ('read only', True),
+    ('follow symlinks', True),
+    ('wide links', False),
+]:
     ShareData.bind_property(
         x, x.replace(' ', '_'), default=y,
         getter=yn_getter, setter=yn_setter)
