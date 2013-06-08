@@ -43,9 +43,11 @@ directory mask=0700
                 "browseable": False,
                 "create_mask": "0744",
                 "directory_mask": "0755",
+                'follow_symlinks': True,
                 "read_only": True,
                 "guest_ok": False,
-                "path": ""
+                "path": "",
+                'wide_links': False,
             },
             {
                 "name": "profiles",
@@ -53,9 +55,11 @@ directory mask=0700
                 "browseable": False,
                 "create_mask": "0600",
                 "directory_mask": "0700",
+                'follow_symlinks': True,
                 "read_only": True,
                 "guest_ok": False,
-                "path": "/home/samba/profiles"
+                "path": "/home/samba/profiles",
+                'wide_links': False
             }
         ]
     }

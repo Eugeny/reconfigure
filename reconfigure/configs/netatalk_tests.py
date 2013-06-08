@@ -19,9 +19,7 @@ ea=sys
         "global": {
             "zeroconf": True,
             "cnid_listen": "localhost:4700",
-            "security": "user",
             "afp_port": "123",
-            "log_file": ""
         },
         "shares": [
             {
@@ -31,7 +29,7 @@ ea=sys
                 "valid_users": "root",
                 "cnid_scheme": "dbd",
                 "path": "/home",
-                "password": None
+                "password": '',
             }
         ]
     }
