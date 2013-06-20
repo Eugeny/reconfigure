@@ -59,7 +59,8 @@ class IniFileParser (BaseParser):
                 cp[sectionname][option.name] = option.value
                 if option.comment:
                     self._set_comment(cp[sectionname]._options[option.name], option.comment)
-            self._set_comment(cp[sectionname]._lines[0], section.comment)
+            if hasattr(cp[sectionname], '_lines'):
+                self._set_comment(cp[sectionname]._lines[0], section.comment)
 
         data = str(cp)
         if self.sectionless:
