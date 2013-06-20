@@ -6,13 +6,14 @@ class ExportsConfigTest (BaseConfigTest):
     sources = {
         None: """
 /another/exported/directory 192.168.0.3(rw,sync) \
-192.168.0.4(ro)
+192.168.0.4(ro) # test
 /one 192.168.0.1 # comment
 """
     }
     result = {
         "exports": [
             {
+                "comment": "test",
                 "name": '/another/exported/directory',
                 "clients": [
                     {
@@ -26,6 +27,7 @@ class ExportsConfigTest (BaseConfigTest):
                 ]
             },
             {
+                "comment": "comment",
                 "name": '/one',
                 "clients": [
                     {

@@ -9,7 +9,7 @@ class NetatalkConfigTest (BaseConfigTest):
 afp port=123
 
 [test]
-path=/home
+path=/home ;comment
 valid users=root
 ea=sys
 """
@@ -23,6 +23,7 @@ ea=sys
         },
         "shares": [
             {
+                "comment": "comment",
                 "appledouble": "ea",
                 "name": "test",
                 "ea": "sys",
