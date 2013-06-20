@@ -53,6 +53,7 @@ class IniFileParser (BaseParser):
                 sectionname = self.nullsection
             else:
                 sectionname = section.name
+            cp._new_namespace(sectionname)
             for option in section.children:
                 if not isinstance(option, PropertyNode):
                     raise TypeError('Third level nodes should be PropertyNodes')
