@@ -33,6 +33,9 @@ class IPTablesParser (BaseParser):
                     while tokens:
                         token = tokens.pop(0)
                         option = Node('option')
+                        option.set_property('negative', token == '!')
+                        if token == '!':
+                            token = tokens.pop(0)
                         option.set_property('name', token.strip('-'))
                         while tokens and not tokens[0].startswith('-'):
                             option.append(Node('argument', PropertyNode('value', tokens.pop(0))))
@@ -52,6 +55,7 @@ class IPTablesParser (BaseParser):
                         data += '-A %s %s\n' % (
                             chain.name,
                             ' '.join(
+                                ('! ' if o.get('negative').value else '') +
                                 ('--' if len(o.get('name').value) > 1 else '-') + o.get('name').value + ' ' +
                                 ' '.join(a.get('value').value for a in o.children if a.name == 'argument')
                                 for o in item.children

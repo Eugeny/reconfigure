@@ -90,5 +90,6 @@ ChainData.bind_collection('rules', selector=lambda x: x.name == 'append', item_c
 ChainData.bind_name('name')
 RuleData.bind_collection('options', item_class=OptionData)
 OptionData.bind_property('name', 'name')
+OptionData.bind_property('negative', 'negative')
 OptionData.bind_collection('arguments', selector=lambda x: x.name == 'argument', item_class=ArgumentData)
 ArgumentData.bind_property('value', 'value')

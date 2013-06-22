@@ -8,7 +8,7 @@ class IPTablesConfigTest (BaseConfigTest):
 :INPUT ACCEPT [0:0]
 :FORWARD DROP [0:0]
 :OUTPUT ACCEPT [0:0]
--A INPUT -s 202.54.1.2/32 -j DROP
+-A INPUT ! -s 202.54.1.2/32 -j DROP
 -A INPUT -m state --state NEW,ESTABLISHED -j ACCEPT
 COMMIT
 '''
@@ -28,6 +28,7 @@ COMMIT
                                                 'value': '202.54.1.2/32'
                                             }
                                         ],
+                                        'negative': True,
                                         'name': 's'
                                     },
                                     {
@@ -36,6 +37,7 @@ COMMIT
                                                 'value': 'DROP'
                                             }
                                         ],
+                                        'negative': False,
                                         'name': 'j'
                                     }
                                 ]
@@ -48,6 +50,7 @@ COMMIT
                                                 'value': 'state'
                                             }
                                         ],
+                                        'negative': False,
                                         'name': 'm'
                                     },
                                     {
@@ -56,6 +59,7 @@ COMMIT
                                                 'value': 'NEW,ESTABLISHED'
                                             }
                                         ],
+                                        'negative': False,
                                         'name': 'state'
                                     },
                                     {
@@ -64,6 +68,7 @@ COMMIT
                                                 'value': 'ACCEPT'
                                             }
                                         ],
+                                        'negative': False,
                                         'name': 'j'
                                     }
                                 ]
