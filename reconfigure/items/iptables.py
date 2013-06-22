@@ -13,15 +13,18 @@ class TableData (BoundData):
 
 class ChainData (BoundData):
     def template(self):
-        return Node('CUSTOM',
+        return Node(
+            'CUSTOM',
             PropertyNode('default', '-'),
         )
 
 
 class RuleData (BoundData):
     def template(self):
-        return Node('append',
-            Node('option',
+        return Node(
+            'append',
+            Node(
+                'option',
                 Node('argument', PropertyNode('value', 'ACCEPT')),
                 PropertyNode('name', 'j')
             )
@@ -29,8 +32,8 @@ class RuleData (BoundData):
 
     @property
     def summary(self):
-        return ' '.join(
-            (('-' if len(x.name) == 1 else '--') + x.name + ' ' +
+        return ' '.join((
+            ('-' if len(x.name) == 1 else '--') + x.name + ' ' +
             ' '.join(a.value for a in x.arguments))
             for x in self.options
         )
@@ -63,16 +66,19 @@ class OptionData (BoundData):
     @staticmethod
     def create(template_id):
         t = OptionData.templates[template_id]
-        return OptionData(Node('option',
+        return OptionData(Node(
+            'option',
             *(
                 [Node('argument', PropertyNode('value', x)) for x in t[1]]
+                + [PropertyNode('negative', False)]
                 + [PropertyNode('name', t[0])]
             )
         ))
 
     @staticmethod
     def create_destination():
-        return OptionData(Node('option',
+        return OptionData(Node(
+            'option',
             Node('argument', PropertyNode('value', 'ACCEPT')),
             PropertyNode('name', 'j')
         ))
