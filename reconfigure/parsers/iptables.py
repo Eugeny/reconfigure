@@ -37,7 +37,7 @@ class IPTablesParser (BaseParser):
                         if token == '!':
                             token = tokens.pop(0)
                         option.set_property('name', token.strip('-'))
-                        while tokens and not tokens[0].startswith('-'):
+                        while tokens and not tokens[0].startswith('-') and tokens[0] != '!':
                             option.append(Node('argument', PropertyNode('value', tokens.pop(0))))
                         node.append(option)
 

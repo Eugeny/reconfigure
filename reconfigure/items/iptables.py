@@ -33,10 +33,24 @@ class RuleData (BoundData):
     @property
     def summary(self):
         return ' '.join((
+            ('! ' if x.negative else '') +
             ('-' if len(x.name) == 1 else '--') + x.name + ' ' +
             ' '.join(a.value for a in x.arguments))
             for x in self.options
         )
+
+    def verify(self):
+        protocol_option = None
+        for option in self.options:
+            if option.name in ['p', 'protocol']:
+                self.options.remove(option)
+                self.options.insert(0, option)
+                protocol_option = option
+        for option in self.options:
+            if 'port' in option.name:
+                if not protocol_option:
+                    protocol_option = OptionData.create('protocol')
+                    self.options.insert(0, protocol_option)
 
     def get_option(self, *names):
         for name in names:

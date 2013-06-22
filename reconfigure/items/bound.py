@@ -44,6 +44,9 @@ class BoundCollection (object):
     def __len__(self):
         return len(self.data)
 
+    def __contains__(self, item):
+        return item in self.data
+
     def append(self, item):
         self.node.append(item._node)
         self.data.append(item)
@@ -51,6 +54,10 @@ class BoundCollection (object):
     def remove(self, item):
         self.node.remove(item._node)
         self.data.remove(item)
+
+    def insert(self, index, item):
+        self.node.children.insert(index, item._node)
+        self.data.insert(index, item)
 
     def pop(self, index):
         d = self[index]
