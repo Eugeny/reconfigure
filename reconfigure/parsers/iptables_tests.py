@@ -6,10 +6,10 @@ from reconfigure.nodes import *
 class IPTablesParserTest (BaseParserTest):
     parser = IPTablesParser()
     source = """*filter
-:INPUT ACCEPT [0:0]
+:INPUT ACCEPT [0:0] 
 :FORWARD DROP [0:0]
 :OUTPUT ACCEPT [0:0]
--A INPUT ! -s 202.54.1.2/32 -j DROP
+-A INPUT ! -s 202.54.1.2/32 -j DROP # test
 -A INPUT -m state --state NEW,ESTABLISHED -j ACCEPT
 COMMIT
 """
@@ -28,6 +28,7 @@ COMMIT
                         PropertyNode('negative', False),
                         PropertyNode('name', 'j')
                     ),
+                    comment='test'
                 ),
                 Node('append',
                     Node('option',

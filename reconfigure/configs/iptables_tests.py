@@ -9,7 +9,7 @@ class IPTablesConfigTest (BaseConfigTest):
 :FORWARD DROP [0:0]
 :OUTPUT ACCEPT [0:0]
 -A INPUT ! -s 202.54.1.2/32 -j DROP
--A INPUT -m state --state NEW,ESTABLISHED -j ACCEPT
+-A INPUT -m state --state NEW,ESTABLISHED -j ACCEPT # test
 COMMIT
 '''
     }
@@ -40,7 +40,8 @@ COMMIT
                                         'negative': False,
                                         'name': 'j'
                                     }
-                                ]
+                                ],
+                                'comment': None,
                             },
                             {
                                 'options': [
@@ -71,7 +72,8 @@ COMMIT
                                         'negative': False,
                                         'name': 'j'
                                     }
-                                ]
+                                ],
+                                'comment': 'test',
                             }
                         ],
                         'name': 'INPUT'

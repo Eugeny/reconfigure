@@ -24,10 +24,15 @@ class IPTablesParser (BaseParser):
                 chains[name] = node
                 cur_table.append(node)
             else:
+                comment = None
+                if '#' in l:
+                    l, comment = l.split('#')
+                    comment = comment.strip()
                 tokens = l.split()
                 if tokens[0] == '-A':
                     tokens.pop(0)
                     node = Node('append')
+                    node.comment = comment
                     chain = tokens.pop(0)
                     chains[chain].append(node)
                     while tokens:
@@ -52,7 +57,7 @@ class IPTablesParser (BaseParser):
             for chain in table.children:
                 for item in chain.children:
                     if item.name == 'append':
-                        data += '-A %s %s\n' % (
+                        data += '-A %s %s%s\n' % (
                             chain.name,
                             ' '.join(
                                 ('! ' if o.get('negative').value else '') +
@@ -60,7 +65,8 @@ class IPTablesParser (BaseParser):
                                 ' '.join(a.get('value').value for a in o.children if a.name == 'argument')
                                 for o in item.children
                                 if o.name == 'option'
-                            )
+                            ),
+                            ' # %s' % item.comment if item.comment else ''
                         )
             data += 'COMMIT\n'
         return data
