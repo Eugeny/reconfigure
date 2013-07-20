@@ -11,19 +11,24 @@ sec {
     s1p1 asd;
     s1p2 wqe;
 
-    sec2 {
+    sec2 test {
         s2p1 qwe;
     }
 }
 """
-    parsed = RootNode(None,
+    parsed = RootNode(
+        None,
         PropertyNode('p1', 'asd'),
-        Node('sec',
+        Node(
+            'sec',
             PropertyNode('s1p1', 'asd'),
             PropertyNode('s1p2', 'wqe'),
-            Node('sec2',
+            Node(
+                'sec2',
                 PropertyNode('s2p1', 'qwe'),
-            )
+                parameter='test',
+            ),
+            parameter=None,
         )
     )
 

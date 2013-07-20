@@ -6,6 +6,7 @@ from base import Reconfig
 from ajenti import AjentiConfig
 from crontab import CrontabConfig
 from ctdb import CTDBConfig, CTDBNodesConfig, CTDBPublicAddressesConfig
+from dhcpd import DHCPDConfig
 from exports import ExportsConfig
 from fstab import FSTabConfig
 from group import GroupConfig
@@ -26,6 +27,7 @@ __all__ = [
     'CTDBConfig',
     'CTDBNodesConfig',
     'CTDBPublicAddressesConfig',
+    'DHCPDConfig',
     'ExportsConfig',
     'FSTabConfig',
     'GroupConfig',

@@ -14,9 +14,10 @@ class Node (object):
         self.name = name
         self.origin = None
         self.children = []
-        for node in list(args) + kwargs.get('children', []):
+        for node in list(args) + kwargs.pop('children', []):
             self.append(node)
-        self.comment = kwargs.get('comment', None)
+        self.comment = kwargs.pop('comment', None)
+        self.__dict__.update(kwargs)
 
     def __str__(self):
         s = '(%s)' % self.name

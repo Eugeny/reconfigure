@@ -22,6 +22,7 @@ class NginxParser (BaseParser):
             raise Exception('Invalid tokens: %s' % remainder)
 
         node = RootNode()
+        node.parameter = None
         node_stack = []
 
         while len(tokens) > 0:
@@ -35,7 +36,9 @@ class NginxParser (BaseParser):
                 k, v = token[1].split(None, 1)
                 node.children.append(PropertyNode(k.strip(), v[:-1].strip()))
             if token[0] == 'section_start':
-                section = Node(token[1][:-1].strip())
+                line = token[1][:-1].strip().split(None, 1) + [None]
+                section = Node(line[0])
+                section.parameter = line[1]
                 node_stack += [node]
                 node.children.append(section)
                 node = section
@@ -50,7 +53,7 @@ class NginxParser (BaseParser):
             return '%s %s;\n' % (node.name, node.value)
         if isinstance(node, IncludeNode):
             return 'include %s;\n' % (node.files)
-        result = '\n%s {\n' % node.name
+        result = '\n%s %s {\n' % (node.name, node.parameter or '')
         for child in node.children:
             result += '\n'.join('\t' + x for x in self.stringify_rec(child).splitlines()) + '\n'
         result += '}\n'
