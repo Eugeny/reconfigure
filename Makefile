@@ -67,6 +67,9 @@ upload-rpm: rpm
 	scp dist/*.rpm root@ajenti.org:/srv/repo/ng/centos/6
 	ssh root@ajenti.org /srv/repo/rebuild-centos.sh
 
+upload-tgz: tgz
+	$(PYTHON) setup.py sdist upload
+
 tgz: build
 	rm dist/*.tar.gz || true
 	
