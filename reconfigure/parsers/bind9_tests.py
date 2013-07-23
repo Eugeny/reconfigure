@@ -1,34 +1,48 @@
 from reconfigure.parsers.base_test import BaseParserTest
-from reconfigure.parsers import NginxParser
+from reconfigure.parsers import BIND9Parser
 from reconfigure.nodes import *
 
 
-class NginxParserTest (BaseParserTest):
-    parser = NginxParser()
+class BIND9ParserTest (BaseParserTest):
+    parser = BIND9Parser()
     source = """p1 asd;
 
 sec {
     s1p1 asd;
-    s1p2 wqe;
+    /*s1p2 wqe;*/
 
-    # test
     sec2 test {
         s2p1 qwe;
-    }
-}
+    };
+};
 """
+
+    @property
+    def stringified(self):
+        return """
+  p1 asd;
+
+sec {
+    s1p1 asd;
+
+    # s1p2 wqe;
+    sec2 test {
+        s2p1 qwe;
+    };
+};
+"""
+
     parsed = RootNode(
         None,
         PropertyNode('p1', 'asd'),
         Node(
             'sec',
             PropertyNode('s1p1', 'asd'),
-            PropertyNode('s1p2', 'wqe'),
             Node(
                 'sec2',
                 PropertyNode('s2p1', 'qwe'),
                 parameter='test',
-                comment='test',
+                comment='s1p2 wqe;',
             ),
             parameter=None,
         )

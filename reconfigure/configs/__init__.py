@@ -4,6 +4,7 @@ Configs are ready-to-use objects that link together Parsers, Includers and Build
 
 from base import Reconfig
 from ajenti import AjentiConfig
+from bind9 import BIND9Config
 from crontab import CrontabConfig
 from ctdb import CTDBConfig, CTDBNodesConfig, CTDBPublicAddressesConfig
 from dhcpd import DHCPDConfig
@@ -23,6 +24,7 @@ from supervisor import SupervisorConfig
 __all__ = [
     'Reconfig',
     'AjentiConfig',
+    'BIND9Config',
     'CrontabConfig',
     'CTDBConfig',
     'CTDBNodesConfig',

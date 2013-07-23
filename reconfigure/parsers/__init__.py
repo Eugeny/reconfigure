@@ -1,4 +1,5 @@
 from base import BaseParser
+from bind9 import BIND9Parser
 from exports import ExportsParser
 from ini import IniFileParser
 from iptables import IPTablesParser
@@ -10,6 +11,7 @@ from crontab import CrontabParser
 
 __all__ = [
     'BaseParser',
+    'BIND9Parser',
     'CrontabParser',
     'ExportsParser',
     'IniFileParser',
