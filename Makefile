@@ -84,3 +84,6 @@ clean:
 	rm -rf build/ debian/$(PROJECT)* debian/*stamp* debian/files MANIFEST *.egg-info
 	find . -name '*.pyc' -delete
 
+
+test:
+	nosetests

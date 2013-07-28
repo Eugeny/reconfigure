@@ -1,4 +1,4 @@
-from reconfigure.parsers.base_test import BaseParserTest
+from reconfigure.tests.parsers.base_test import BaseParserTest
 from reconfigure.parsers import ExportsParser
 from reconfigure.nodes import *
 

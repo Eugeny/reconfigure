@@ -1,7 +1,7 @@
 import json
 
 from reconfigure.configs import AjentiConfig
-from reconfigure.configs.base_test import BaseConfigTest
+from base_test import BaseConfigTest
 
 
 class AjentiConfigTest (BaseConfigTest):

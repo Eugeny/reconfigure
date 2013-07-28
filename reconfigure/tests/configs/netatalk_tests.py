@@ -1,5 +1,5 @@
 from reconfigure.configs import NetatalkConfig
-from reconfigure.configs.base_test import BaseConfigTest
+from base_test import BaseConfigTest
 
 
 class NetatalkConfigTest (BaseConfigTest):

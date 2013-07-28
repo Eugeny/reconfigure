@@ -1,6 +1,6 @@
 from reconfigure.parsers import CrontabParser
 from reconfigure.nodes import RootNode, Node, PropertyNode
-from reconfigure.parsers.base_test import BaseParserTest
+from reconfigure.tests.parsers.base_test import BaseParserTest
 
 
 class CrontabParserTest (BaseParserTest):
