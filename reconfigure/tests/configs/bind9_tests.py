@@ -2,7 +2,7 @@ from reconfigure.configs import BIND9Config
 from base_test import BaseConfigTest
 
 
-class DHCPDConfigTest (BaseConfigTest):
+class BIND9ConfigTest (BaseConfigTest):
     sources = {
         None: """
 zone "asd" {

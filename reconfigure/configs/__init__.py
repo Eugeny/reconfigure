@@ -14,6 +14,7 @@ from group import GroupConfig
 from hosts import HostsConfig
 from iptables import IPTablesConfig
 from netatalk import NetatalkConfig
+from nsd import NSDConfig
 from passwd import PasswdConfig
 from resolv import ResolvConfig
 from samba import SambaConfig
@@ -36,6 +37,7 @@ __all__ = [
     'HostsConfig',
     'IPTablesConfig',
     'NetatalkConfig',
+    'NSDConfig',
     'PasswdConfig',
     'ResolvConfig',
     'SambaConfig',

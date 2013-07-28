@@ -86,4 +86,4 @@ clean:
 
 
 test:
-	nosetests
+	nosetests -v
