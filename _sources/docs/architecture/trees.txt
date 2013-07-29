@@ -4,7 +4,7 @@ Trees
 Reconfigure operates with three types of data:
 
 * Raw config text
-* Node tree
+* Syntax tree
 * Data tree
 
 .. _raw-config:
@@ -12,16 +12,16 @@ Reconfigure operates with three types of data:
 Config text 
 ===========
 
-This is a raw content, as read from the config file. It is fed to :ref:`Parsers <parser>` to produce the :ref:`Node trees<node-tree>`.
+This is a raw content, as read from the config file. It is fed to :ref:`Parsers <parser>` to produce the :ref:`Syntax trees<node-tree>`.
 
 .. _node-tree:
 
-Node trees
+Syntax trees
 ==========
 
-Node tree is an object tree built from :class:`reconfigure.nodes.Node` objects, representing the syntax structure of the file. This is very similar to Abstract Syntax Trees.
+Syntax tree is an object tree built from :class:`reconfigure.nodes.Node` objects, representing the syntax structure of the file. This is very similar to Abstract Syntax Trees.
 
-Node trees are produced by :ref:`Parser` classes.
+Syntax trees are produced by :ref:`Parser` classes.
 
 Example::
 
@@ -94,7 +94,7 @@ Parsers work both ways - you can call ``stringify()`` and get the text represent
             "read only": "yes", 
             ...
 
-Node trees might look useful to you, but they are not nearly as cool as :ref:`Data trees <data-tree>`
+Syntax trees might look useful to you, but they are not nearly as cool as :ref:`Data trees <data-tree>`
 
 .. _data-tree:
 

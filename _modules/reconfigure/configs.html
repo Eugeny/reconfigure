@@ -54,28 +54,44 @@
 
 <span class="kn">from</span> <span class="nn">base</span> <span class="kn">import</span> <span class="n">Reconfig</span>
 <span class="kn">from</span> <span class="nn">ajenti</span> <span class="kn">import</span> <span class="n">AjentiConfig</span>
+<span class="kn">from</span> <span class="nn">bind9</span> <span class="kn">import</span> <span class="n">BIND9Config</span>
+<span class="kn">from</span> <span class="nn">crontab</span> <span class="kn">import</span> <span class="n">CrontabConfig</span>
+<span class="kn">from</span> <span class="nn">ctdb</span> <span class="kn">import</span> <span class="n">CTDBConfig</span><span class="p">,</span> <span class="n">CTDBNodesConfig</span><span class="p">,</span> <span class="n">CTDBPublicAddressesConfig</span>
+<span class="kn">from</span> <span class="nn">dhcpd</span> <span class="kn">import</span> <span class="n">DHCPDConfig</span>
+<span class="kn">from</span> <span class="nn">exports</span> <span class="kn">import</span> <span class="n">ExportsConfig</span>
 <span class="kn">from</span> <span class="nn">fstab</span> <span class="kn">import</span> <span class="n">FSTabConfig</span>
 <span class="kn">from</span> <span class="nn">group</span> <span class="kn">import</span> <span class="n">GroupConfig</span>
 <span class="kn">from</span> <span class="nn">hosts</span> <span class="kn">import</span> <span class="n">HostsConfig</span>
 <span class="kn">from</span> <span class="nn">iptables</span> <span class="kn">import</span> <span class="n">IPTablesConfig</span>
-<span class="c">#from nginx import NginxConfig</span>
+<span class="kn">from</span> <span class="nn">netatalk</span> <span class="kn">import</span> <span class="n">NetatalkConfig</span>
+<span class="kn">from</span> <span class="nn">nsd</span> <span class="kn">import</span> <span class="n">NSDConfig</span>
 <span class="kn">from</span> <span class="nn">passwd</span> <span class="kn">import</span> <span class="n">PasswdConfig</span>
 <span class="kn">from</span> <span class="nn">resolv</span> <span class="kn">import</span> <span class="n">ResolvConfig</span>
 <span class="kn">from</span> <span class="nn">samba</span> <span class="kn">import</span> <span class="n">SambaConfig</span>
+<span class="kn">from</span> <span class="nn">squid</span> <span class="kn">import</span> <span class="n">SquidConfig</span>
 <span class="kn">from</span> <span class="nn">supervisor</span> <span class="kn">import</span> <span class="n">SupervisorConfig</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s">&#39;Reconfig&#39;</span><span class="p">,</span>
     <span class="s">&#39;AjentiConfig&#39;</span><span class="p">,</span>
+    <span class="s">&#39;BIND9Config&#39;</span><span class="p">,</span>
+    <span class="s">&#39;CrontabConfig&#39;</span><span class="p">,</span>
+    <span class="s">&#39;CTDBConfig&#39;</span><span class="p">,</span>
+    <span class="s">&#39;CTDBNodesConfig&#39;</span><span class="p">,</span>
+    <span class="s">&#39;CTDBPublicAddressesConfig&#39;</span><span class="p">,</span>
+    <span class="s">&#39;DHCPDConfig&#39;</span><span class="p">,</span>
+    <span class="s">&#39;ExportsConfig&#39;</span><span class="p">,</span>
     <span class="s">&#39;FSTabConfig&#39;</span><span class="p">,</span>
     <span class="s">&#39;GroupConfig&#39;</span><span class="p">,</span>
     <span class="s">&#39;HostsConfig&#39;</span><span class="p">,</span>
     <span class="s">&#39;IPTablesConfig&#39;</span><span class="p">,</span>
-    <span class="c">#&#39;NginxConfig&#39;,</span>
+    <span class="s">&#39;NetatalkConfig&#39;</span><span class="p">,</span>
+    <span class="s">&#39;NSDConfig&#39;</span><span class="p">,</span>
     <span class="s">&#39;PasswdConfig&#39;</span><span class="p">,</span>
     <span class="s">&#39;ResolvConfig&#39;</span><span class="p">,</span>
     <span class="s">&#39;SambaConfig&#39;</span><span class="p">,</span>
+    <span class="s">&#39;SquidConfig&#39;</span><span class="p">,</span>
     <span class="s">&#39;SupervisorConfig&#39;</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>

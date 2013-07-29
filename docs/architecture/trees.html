@@ -60,17 +60,17 @@
 <p>Reconfigure operates with three types of data:</p>
 <ul class="simple">
 <li>Raw config text</li>
-<li>Node tree</li>
+<li>Syntax tree</li>
 <li>Data tree</li>
 </ul>
 <div class="section" id="config-text">
 <span id="raw-config"></span><h2>Config text<a class="headerlink" href="#config-text" title="Permalink to this headline">¶</a></h2>
-<p>This is a raw content, as read from the config file. It is fed to <a class="reference internal" href="components.html#parser"><em>Parsers</em></a> to produce the <a class="reference internal" href="#node-tree"><em>Node trees</em></a>.</p>
+<p>This is a raw content, as read from the config file. It is fed to <a class="reference internal" href="components.html#parser"><em>Parsers</em></a> to produce the <a class="reference internal" href="#node-tree"><em>Syntax trees</em></a>.</p>
 </div>
-<div class="section" id="node-trees">
-<span id="node-tree"></span><h2>Node trees<a class="headerlink" href="#node-trees" title="Permalink to this headline">¶</a></h2>
-<p>Node tree is an object tree built from <a class="reference internal" href="../../ref/reconfigure.nodes.html#reconfigure.nodes.Node" title="reconfigure.nodes.Node"><tt class="xref py py-class docutils literal"><span class="pre">reconfigure.nodes.Node</span></tt></a> objects, representing the syntax structure of the file. This is very similar to Abstract Syntax Trees.</p>
-<p>Node trees are produced by <a class="reference internal" href="components.html#parser"><em>Parsers</em></a> classes.</p>
+<div class="section" id="syntax-trees">
+<span id="node-tree"></span><h2>Syntax trees<a class="headerlink" href="#syntax-trees" title="Permalink to this headline">¶</a></h2>
+<p>Syntax tree is an object tree built from <a class="reference internal" href="../../ref/reconfigure.nodes.html#reconfigure.nodes.Node" title="reconfigure.nodes.Node"><tt class="xref py py-class docutils literal"><span class="pre">reconfigure.nodes.Node</span></tt></a> objects, representing the syntax structure of the file. This is very similar to Abstract Syntax Trees.</p>
+<p>Syntax trees are produced by <a class="reference internal" href="components.html#parser"><em>Parsers</em></a> classes.</p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;/etc/samba/smb.conf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">text</span>
@@ -141,7 +141,7 @@
 <span class="go">        ...</span>
 </pre></div>
 </div>
-<p>Node trees might look useful to you, but they are not nearly as cool as <a class="reference internal" href="#data-tree"><em>Data trees</em></a></p>
+<p>Syntax trees might look useful to you, but they are not nearly as cool as <a class="reference internal" href="#data-tree"><em>Data trees</em></a></p>
 </div>
 <div class="section" id="data-trees">
 <span id="data-tree"></span><h2>Data trees<a class="headerlink" href="#data-trees" title="Permalink to this headline">¶</a></h2>
@@ -251,7 +251,7 @@
   <ul>
 <li><a class="reference internal" href="#">Trees</a><ul>
 <li><a class="reference internal" href="#config-text">Config text</a></li>
-<li><a class="reference internal" href="#node-trees">Node trees</a></li>
+<li><a class="reference internal" href="#syntax-trees">Syntax trees</a></li>
 <li><a class="reference internal" href="#data-trees">Data trees</a></li>
 </ul>
 </li>

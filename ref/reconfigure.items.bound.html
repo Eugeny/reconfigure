@@ -53,7 +53,7 @@
 <span id="reconfigure-items-bound"></span><h1>reconfigure.items.bound<a class="headerlink" href="#module-reconfigure.items.bound" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="reconfigure.items.bound.BoundCollection">
-<em class="property">class </em><tt class="descclassname">reconfigure.items.bound.</tt><tt class="descname">BoundCollection</tt><big>(</big><em>node</em>, <em>item_class</em>, <em>selector=&lt;function &lt;lambda&gt; at 0x27ca578&gt;</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundCollection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundCollection" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">reconfigure.items.bound.</tt><tt class="descname">BoundCollection</tt><big>(</big><em>node</em>, <em>item_class</em>, <em>selector=&lt;function &lt;lambda&gt; at 0x3be9050&gt;</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundCollection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundCollection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Binds a list-like object to a set of nodes</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -74,6 +74,11 @@
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="reconfigure.items.bound.BoundCollection.insert">
+<tt class="descname">insert</tt><big>(</big><em>index</em>, <em>item</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundCollection.insert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundCollection.insert" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="reconfigure.items.bound.BoundCollection.pop">
 <tt class="descname">pop</tt><big>(</big><em>index</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundCollection.pop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundCollection.pop" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -87,11 +92,6 @@
 <dl class="method">
 <dt id="reconfigure.items.bound.BoundCollection.remove">
 <tt class="descname">remove</tt><big>(</big><em>item</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundCollection.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundCollection.remove" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="reconfigure.items.bound.BoundCollection.sort">
-<tt class="descname">sort</tt><big>(</big><em>sorting</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundCollection.sort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundCollection.sort" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -144,7 +144,7 @@
 
 <dl class="classmethod">
 <dt id="reconfigure.items.bound.BoundData.bind_attribute">
-<em class="property">classmethod </em><tt class="descname">bind_attribute</tt><big>(</big><em>node_attribute</em>, <em>data_property</em>, <em>default=None</em>, <em>path=&lt;function &lt;lambda&gt; at 0x2811668&gt;</em>, <em>getter=&lt;function &lt;lambda&gt; at 0x28116e0&gt;</em>, <em>setter=&lt;function &lt;lambda&gt; at 0x2811758&gt;</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundData.bind_attribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundData.bind_attribute" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">bind_attribute</tt><big>(</big><em>node_attribute</em>, <em>data_property</em>, <em>default=None</em>, <em>path=&lt;function &lt;lambda&gt; at 0x3bea1b8&gt;</em>, <em>getter=&lt;function &lt;lambda&gt; at 0x3bea230&gt;</em>, <em>setter=&lt;function &lt;lambda&gt; at 0x3bea2a8&gt;</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundData.bind_attribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundData.bind_attribute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Binds the value of node object&#8217;s attribute to a property</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -166,7 +166,7 @@
 
 <dl class="classmethod">
 <dt id="reconfigure.items.bound.BoundData.bind_child">
-<em class="property">classmethod </em><tt class="descname">bind_child</tt><big>(</big><em>data_property</em>, <em>path=&lt;function &lt;lambda&gt; at 0x2811b18&gt;</em>, <em>item_class=None</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundData.bind_child"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundData.bind_child" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">bind_child</tt><big>(</big><em>data_property</em>, <em>path=&lt;function &lt;lambda&gt; at 0x3bea668&gt;</em>, <em>item_class=None</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundData.bind_child"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundData.bind_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>Directly binds a child Node to a BoundData property</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -185,7 +185,7 @@
 
 <dl class="classmethod">
 <dt id="reconfigure.items.bound.BoundData.bind_collection">
-<em class="property">classmethod </em><tt class="descname">bind_collection</tt><big>(</big><em>data_property</em>, <em>path=&lt;function &lt;lambda&gt; at 0x2811848&gt;</em>, <em>selector=&lt;function &lt;lambda&gt; at 0x28118c0&gt;</em>, <em>item_class=None</em>, <em>collection_class=&lt;class 'reconfigure.items.bound.BoundCollection'&gt;</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundData.bind_collection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundData.bind_collection" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">bind_collection</tt><big>(</big><em>data_property</em>, <em>path=&lt;function &lt;lambda&gt; at 0x3bea398&gt;</em>, <em>selector=&lt;function &lt;lambda&gt; at 0x3bea410&gt;</em>, <em>item_class=None</em>, <em>collection_class=&lt;class 'reconfigure.items.bound.BoundCollection'&gt;</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundData.bind_collection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundData.bind_collection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Binds the subset of node&#8217;s children to a collection property</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -206,7 +206,7 @@
 
 <dl class="classmethod">
 <dt id="reconfigure.items.bound.BoundData.bind_name">
-<em class="property">classmethod </em><tt class="descname">bind_name</tt><big>(</big><em>data_property</em>, <em>getter=&lt;function &lt;lambda&gt; at 0x28119b0&gt;</em>, <em>setter=&lt;function &lt;lambda&gt; at 0x2811a28&gt;</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundData.bind_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundData.bind_name" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">bind_name</tt><big>(</big><em>data_property</em>, <em>getter=&lt;function &lt;lambda&gt; at 0x3bea500&gt;</em>, <em>setter=&lt;function &lt;lambda&gt; at 0x3bea578&gt;</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundData.bind_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundData.bind_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Binds the value of node&#8217;s <tt class="docutils literal"><span class="pre">name</span></tt> attribute to a property</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -225,7 +225,7 @@
 
 <dl class="classmethod">
 <dt id="reconfigure.items.bound.BoundData.bind_property">
-<em class="property">classmethod </em><tt class="descname">bind_property</tt><big>(</big><em>node_property</em>, <em>data_property</em>, <em>default=None</em>, <em>path=&lt;function &lt;lambda&gt; at 0x2811488&gt;</em>, <em>getter=&lt;function &lt;lambda&gt; at 0x2811500&gt;</em>, <em>setter=&lt;function &lt;lambda&gt; at 0x2811578&gt;</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundData.bind_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundData.bind_property" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">bind_property</tt><big>(</big><em>node_property</em>, <em>data_property</em>, <em>default=None</em>, <em>default_remove=</em><span class="optional">[</span><span class="optional">]</span>, <em>path=&lt;function &lt;lambda&gt; at 0x3be9f50&gt;</em>, <em>getter=&lt;function &lt;lambda&gt; at 0x3bea050&gt;</em>, <em>setter=&lt;function &lt;lambda&gt; at 0x3bea0c8&gt;</em><big>)</big><a class="reference internal" href="../_modules/reconfigure/items/bound.html#BoundData.bind_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reconfigure.items.bound.BoundData.bind_property" title="Permalink to this definition">¶</a></dt>
 <dd><p>Binds the value of a child <tt class="xref py py-class docutils literal"><span class="pre">reconfigure.node.PropertyNode</span></tt> to a property</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -235,6 +235,7 @@
 <li><strong>node_property</strong> &#8211; <tt class="docutils literal"><span class="pre">PropertyNode</span></tt>&#8216;s <tt class="docutils literal"><span class="pre">name</span></tt></li>
 <li><strong>data_property</strong> &#8211; property name to be created</li>
 <li><strong>default</strong> &#8211; default value of the property (is <tt class="docutils literal"><span class="pre">PropertyNode</span></tt> doesn&#8217;t exist)</li>
+<li><strong>default_remove</strong> &#8211; if setting a value contained in default_remove, the target property is removed</li>
 <li><strong>path</strong> &#8211; <tt class="docutils literal"><span class="pre">lambda</span> <span class="pre">self.node:</span> <span class="pre">PropertyNode</span></tt>, can be used to point binding to another Node instead of <tt class="docutils literal"><span class="pre">self.node</span></tt>.</li>
 <li><strong>getter</strong> &#8211; <tt class="docutils literal"><span class="pre">lambda</span> <span class="pre">object:</span> <span class="pre">object</span></tt>, used to transform value when getting</li>
 <li><strong>setter</strong> &#8211; <tt class="docutils literal"><span class="pre">lambda</span> <span class="pre">object:</span> <span class="pre">object</span></tt>, used to transform value when setting</li>

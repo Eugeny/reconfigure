@@ -65,13 +65,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">selector</span> <span class="o">=</span> <span class="n">selector</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">item_class</span> <span class="o">=</span> <span class="n">item_class</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sorting</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rebuild</span><span class="p">()</span>
 
-<div class="viewcode-block" id="BoundCollection.sort"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundCollection.sort">[docs]</a>    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sorting</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sorting</span> <span class="o">=</span> <span class="n">sorting</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rebuild</span><span class="p">()</span>
-</div>
 <div class="viewcode-block" id="BoundCollection.rebuild"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundCollection.rebuild">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Discards cached collection and rebuilds it from the nodes</span>
@@ -99,6 +94,9 @@
     <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+
 <div class="viewcode-block" id="BoundCollection.append"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundCollection.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">_node</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
@@ -106,6 +104,10 @@
 <div class="viewcode-block" id="BoundCollection.remove"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundCollection.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">_node</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BoundCollection.insert"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundCollection.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">_node</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="BoundCollection.pop"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundCollection.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
@@ -224,6 +226,7 @@
 </div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="BoundData.bind_property"><a class="viewcode-back" href="../../../ref/reconfigure.items.bound.html#reconfigure.items.bound.BoundData.bind_property">[docs]</a>    <span class="k">def</span> <span class="nf">bind_property</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">node_property</span><span class="p">,</span> <span class="n">data_property</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> \
+            <span class="n">default_remove</span><span class="o">=</span><span class="p">[],</span> \
             <span class="n">path</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">setter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Binds the value of a child :class:`reconfigure.node.PropertyNode` to a property</span>
@@ -231,6 +234,7 @@
 <span class="sd">        :param node_property: ``PropertyNode``&#39;s ``name``</span>
 <span class="sd">        :param data_property: property name to be created</span>
 <span class="sd">        :param default: default value of the property (is ``PropertyNode`` doesn&#39;t exist)</span>
+<span class="sd">        :param default_remove: if setting a value contained in default_remove, the target property is removed</span>
 <span class="sd">        :param path: ``lambda self.node: PropertyNode``, can be used to point binding to another Node instead of ``self.node``.</span>
 <span class="sd">        :param getter: ``lambda object: object``, used to transform value when getting</span>
 <span class="sd">        :param setter: ``lambda object: object``, used to transform value when setting</span>
@@ -243,7 +247,12 @@
                 <span class="k">return</span> <span class="n">default</span>
 
         <span class="k">def</span> <span class="nf">pset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-            <span class="n">path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="p">)</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="n">node_property</span><span class="p">,</span> <span class="n">setter</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">setter</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">default_remove</span><span class="p">:</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="n">path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">node_property</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">node</span><span class="p">:</span>
+                    <span class="n">path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="p">)</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_node</span><span class="p">)</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="n">node_property</span><span class="p">,</span> <span class="n">setter</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
 
         <span class="n">cls</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">data_property</span><span class="p">,</span> <span class="n">pget</span><span class="p">,</span> <span class="n">pset</span><span class="p">)</span>
 </div>

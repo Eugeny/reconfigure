@@ -49,21 +49,29 @@
             
   <h1>Source code for reconfigure.parsers</h1><div class="highlight"><pre>
 <span class="kn">from</span> <span class="nn">base</span> <span class="kn">import</span> <span class="n">BaseParser</span>
+<span class="kn">from</span> <span class="nn">bind9</span> <span class="kn">import</span> <span class="n">BIND9Parser</span>
+<span class="kn">from</span> <span class="nn">exports</span> <span class="kn">import</span> <span class="n">ExportsParser</span>
 <span class="kn">from</span> <span class="nn">ini</span> <span class="kn">import</span> <span class="n">IniFileParser</span>
 <span class="kn">from</span> <span class="nn">iptables</span> <span class="kn">import</span> <span class="n">IPTablesParser</span>
 <span class="kn">from</span> <span class="nn">jsonparser</span> <span class="kn">import</span> <span class="n">JsonParser</span>
 <span class="kn">from</span> <span class="nn">nginx</span> <span class="kn">import</span> <span class="n">NginxParser</span>
+<span class="kn">from</span> <span class="nn">nsd</span> <span class="kn">import</span> <span class="n">NSDParser</span>
 <span class="kn">from</span> <span class="nn">ssv</span> <span class="kn">import</span> <span class="n">SSVParser</span>
+<span class="kn">from</span> <span class="nn">squid</span> <span class="kn">import</span> <span class="n">SquidParser</span>
 <span class="kn">from</span> <span class="nn">crontab</span> <span class="kn">import</span> <span class="n">CrontabParser</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s">&#39;BaseParser&#39;</span><span class="p">,</span>
+    <span class="s">&#39;BIND9Parser&#39;</span><span class="p">,</span>
+    <span class="s">&#39;CrontabParser&#39;</span><span class="p">,</span>
+    <span class="s">&#39;ExportsParser&#39;</span><span class="p">,</span>
     <span class="s">&#39;IniFileParser&#39;</span><span class="p">,</span>
     <span class="s">&#39;IPTablesParser&#39;</span><span class="p">,</span>
     <span class="s">&#39;JsonParser&#39;</span><span class="p">,</span>
     <span class="s">&#39;NginxParser&#39;</span><span class="p">,</span>
+    <span class="s">&#39;NSDParser&#39;</span><span class="p">,</span>
     <span class="s">&#39;SSVParser&#39;</span><span class="p">,</span>
-    <span class="s">&#39;CrontabParser&#39;</span><span class="p">,</span>
+    <span class="s">&#39;SquidParser&#39;</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>
 

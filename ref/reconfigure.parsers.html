@@ -92,6 +92,68 @@
 </dd></dl>
 
 <dl class="class">
+<dt id="reconfigure.parsers.BIND9Parser">
+<em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">BIND9Parser</tt><a class="headerlink" href="#reconfigure.parsers.BIND9Parser" title="Permalink to this definition">¶</a></dt>
+<dd><p>A parser for named.conf</p>
+<dl class="attribute">
+<dt id="reconfigure.parsers.BIND9Parser.token_section_end">
+<tt class="descname">token_section_end</tt><em class="property"> = '};'</em><a class="headerlink" href="#reconfigure.parsers.BIND9Parser.token_section_end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="reconfigure.parsers.BIND9Parser.tokens">
+<tt class="descname">tokens</tt><em class="property"> = [('[\\w_]+\\s*?.*?{', &lt;function &lt;lambda&gt; at 0x3b6f050&gt;), ('[\\w_]+?.+?;', &lt;function &lt;lambda&gt; at 0x3b6f0c8&gt;), ('\\s', &lt;function &lt;lambda&gt; at 0x3b6f140&gt;), ('$^', &lt;function &lt;lambda&gt; at 0x3b6f1b8&gt;), ('\\#.*?\\n', &lt;function &lt;lambda&gt; at 0x3b6f230&gt;), ('//.*?\\n', &lt;function &lt;lambda&gt; at 0x3b6f2a8&gt;), ('/\\*.*?\\*/', &lt;function &lt;lambda&gt; at 0x3b6f320&gt;), ('\\};', &lt;function &lt;lambda&gt; at 0x3b6f398&gt;)]</em><a class="headerlink" href="#reconfigure.parsers.BIND9Parser.tokens" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.parsers.CrontabParser">
+<em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">CrontabParser</tt><big>(</big><em>remove_comments=False</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="reconfigure.parsers.CrontabParser.parse">
+<tt class="descname">parse</tt><big>(</big><em>content</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.parse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.CrontabParser.stringify">
+<tt class="descname">stringify</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.stringify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.CrontabParser.stringify_env_setting">
+<tt class="descname">stringify_env_setting</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.stringify_env_setting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.CrontabParser.stringify_normal_task">
+<tt class="descname">stringify_normal_task</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.stringify_normal_task" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.CrontabParser.stringify_special_task">
+<tt class="descname">stringify_special_task</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.stringify_special_task" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.parsers.ExportsParser">
+<em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">ExportsParser</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.ExportsParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>A parser for NFS&#8217; /etc/exports</p>
+<dl class="method">
+<dt id="reconfigure.parsers.ExportsParser.parse">
+<tt class="descname">parse</tt><big>(</big><em>content</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.ExportsParser.parse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.ExportsParser.stringify">
+<tt class="descname">stringify</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.ExportsParser.stringify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="reconfigure.parsers.IniFileParser">
 <em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">IniFileParser</tt><big>(</big><em>sectionless=False</em>, <em>nullsection='__default__'</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.IniFileParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>A parser for standard <tt class="docutils literal"><span class="pre">.ini</span></tt> config files.</p>
@@ -176,11 +238,47 @@
 <tt class="descname">stringify_rec</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.NginxParser.stringify_rec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="reconfigure.parsers.NginxParser.token_comment">
+<tt class="descname">token_comment</tt><em class="property"> = '#'</em><a class="headerlink" href="#reconfigure.parsers.NginxParser.token_comment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="reconfigure.parsers.NginxParser.token_section_end">
+<tt class="descname">token_section_end</tt><em class="property"> = '}'</em><a class="headerlink" href="#reconfigure.parsers.NginxParser.token_section_end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="reconfigure.parsers.NginxParser.tokens">
+<tt class="descname">tokens</tt><em class="property"> = [('[\\w_]+?.+?;', &lt;function &lt;lambda&gt; at 0x3a9eb90&gt;), ('\\s', &lt;function &lt;lambda&gt; at 0x3a9ec08&gt;), ('$^', &lt;function &lt;lambda&gt; at 0x3a9ec80&gt;), ('\\#.*?\\n', &lt;function &lt;lambda&gt; at 0x3a9ecf8&gt;), ('[\\w_]+\\s*?.*?{', &lt;function &lt;lambda&gt; at 0x3a9ed70&gt;), ('\\}', &lt;function &lt;lambda&gt; at 0x3a9ede8&gt;)]</em><a class="headerlink" href="#reconfigure.parsers.NginxParser.tokens" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="reconfigure.parsers.NSDParser">
+<em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">NSDParser</tt><a class="headerlink" href="#reconfigure.parsers.NSDParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>A parser for NSD DNS server nsd.conf file</p>
+<dl class="method">
+<dt id="reconfigure.parsers.NSDParser.parse">
+<tt class="descname">parse</tt><big>(</big><em>content</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.NSDParser.parse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.NSDParser.stringify">
+<tt class="descname">stringify</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.NSDParser.stringify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="reconfigure.parsers.NSDParser.stringify_comment">
+<tt class="descname">stringify_comment</tt><big>(</big><em>line</em>, <em>comment</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.NSDParser.stringify_comment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="reconfigure.parsers.SSVParser">
-<em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">SSVParser</tt><big>(</big><em>separator=None</em>, <em>maxsplit=-1</em>, <em>comment='#'</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.SSVParser" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">SSVParser</tt><big>(</big><em>separator=None</em>, <em>maxsplit=-1</em>, <em>comment='#'</em>, <em>continuation=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.SSVParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>A parser for files containing space-separated value (notably, <tt class="docutils literal"><span class="pre">/etc/fstab</span></tt> and friends)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -190,6 +288,7 @@
 <li><strong>separator</strong> &#8211; separator character, defaults to whitespace</li>
 <li><strong>maxsplit</strong> &#8211; max number of tokens per line, defaults to infinity</li>
 <li><strong>comment</strong> &#8211; character denoting comments</li>
+<li><strong>continuation</strong> &#8211; line continuation character, None to disable</li>
 </ul>
 </td>
 </tr>
@@ -208,36 +307,17 @@
 </dd></dl>
 
 <dl class="class">
-<dt id="reconfigure.parsers.CrontabParser">
-<em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">CrontabParser</tt><big>(</big><em>remove_comments=False</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="reconfigure.parsers.CrontabParser.parse">
-<tt class="descname">parse</tt><big>(</big><em>content</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.parse" title="Permalink to this definition">¶</a></dt>
+<dt id="reconfigure.parsers.SquidParser">
+<em class="property">class </em><tt class="descclassname">reconfigure.parsers.</tt><tt class="descname">SquidParser</tt><a class="headerlink" href="#reconfigure.parsers.SquidParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>A parser for Squid configs</p>
+<dl class="method">
+<dt id="reconfigure.parsers.SquidParser.parse">
+<tt class="descname">parse</tt><big>(</big><em>content</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.SquidParser.parse" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="reconfigure.parsers.CrontabParser.stringify">
-<tt class="descname">stringify</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.stringify" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="reconfigure.parsers.CrontabParser.stringify_comment">
-<tt class="descname">stringify_comment</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.stringify_comment" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="reconfigure.parsers.CrontabParser.stringify_env_setting">
-<tt class="descname">stringify_env_setting</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.stringify_env_setting" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="reconfigure.parsers.CrontabParser.stringify_normal_task">
-<tt class="descname">stringify_normal_task</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.stringify_normal_task" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="reconfigure.parsers.CrontabParser.stringify_special_task">
-<tt class="descname">stringify_special_task</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.CrontabParser.stringify_special_task" title="Permalink to this definition">¶</a></dt>
+<dt id="reconfigure.parsers.SquidParser.stringify">
+<tt class="descname">stringify</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#reconfigure.parsers.SquidParser.stringify" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
