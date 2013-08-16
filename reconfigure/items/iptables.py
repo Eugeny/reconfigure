@@ -26,7 +26,8 @@ class RuleData (BoundData):
             Node(
                 'option',
                 Node('argument', PropertyNode('value', 'ACCEPT')),
-                PropertyNode('name', 'j')
+                PropertyNode('negative', False),
+                PropertyNode('name', 'j'),
             )
         )
 
@@ -79,6 +80,7 @@ class OptionData (BoundData):
 
     @staticmethod
     def create(template_id):
+        print 'new'
         t = OptionData.templates[template_id]
         return OptionData(Node(
             'option',
@@ -91,10 +93,12 @@ class OptionData (BoundData):
 
     @staticmethod
     def create_destination():
+        print 'new'
         return OptionData(Node(
             'option',
             Node('argument', PropertyNode('value', 'ACCEPT')),
-            PropertyNode('name', 'j')
+            PropertyNode('negative', False),
+            PropertyNode('name', 'j'),
         ))
 
 
