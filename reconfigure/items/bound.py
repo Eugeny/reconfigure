@@ -84,17 +84,21 @@ class BoundDictionary (BoundCollection):
         return dict((k, x.to_dict() if hasattr(x, 'to_dict') else x) for k, x in self.iteritems())
 
     def __getitem__(self, key):
+        self.rebuild()
         return self.datadict[key]
 
     def __setitem__(self, key, value):
+        self.rebuild()
         if not key in self:
             self.append(value)
         self.datadict[key] = value
 
     def __contains__(self, key):
+        self.rebuild()
         return key in self.datadict
 
     def __iter__(self):
+        self.rebuild()
         return self.datadict.__iter__()
 
     def iteritems(self):
