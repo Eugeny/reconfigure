@@ -38,10 +38,13 @@ class IniFileParser (BaseParser):
                 name = None
             section_node = Node(name)
             section_node.comment = self._get_comment(cp[section]._lines[0])
+            print section, list(cp[section]), list(cp[section]._options)
             for option in cp[section]:
-                node = PropertyNode(option, cp[section][option])
-                node.comment = self._get_comment(cp[section]._options[option])
-                section_node.children.append(node)
+                if option in cp[section]._options:
+                    node = PropertyNode(option, cp[section][option])
+                    #print section, option, cp[section]._options
+                    node.comment = self._get_comment(cp[section]._options[option])
+                    section_node.children.append(node)
             root.children.append(section_node)
         return root
 
