@@ -4,7 +4,7 @@ BUILDIR=$(CURDIR)/debian/reconfigure
 RPMTOPDIR=$(CURDIR)/build
 PROJECT=reconfigure
 DEBPROJECT=python-reconfigure
-VERSION=0.1.23
+VERSION=`python -c "from reconfigure import __version__; print __version__"`
 PREFIX=/usr
 
 SPHINXOPTS    =
@@ -72,9 +72,6 @@ upload-tgz: tgz
 
 tgz: build
 	rm dist/*.tar.gz || true
-	
-	cat setup.py.in | sed s/__VERSION__/$(VERSION)/g > setup.py
-	
 	$(PYTHON) setup.py sdist 
 
 

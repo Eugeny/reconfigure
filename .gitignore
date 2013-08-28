@@ -17,5 +17,4 @@ debian/*stamp*
 docs/build
 
 nosetests*
-setup.py
 .idea

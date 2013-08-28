@@ -3,9 +3,11 @@
 from distutils.core import setup
 from setuptools import find_packages
 
+from reconfigure import __version__
+
 setup(
     name='reconfigure',
-    version='__VERSION__',
+    version=__version__,
     install_requires=[
     ],
     description='An ORM for config files',
