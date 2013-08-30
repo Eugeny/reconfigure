@@ -6,6 +6,7 @@
 .coverage
 
 debian/python-reconfigure*
+debian/changelog
 dist/*.rpm
 dist/*.deb
 dist/*.gz

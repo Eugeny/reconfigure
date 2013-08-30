@@ -1,3 +1,6 @@
+import sys
+
+
 class Reconfig (object):
     """
     Basic config class. Derivatives normally only need to override the constructor.
@@ -31,6 +34,13 @@ class Reconfig (object):
         """
         if self.origin:
             self.content = open(self.origin, 'r').read()
+            try:
+                self.content = self.content.decode('utf8')
+                self.encoding = 'utf8'
+            except UnicodeDecodeError:
+                self.encoding = sys.getdefaultencoding()
+                self.content = self.content.decode(self.encoding)
+
         self.nodetree = self.parser.parse(self.content)
         if self.includer is not None:
             self.nodetree = self.includer.compose(self.origin, self.nodetree)
@@ -52,7 +62,7 @@ class Reconfig (object):
 
         result = {}
         for k in nodetree:
-            result[k or self.origin] = self.parser.stringify(nodetree[k])
+            result[k or self.origin] = self.parser.stringify(nodetree[k]).encode(self.encoding)
 
         if self.origin is not None:
             for k in result:
