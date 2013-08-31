@@ -78,27 +78,30 @@ class BoundDictionary (BoundCollection):
 
     def rebuild(self):
         BoundCollection.rebuild(self)
+        self.rebuild_dict()
+
+    def rebuild_dict(self):
         self.datadict = dict((self.key(x), x) for x in self.data)
 
     def to_dict(self):
         return dict((k, x.to_dict() if hasattr(x, 'to_dict') else x) for k, x in self.iteritems())
 
     def __getitem__(self, key):
-        self.rebuild()
+        self.rebuild_dict()
         return self.datadict[key]
 
     def __setitem__(self, key, value):
-        self.rebuild()
+        self.rebuild_dict()
         if not key in self:
             self.append(value)
         self.datadict[key] = value
 
     def __contains__(self, key):
-        self.rebuild()
+        self.rebuild_dict()
         return key in self.datadict
 
     def __iter__(self):
-        self.rebuild()
+        self.rebuild_dict()
         return self.datadict.__iter__()
 
     def iteritems(self):
