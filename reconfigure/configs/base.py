@@ -1,4 +1,4 @@
-import sys
+import chardet
 
 
 class Reconfig (object):
@@ -38,7 +38,7 @@ class Reconfig (object):
                 self.content = self.content.decode('utf8')
                 self.encoding = 'utf8'
             except UnicodeDecodeError:
-                self.encoding = sys.getdefaultencoding()
+                self.encoding = chardet.detect(self.content)['encoding']
                 self.content = self.content.decode(self.encoding)
 
         self.nodetree = self.parser.parse(self.content)
