@@ -34,12 +34,13 @@ class Reconfig (object):
         """
         if self.origin:
             self.content = open(self.origin, 'r').read()
-            try:
-                self.content = self.content.decode('utf8')
-                self.encoding = 'utf8'
-            except UnicodeDecodeError:
-                self.encoding = chardet.detect(self.content)['encoding']
-                self.content = self.content.decode(self.encoding)
+
+        try:
+            self.content = self.content.decode('utf8')
+            self.encoding = 'utf8'
+        except UnicodeDecodeError:
+            self.encoding = chardet.detect(self.content)['encoding']
+            self.content = self.content.decode(self.encoding)
 
         self.nodetree = self.parser.parse(self.content)
         if self.includer is not None:
