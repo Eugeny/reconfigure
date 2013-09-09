@@ -1,6 +1,5 @@
 from reconfigure.nodes import *
 from reconfigure.parsers.nginx import NginxParser
-import re
 
 
 class BIND9Parser (NginxParser):
@@ -10,7 +9,7 @@ class BIND9Parser (NginxParser):
 
     tokens = [
         (r"[\w_]+\s*?.*?{", lambda s, t: ('section_start', t)),
-        (r"[\w_]+?.+?;", lambda s, t: ('option', t)),
+        (r"[\w\d_:]+?.*?;", lambda s, t: ('option', t)),
         (r"\s", lambda s, t: 'whitespace'),
         (r"$^", lambda s, t: 'newline'),
         (r"\#.*?\n", lambda s, t: ('comment', t)),

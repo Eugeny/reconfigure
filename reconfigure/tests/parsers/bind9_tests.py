@@ -12,6 +12,7 @@ sec {
     /*s1p2 wqe;*/
 
     sec2 test {
+        ::1;
         s2p1 qwe;
     };
 };
@@ -27,6 +28,7 @@ sec {
 
     # s1p2 wqe;
     sec2 test {
+        ::1;
         s2p1 qwe;
     };
 };
@@ -40,6 +42,7 @@ sec {
             PropertyNode('s1p1', 'asd'),
             Node(
                 'sec2',
+                PropertyNode('', '::1'),
                 PropertyNode('s2p1', 'qwe'),
                 parameter='test',
                 comment='s1p2 wqe;',

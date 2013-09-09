@@ -47,8 +47,8 @@ class NginxParser (BaseParser):
                 if ' ' in token[1]:
                     k, v = token[1].split(None, 1)
                 else:
-                    k = token[1][:-1]
-                    v = ''
+                    v = token[1]
+                    k = ''
                 prop = PropertyNode(k.strip(), v[:-1].strip())
                 prop.comment = next_comment
                 next_comment = None
@@ -70,10 +70,10 @@ class NginxParser (BaseParser):
 
     def stringify_rec(self, node):
         if isinstance(node, PropertyNode):
-            if node.value:
+            if node.name:
                 s = '%s %s;\n' % (node.name, node.value)
             else:
-                s = '%s;\n' % (node.name)
+                s = '%s;\n' % (node.value)
         elif isinstance(node, IncludeNode):
             s = 'include %s;\n' % (node.files)
         else:
