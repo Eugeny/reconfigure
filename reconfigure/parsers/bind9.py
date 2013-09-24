@@ -9,7 +9,8 @@ class BIND9Parser (NginxParser):
 
     tokens = [
         (r"[\w_]+\s*?.*?{", lambda s, t: ('section_start', t)),
-        (r"[\w\d_:]+?.*?;", lambda s, t: ('option', t)),
+        (r"[\w\d_:.]+?.*?;", lambda s, t: ('option', t)),
+        (r"\".*?\"\s*;", lambda s, t: ('option', t)),
         (r"\s", lambda s, t: 'whitespace'),
         (r"$^", lambda s, t: 'newline'),
         (r"\#.*?\n", lambda s, t: ('comment', t)),

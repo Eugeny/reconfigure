@@ -44,7 +44,7 @@ class NginxParser (BaseParser):
                     next_comment += '\n'
                 next_comment += token[1].strip('#/*').strip()
             if token[0] == 'option':
-                if ' ' in token[1]:
+                if ' ' in token[1] and not token[1][0] in ['"', "'"]:
                     k, v = token[1].split(None, 1)
                 else:
                     v = token[1]
