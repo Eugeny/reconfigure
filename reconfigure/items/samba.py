@@ -14,11 +14,15 @@ class GlobalData (BoundData):
 class ShareData (BoundData):
     fields = [
         'comment', 'path', 'guest ok', 'browseable', 'create mask', 'directory mask', 'read only',
-        'follow symlinks', 'wide links',
+        'follow symlinks', 'wide links', 'fstype',
     ]
     defaults = [
         '', '', 'no', 'yes', '0744', '0755', 'yes',
-        'yes', 'no',
+        'yes', 'no', 'NTFS',
+    ]
+    default_values = [
+        '', '', False, True, '0744', '0755', True,
+        True, False, '',
     ]
 
     def template(self):
@@ -42,18 +46,10 @@ GlobalData.bind_property('log file', 'log_file', default='')
 GlobalData.bind_property('security', 'security', default='user')
 
 ShareData.bind_name('name')
-ShareData.bind_property('path', 'path', default='')
-ShareData.bind_property('comment', 'comment', default='')
-ShareData.bind_property('create mask', 'create_mask', default='0744')
-ShareData.bind_property('directory mask', 'directory_mask', default='0755')
-
-for x, y in [
-    ('guest ok', False),
-    ('browseable', True),
-    ('read only', True),
-    ('follow symlinks', True),
-    ('wide links', False),
-]:
-    ShareData.bind_property(
-        x, x.replace(' ', '_'), default=y,
-        getter=yn_getter, setter=yn_setter)
+for f, d in zip(ShareData.fields, ShareData.default_values):
+    if d not in [True, False]:
+        ShareData.bind_property(f, f.replace(' ', '_'), default=d)
+    else:
+        ShareData.bind_property(
+            f, f.replace(' ', '_'), default=d,
+            getter=yn_getter, setter=yn_setter)

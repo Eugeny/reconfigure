@@ -48,6 +48,7 @@ directory mask=0700
                 "guest_ok": False,
                 "path": "",
                 'wide_links': False,
+                "fstype": "",
             },
             {
                 "name": "profiles",
@@ -59,7 +60,8 @@ directory mask=0700
                 "read_only": True,
                 "guest_ok": False,
                 "path": "/home/samba/profiles",
-                'wide_links': False
+                'wide_links': False,
+                "fstype": "",
             }
         ]
     }
