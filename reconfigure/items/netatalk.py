@@ -28,6 +28,7 @@ NetatalkData.bind_collection('shares', selector=lambda x: x.name != 'Global', it
 
 GlobalData.bind_property('afp port', 'afp_port', default='548')
 GlobalData.bind_property('cnid listen', 'cnid_listen', default='localhost:4700')
+GlobalData.bind_property('uam list', 'uam_list', default='uams_dhx.so,uams_dhx2.so')
 GlobalData.bind_property(
     'zeroconf', 'zeroconf', default=True,
     getter=yn_getter, setter=yn_setter)
