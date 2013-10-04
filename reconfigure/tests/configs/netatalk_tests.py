@@ -19,6 +19,7 @@ ea=sys
         "global": {
             "zeroconf": True,
             "cnid_listen": "localhost:4700",
+            "uam_list": 'uams_dhx.so,uams_dhx2.so',
             "afp_port": "123",
         },
         "shares": [
