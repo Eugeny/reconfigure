@@ -14,7 +14,7 @@ class FilesystemData (BoundData):
             Node('token', children=[PropertyNode('value', 'none')]),
             Node('token', children=[PropertyNode('value', 'none')]),
             Node('token', children=[PropertyNode('value', 'auto')]),
-            Node('token', children=[PropertyNode('value', 'none')]),
+            Node('token', children=[PropertyNode('value', 'defaults,rw')]),
             Node('token', children=[PropertyNode('value', '0')]),
             Node('token', children=[PropertyNode('value', '0')]),
         ])
