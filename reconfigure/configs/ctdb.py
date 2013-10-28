@@ -37,7 +37,7 @@ class CTDBPublicAddressesConfig (Reconfig):
     """
     def __init__(self, **kwargs):
         k = {
-            'parser': SSVParser(),
+            'parser': SSVParser(separator=' '),
             'builder': BoundBuilder(PublicAddressesData),
         }
         k.update(kwargs)

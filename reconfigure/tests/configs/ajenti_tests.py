@@ -12,6 +12,7 @@ class AjentiConfigTest (BaseConfigTest):
         "host": "0.0.0.0",
         "port": 8000
     },
+    "language": null,
     "enable_feedback": true,
     "installation_id": null,
     "users": {
@@ -34,6 +35,7 @@ class AjentiConfigTest (BaseConfigTest):
         'authentication': False,
         'enable_feedback': True,
         'installation_id': None,
+        'language': None,
         'http_binding': {'host': '0.0.0.0', 'port': 8000},
         'ssl': {'certificate_path': '', 'enable': False},
         'users': {'test': {
