@@ -49,6 +49,10 @@ directory mask=0700
                 "path": "",
                 'wide_links': False,
                 "fstype": "",
+                "force_create_mode": "000", 
+                "force_directory_mode": "000",
+                "veto_files": "", 
+                "write_list": "", 
             },
             {
                 "name": "profiles",
@@ -62,6 +66,10 @@ directory mask=0700
                 "path": "/home/samba/profiles",
                 'wide_links': False,
                 "fstype": "",
+                "force_create_mode": "000", 
+                "force_directory_mode": "000",
+                "veto_files": "", 
+                "write_list": "", 
             }
         ]
     }
