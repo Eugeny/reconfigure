@@ -105,6 +105,7 @@ class BoundDictionary (BoundCollection):
         return self.datadict.__iter__()
 
     def iteritems(self):
+        self.rebuild_dict()
         return self.datadict.iteritems()
 
     def setdefault(self, k, v):
@@ -114,6 +115,7 @@ class BoundDictionary (BoundCollection):
         return self[k]
 
     def values(self):
+        self.rebuild_dict()
         return self.data
 
     def update(self, other):
