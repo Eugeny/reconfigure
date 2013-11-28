@@ -8,9 +8,11 @@ Reconfigure - Python object mapping for config files
 
 .. image:: https://sourcegraph.com/api/repos/github.com/Eugeny/reconfigure/badges/status.png
 
-------------
-Quickstart::
-------------
+----------
+Quickstart
+----------
+
+::
 
     >>> from reconfigure.configs import FSTabConfig 
     >>> from reconfigure.items.fstab import FilesystemData
