@@ -12,7 +12,10 @@ Links:
 * `Source at GitHub <http://github.com/Eugeny/reconfigure>`_
 * Questions? `Email me <mailto:e@ajeni.org>`_
 * `PyPI <http://pypi.python.org/pypi?:action=display&name=reconfigure>`_
-* `CI <http://ajenti.org:9090/job/reconfigure/>`_
+
+`Browse API on SourceGraph <https://sourcegraph.com/github.com/Eugeny/reconfigure/tree>`_
+.. image:: https://sourcegraph.com/api/repos/github.com/Eugeny/reconfigure/badges/funcs.png
+.. image:: https://sourcegraph.com/api/repos/github.com/Eugeny/reconfigure/badges/status.png
 
 Contents:
 ---------
