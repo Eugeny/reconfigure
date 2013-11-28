@@ -14,6 +14,7 @@ Links:
 * `PyPI <http://pypi.python.org/pypi?:action=display&name=reconfigure>`_
 
 `Browse API on SourceGraph <https://sourcegraph.com/github.com/Eugeny/reconfigure/tree>`_
+
 .. image:: https://sourcegraph.com/api/repos/github.com/Eugeny/reconfigure/badges/funcs.png
 .. image:: https://sourcegraph.com/api/repos/github.com/Eugeny/reconfigure/badges/status.png
 
