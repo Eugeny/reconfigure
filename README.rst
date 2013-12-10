@@ -2,6 +2,8 @@
 Reconfigure - Python object mapping for config files
 ====================================================
 
+.. image https://travis-ci.org/Eugeny/reconfigure.png
+
 `Browse API on SourceGraph <https://sourcegraph.com/github.com/Eugeny/reconfigure/tree>`_
 
 ----------
