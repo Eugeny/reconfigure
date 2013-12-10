@@ -1,5 +1,5 @@
 from reconfigure.configs import CrontabConfig
-from base_test import BaseConfigTest
+from reconfigure.tests.configs.base_test import BaseConfigTest
 
 
 class CrontabConfigTest (BaseConfigTest):

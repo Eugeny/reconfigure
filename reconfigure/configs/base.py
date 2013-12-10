@@ -35,12 +35,13 @@ class Reconfig (object):
         if self.origin:
             self.content = open(self.origin, 'r').read()
 
-        try:
-            self.content = self.content.decode('utf8')
-            self.encoding = 'utf8'
-        except UnicodeDecodeError:
-            self.encoding = chardet.detect(self.content)['encoding']
-            self.content = self.content.decode(self.encoding)
+        self.encoding = 'utf8'
+        if hasattr(self.content, 'decode'):  # str (2) or bytes (3)
+            try:
+                self.content = self.content.decode('utf8')
+            except (UnicodeDecodeError, AttributeError):
+                self.encoding = chardet.detect(self.content)['encoding']
+                self.content = self.content.decode(self.encoding)
 
         self.nodetree = self.parser.parse(self.content)
         if self.includer is not None:
@@ -63,7 +64,10 @@ class Reconfig (object):
 
         result = {}
         for k in nodetree:
-            result[k or self.origin] = self.parser.stringify(nodetree[k]).encode(self.encoding)
+            v = self.parser.stringify(nodetree[k])
+            if self.encoding != 'utf8':
+                v = v.encode(self.encoding)
+            result[k or self.origin] = v
 
         if self.origin is not None:
             for k in result:

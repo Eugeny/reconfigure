@@ -1,7 +1,7 @@
 import json
 
 from reconfigure.configs import AjentiConfig
-from base_test import BaseConfigTest
+from reconfigure.tests.configs.base_test import BaseConfigTest
 
 
 class AjentiConfigTest (BaseConfigTest):
@@ -48,7 +48,7 @@ class AjentiConfigTest (BaseConfigTest):
 
     config = AjentiConfig
 
-    stringify_filter = staticmethod(json.loads)
+    stringify_filter = staticmethod(lambda x: json.loads(str(x)))
 
 
 del BaseConfigTest

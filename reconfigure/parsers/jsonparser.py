@@ -14,7 +14,7 @@ class JsonParser (BaseParser):
         return node
 
     def load_node_rec(self, node, json):
-        for k, v in json.iteritems():
+        for k, v in json.items():
             if isinstance(v, dict):
                 child = Node(k)
                 node.children.append(child)

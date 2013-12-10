@@ -126,7 +126,7 @@ class Node (object):
         Creates or replaces a child :class:`PropertyNode` by name.
         """
         node = self.get(name)
-        if not node:
+        if node is None:
             node = PropertyNode(name, value)
             self.append(node)
         node.value = value
@@ -159,6 +159,9 @@ class PropertyNode (Node):
         return \
             Node.__eq__(self, other) and \
             self.value == other.value
+
+    def __hash__(self):
+        return Node.__hash__(self) + hash(self.value)
 
     def __str__(self):
         s = '%s = %s' % (self.name, self.value)

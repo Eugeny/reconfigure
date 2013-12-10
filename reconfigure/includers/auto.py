@@ -1,4 +1,4 @@
-from base import BaseIncluder
+from reconfigure.includers.base import BaseIncluder
 from reconfigure.nodes import *
 import glob
 import os

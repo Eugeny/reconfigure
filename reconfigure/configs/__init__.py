@@ -2,24 +2,24 @@
 Configs are ready-to-use objects that link together Parsers, Includers and Builders to provide direct conversion between config files and Data tree.
 """
 
-from base import Reconfig
-from ajenti import AjentiConfig
-from bind9 import BIND9Config
-from crontab import CrontabConfig
-from ctdb import CTDBConfig, CTDBNodesConfig, CTDBPublicAddressesConfig
-from dhcpd import DHCPDConfig
-from exports import ExportsConfig
-from fstab import FSTabConfig
-from group import GroupConfig
-from hosts import HostsConfig
-from iptables import IPTablesConfig
-from netatalk import NetatalkConfig
-from nsd import NSDConfig
-from passwd import PasswdConfig
-from resolv import ResolvConfig
-from samba import SambaConfig
-from squid import SquidConfig
-from supervisor import SupervisorConfig
+from reconfigure.configs.base import Reconfig
+from reconfigure.configs.ajenti import AjentiConfig
+from reconfigure.configs.bind9 import BIND9Config
+from reconfigure.configs.crontab import CrontabConfig
+from reconfigure.configs.ctdb import CTDBConfig, CTDBNodesConfig, CTDBPublicAddressesConfig
+from reconfigure.configs.dhcpd import DHCPDConfig
+from reconfigure.configs.exports import ExportsConfig
+from reconfigure.configs.fstab import FSTabConfig
+from reconfigure.configs.group import GroupConfig
+from reconfigure.configs.hosts import HostsConfig
+from reconfigure.configs.iptables import IPTablesConfig
+from reconfigure.configs.netatalk import NetatalkConfig
+from reconfigure.configs.nsd import NSDConfig
+from reconfigure.configs.passwd import PasswdConfig
+from reconfigure.configs.resolv import ResolvConfig
+from reconfigure.configs.samba import SambaConfig
+from reconfigure.configs.squid import SquidConfig
+from reconfigure.configs.supervisor import SupervisorConfig
 
 
 __all__ = [

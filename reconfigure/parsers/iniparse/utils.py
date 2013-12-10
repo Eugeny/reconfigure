@@ -1,5 +1,5 @@
-import compat
-from ini import LineContainer, EmptyLine
+from reconfigure.parsers.iniparse import compat
+from reconfigure.parsers.iniparse.ini import LineContainer, EmptyLine
 
 def tidy(cfg):
     """Clean up blank lines.

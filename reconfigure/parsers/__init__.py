@@ -1,14 +1,14 @@
-from base import BaseParser
-from bind9 import BIND9Parser
-from exports import ExportsParser
-from ini import IniFileParser
-from iptables import IPTablesParser
-from jsonparser import JsonParser
-from nginx import NginxParser
-from nsd import NSDParser
-from ssv import SSVParser
-from squid import SquidParser
-from crontab import CrontabParser
+from reconfigure.parsers.base import BaseParser
+from reconfigure.parsers.bind9 import BIND9Parser
+from reconfigure.parsers.exports import ExportsParser
+from reconfigure.parsers.ini import IniFileParser
+from reconfigure.parsers.iptables import IPTablesParser
+from reconfigure.parsers.jsonparser import JsonParser
+from reconfigure.parsers.nginx import NginxParser
+from reconfigure.parsers.nsd import NSDParser
+from reconfigure.parsers.ssv import SSVParser
+from reconfigure.parsers.squid import SquidParser
+from reconfigure.parsers.crontab import CrontabParser
 
 __all__ = [
     'BaseParser',

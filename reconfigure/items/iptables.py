@@ -80,7 +80,6 @@ class OptionData (BoundData):
 
     @staticmethod
     def create(template_id):
-        print 'new'
         t = OptionData.templates[template_id]
         return OptionData(Node(
             'option',
@@ -93,7 +92,6 @@ class OptionData (BoundData):
 
     @staticmethod
     def create_destination():
-        print 'new'
         return OptionData(Node(
             'option',
             Node('argument', PropertyNode('value', 'ACCEPT')),

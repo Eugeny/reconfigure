@@ -1,7 +1,11 @@
 from reconfigure.nodes import *
 from reconfigure.parsers import BaseParser
-from iniparse import INIConfig
-from StringIO import StringIO
+from reconfigure.parsers.iniparse import INIConfig
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 
 class IniFileParser (BaseParser):

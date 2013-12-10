@@ -84,7 +84,7 @@ class BoundDictionary (BoundCollection):
         self.datadict = dict((self.key(x), x) for x in self.data)
 
     def to_dict(self):
-        return dict((k, x.to_dict() if hasattr(x, 'to_dict') else x) for k, x in self.iteritems())
+        return dict((k, x.to_dict() if hasattr(x, 'to_dict') else x) for k, x in self.items())
 
     def __getitem__(self, key):
         self.rebuild_dict()
@@ -106,7 +106,9 @@ class BoundDictionary (BoundCollection):
 
     def iteritems(self):
         self.rebuild_dict()
-        return self.datadict.iteritems()
+        return self.datadict.items()
+
+    items = iteritems
 
     def setdefault(self, k, v):
         if not k in self:
@@ -119,7 +121,7 @@ class BoundDictionary (BoundCollection):
         return self.data
 
     def update(self, other):
-        for k, v in other.iteritems():
+        for k, v in other.items():
             self[k] = v
 
     def pop(self, key):
@@ -138,7 +140,7 @@ class BoundData (object):
     """
 
     def __init__(self, node=None, **kwargs):
-        if not node:
+        if node is None:
             node = self.template(**kwargs)
         self._node = node
 
@@ -200,7 +202,7 @@ class BoundData (object):
         """
         def pget(self):
             prop = path(self._node).get(node_property)
-            if prop:
+            if prop is not None:
                 return getter(prop.value)
             else:
                 return default
@@ -208,7 +210,7 @@ class BoundData (object):
         def pset(self, value):
             if setter(value) in default_remove:
                 node = path(self._node).get(node_property)
-                if node:
+                if node is not None:
                     path(self._node).remove(node)
             else:
                 path(self._node).set_property(node_property, setter(value))
@@ -230,7 +232,7 @@ class BoundData (object):
         """
         def pget(self):
             prop = getattr(path(self._node), node_attribute)
-            if prop:
+            if prop is not None:
                 return getter(prop)
             else:
                 return getter(default)

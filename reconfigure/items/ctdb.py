@@ -1,6 +1,6 @@
 from reconfigure.nodes import Node, PropertyNode
 from reconfigure.items.bound import BoundData
-from util import yn_getter, yn_setter
+from reconfigure.items.util import yn_getter, yn_setter
 
 
 class CTDBData (BoundData):
