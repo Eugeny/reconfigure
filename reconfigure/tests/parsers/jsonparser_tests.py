@@ -1,3 +1,4 @@
+import json
 from reconfigure.tests.parsers.base_test import BaseParserTest
 from reconfigure.parsers import JsonParser
 from reconfigure.nodes import *
@@ -20,5 +21,11 @@ class JsonParserTest (BaseParserTest):
         ),
     )
 
+    def test_stringify(self):
+        unparsed = self.parser.stringify(self.__class__.parsed)
+        a, b = self.stringified, unparsed
+        if json.loads(a) != json.loads(b):
+            print('SOURCE: %s\n\nGENERATED: %s' % (a, b))
+            self.assertEquals(a, b)
 
 del BaseParserTest
