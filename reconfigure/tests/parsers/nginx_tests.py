@@ -12,9 +12,7 @@ sec {
     s1p2 wqe;
 
     # test
-    sec2 test {
-        s2p1 qwe;
-    }
+    sec2 test { s2p1 qwe; }
 }
 """
     parsed = RootNode(
