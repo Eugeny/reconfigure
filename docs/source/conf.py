@@ -23,16 +23,16 @@ release = '1.0a1'
 exclude_patterns = []
 add_function_parentheses = True
 
-pygments_style = 'sphinx'
+#pygments_style = 'sphinx'
 
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
 
 
 # -- Options for HTML output ---------------------------------------------------
-html_theme = 'air'
+#html_theme = 'air'
 #html_theme_options = {}
-html_theme_path = ['../../../sphinx-themes']
+#html_theme_path = ['../../../sphinx-themes']
 
 html_title = 'Reconfigure documentation'
 html_short_title = 'Reconfigure docs'
