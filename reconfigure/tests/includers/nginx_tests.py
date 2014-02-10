@@ -25,6 +25,5 @@ class IncludersTest (unittest.TestCase):
         self.assertTrue(len(tree.children[0].children) == 3)
 
         treemap = includer.decompose(tree)
-        print tree
         self.assertTrue(len(treemap.keys()) == 2)
         self.assertTrue(treemap['test'].children[0].name == 'sec2')
