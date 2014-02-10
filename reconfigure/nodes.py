@@ -25,6 +25,8 @@ class Node (object):
             s += ' (%s)' % self.comment
         s += '\n'
         for child in self.children:
+            if child.origin != self.origin:
+                s += '\t@%s\n' % child.origin
             s += '\n'.join('\t' + x for x in str(child).splitlines()) + '\n'
         return s
 

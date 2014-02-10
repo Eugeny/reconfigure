@@ -50,7 +50,9 @@ class AutoIncluder (BaseIncluder):
                 if replacement:
                     node.children[node.children.index(child)] = replacement
             else:
-                if child.origin != node.origin:
+                if child.origin is None:
+                    child.origin = node.origin
+                elif child.origin != node.origin:
                     node.children.remove(child)
                     result.setdefault(child.origin, RootNode()).children.append(self.decompose_rec(child, result))
                 else:

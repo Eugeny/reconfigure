@@ -52,7 +52,6 @@ class IniFileParser (BaseParser):
 
     def stringify(self, tree):
         cp = INIConfig()
-
         for section in tree.children:
             if self.sectionless and section.name is None:
                 sectionname = self.nullsection

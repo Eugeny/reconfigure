@@ -12,11 +12,12 @@ class ProgramData (BoundData):
 
     def template(self):
         return Node('program:new',
-            PropertyNode('command', '127.0.0.1'),
+            PropertyNode('command', 'false'),
         )
 
 
 SupervisorData.bind_collection('programs', item_class=ProgramData, selector=lambda x: x.name.startswith('program:'))
 ProgramData.bind_name('name', getter=lambda x: x[8:], setter=lambda x: 'program:%s' % x)
+ProgramData.bind_attribute('comment', 'comment')
 for i in range(0, len(ProgramData.fields)):
     ProgramData.bind_property(ProgramData.fields[i], ProgramData.fields[i], default_remove=[None, ''])

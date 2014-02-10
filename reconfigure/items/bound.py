@@ -95,6 +95,7 @@ class BoundDictionary (BoundCollection):
         if not key in self:
             self.append(value)
         self.datadict[key] = value
+        self.rebuild_dict()
 
     def __contains__(self, key):
         self.rebuild_dict()
