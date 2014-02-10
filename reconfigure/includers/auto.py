@@ -52,7 +52,7 @@ class AutoIncluder (BaseIncluder):
             else:
                 if child.origin is None:
                     child.origin = node.origin
-                elif child.origin != node.origin:
+                if child.origin != node.origin:
                     node.children.remove(child)
                     result.setdefault(child.origin, RootNode()).children.append(self.decompose_rec(child, result))
                 else:

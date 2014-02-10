@@ -16,6 +16,7 @@ command=cat
     result = {
         "programs": [
             {
+                "comment": None,
                 "autorestart": None,
                 "name": "test1",
                 "startsecs": None,
