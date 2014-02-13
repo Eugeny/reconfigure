@@ -53,6 +53,7 @@ directory mask=0700
                 "force_directory_mode": "000",
                 "veto_files": "", 
                 "write_list": "", 
+                "dfree_command": "",
             },
             {
                 "name": "profiles",
@@ -70,6 +71,7 @@ directory mask=0700
                 "force_directory_mode": "000",
                 "veto_files": "", 
                 "write_list": "", 
+                "dfree_command": "",
             }
         ]
     }

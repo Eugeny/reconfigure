@@ -6,6 +6,7 @@ PROJECT=reconfigure
 DEBPROJECT=python-reconfigure
 VERSION=`python -c "from reconfigure import __version__; print __version__"`
 PREFIX=/usr
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
