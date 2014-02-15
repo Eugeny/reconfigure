@@ -15,7 +15,7 @@ class ShareData (BoundData):
     fields = [
         'comment', 'path', 'guest ok', 'browseable', 'create mask', 'directory mask', 'read only',
         'follow symlinks', 'wide links', 'fstype', 'write list', 'veto files',
-        'force create mode', 'force directory mode', 'dfree command',
+        'force create mode', 'force directory mode', 'dfree command', 'force user', 'force group'
     ]
     defaults = [
         '', '', 'no', 'yes', '0744', '0755', 'yes',
