@@ -20,10 +20,12 @@ class ShareData (BoundData):
     defaults = [
         '', '', 'no', 'yes', '0744', '0755', 'yes',
         'yes', 'no', 'NTFS', '', '', '000', '000', '',
+        '', '',
     ]
     default_values = [
         '', '', False, True, '0744', '0755', True,
         True, False, '', '', '', '000', '000', '',
+        '', '',
     ]
 
     def template(self):
