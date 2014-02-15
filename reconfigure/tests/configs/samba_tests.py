@@ -54,6 +54,8 @@ directory mask=0700
                 "veto_files": "", 
                 "write_list": "", 
                 "dfree_command": "",
+                "force_group": "",
+                "force_user": "",
             },
             {
                 "name": "profiles",
@@ -72,6 +74,8 @@ directory mask=0700
                 "veto_files": "", 
                 "write_list": "", 
                 "dfree_command": "",
+                "force_group": "",
+                "force_user": "",
             }
         ]
     }
