@@ -54,8 +54,8 @@ class HTTPSPortData (BoundData):
 
 
 class ArgumentData (BoundData):
-    def template(self, *args):
-        return PropertyNode(*args)
+    def template(self):
+        return PropertyNode('value', 'none')
 
 
 def __bind_by_name(cls, prop, name, itemcls):
