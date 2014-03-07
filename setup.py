@@ -15,5 +15,8 @@ setup(
     author='Eugeny Pankov',
     author_email='e@ajenti.org',
     url='http://ajenti.org/',
+    classifiers=[
+        "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+    ],
     packages=find_packages(exclude=['*test*']),
 )

@@ -7,7 +7,7 @@ class SquidData (BoundData):
 
 
 class ACLData (BoundData):
-    def template(self, name, *args):
+    def template(self, name=None, *args):
         children = [PropertyNode('1', name)]
         index = 2
         for arg in args:
