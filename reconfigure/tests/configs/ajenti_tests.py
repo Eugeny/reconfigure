@@ -40,6 +40,7 @@ class AjentiConfigTest (BaseConfigTest):
         'ssl': {'certificate_path': '', 'enable': False},
         'users': {'test': {
             'configs': {'a': {'data': {}, 'name': 'a'}},
+            'email': None,
             'name': 'test',
             'password': 'sha512',
             'permissions': ['section:Dash']

@@ -18,7 +18,8 @@ class SSLData (BoundData):
 
 class UserData (BoundData):
     def template(self):
-        return Node('unnamed',
+        return Node(
+            'unnamed',
             PropertyNode('configs', {}),
             PropertyNode('password', ''),
             PropertyNode('permissions', []),
@@ -48,6 +49,7 @@ SSLData.bind_property('enable', 'enable')
 ConfigData.bind_name('name')
 
 UserData.bind_name('name')
+UserData.bind_property('email', 'email')
 UserData.bind_property('password', 'password')
 UserData.bind_property('permissions', 'permissions')
 UserData.bind_collection('configs', lambda x: x.get('configs'), item_class=ConfigData, collection_class=BoundDictionary, key=lambda x: x.name)
