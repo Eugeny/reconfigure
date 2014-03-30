@@ -7,6 +7,7 @@ from reconfigure.configs.ajenti import AjentiConfig
 from reconfigure.configs.bind9 import BIND9Config
 from reconfigure.configs.crontab import CrontabConfig
 from reconfigure.configs.ctdb import CTDBConfig, CTDBNodesConfig, CTDBPublicAddressesConfig
+from reconfigure.configs.csf import CSFConfig
 from reconfigure.configs.dhcpd import DHCPDConfig
 from reconfigure.configs.exports import ExportsConfig
 from reconfigure.configs.fstab import FSTabConfig
