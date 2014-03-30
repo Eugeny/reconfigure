@@ -1,5 +1,5 @@
 from reconfigure.configs.base import Reconfig
-from reconfigure.parsers import IniFileParser
+from reconfigure.parsers import ShellParser
 from reconfigure.builders import BoundBuilder
 from reconfigure.items.csf import CSFData
 
@@ -10,7 +10,7 @@ class CSFConfig (Reconfig):
     """
     def __init__(self, **kwargs):
         k = {
-            'parser': IniFileParser(sectionless=True),
+            'parser': ShellParser(),
             'builder': BoundBuilder(CSFData),
         }
         k.update(kwargs)
