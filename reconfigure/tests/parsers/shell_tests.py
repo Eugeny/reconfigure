@@ -5,7 +5,8 @@ from reconfigure.nodes import *
 
 class ShellParserTest (BaseParserTest):
     parser = ShellParser()
-    source = """# The following
+    source = """
+# The following
 # otherwise they
 PORTS_pop3d = "110,995"
 PORTS_htpasswd = "80,443" # b
