@@ -16,17 +16,17 @@ class ShareData (BoundData):
         'comment', 'path', 'guest ok', 'browseable', 'create mask', 'directory mask', 'read only',
         'follow symlinks', 'wide links', 'fstype', 'write list', 'veto files',
         'force create mode', 'force directory mode', 'dfree command', 'force user', 'force group',
-        'valid_users',
+        'valid_users', 'read_list',
     ]
     defaults = [
         '', '', 'no', 'yes', '0744', '0755', 'yes',
         'yes', 'no', 'NTFS', '', '', '000', '000', '',
-        '', '', '',
+        '', '', '', '',
     ]
     default_values = [
         '', '', False, True, '0744', '0755', True,
         True, False, '', '', '', '000', '000', '',
-        '', '', '',
+        '', '', '', '',
     ]
 
     def template(self):

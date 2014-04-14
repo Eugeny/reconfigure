@@ -57,6 +57,7 @@ directory mask=0700
                 "force_group": "",
                 "force_user": "",
                 "valid_users": "",
+                "read_list": "",
             },
             {
                 "name": "profiles",
@@ -78,6 +79,7 @@ directory mask=0700
                 "force_group": "",
                 "force_user": "",
                 "valid_users": "",
+                "read_list": "",
             }
         ]
     }
