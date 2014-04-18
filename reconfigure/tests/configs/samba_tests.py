@@ -58,6 +58,7 @@ directory mask=0700
                 "force_user": "",
                 "valid_users": "",
                 "read_list": "",
+                "dfree_cache_time": "",
             },
             {
                 "name": "profiles",
@@ -80,6 +81,7 @@ directory mask=0700
                 "force_user": "",
                 "valid_users": "",
                 "read_list": "",
+                "dfree_cache_time": "",
             }
         ]
     }
