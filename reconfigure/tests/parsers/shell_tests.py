@@ -8,8 +8,8 @@ class ShellParserTest (BaseParserTest):
     source = """
 # The following
 # otherwise they
-PORTS_pop3d = "110,995"
-PORTS_htpasswd = "80,443" # b
+PORTS_pop3d="110,995"
+PORTS_htpasswd="80,443" # b
 """
     parsed = RootNode(
         None,
