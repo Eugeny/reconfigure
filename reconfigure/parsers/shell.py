@@ -54,7 +54,7 @@ class ShellParser (BaseParser):
         for node in tree.children:
             if node.comment and '\n' in node.comment:
                 r += '\n' + ''.join('# %s\n' % x for x in node.comment.splitlines())
-            r += '%s = "%s"' % (node.name, node.value)
+            r += '%s="%s"' % (node.name, node.value)
             if node.comment and not '\n' in node.comment:
                 r += ' # %s' % node.comment
             r += '\n'
