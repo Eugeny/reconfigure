@@ -12,6 +12,7 @@ setup(
         'chardet',
     ],
     description='An ORM for config files',
+    license='LGPLv3',
     author='Eugeny Pankov',
     author_email='e@ajenti.org',
     url='http://ajenti.org/',
