@@ -7,11 +7,12 @@ class BIND9ParserTest (BaseParserTest):
     parser = BIND9Parser()
     source = """p1 asd;
 
-sec {
+key {
     s1p1 asd;
     /*s1p2 wqe;*/
 
-    sec2 test {
+    zone 
+            test {
         ::1;
         s2p1 qwe;
     };
@@ -23,11 +24,11 @@ sec {
         return """
   p1 asd;
 
-sec {
+key {
     s1p1 asd;
 
     # s1p2 wqe;
-    sec2 test {
+    zone test {
         ::1;
         s2p1 qwe;
     };
@@ -38,10 +39,10 @@ sec {
         None,
         PropertyNode('p1', 'asd'),
         Node(
-            'sec',
+            'key',
             PropertyNode('s1p1', 'asd'),
             Node(
-                'sec2',
+                'zone',
                 PropertyNode('', '::1'),
                 PropertyNode('s2p1', 'qwe'),
                 parameter='test',
