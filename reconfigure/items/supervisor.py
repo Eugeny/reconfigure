@@ -23,3 +23,4 @@ ProgramData.bind_attribute('comment', 'comment')
 for i in range(0, len(ProgramData.fields)):
     ProgramData.bind_property(ProgramData.fields[i], ProgramData.fields[i], default_remove=[None, ''])
 ProgramData.bind_property('stopasgroup', 'stopasgroup', default_remove=[False], getter=tf_getter, setter=tf_setter)
+ProgramData.bind_property('killasgroup', 'killasgroup', default_remove=[False], getter=tf_getter, setter=tf_setter)
