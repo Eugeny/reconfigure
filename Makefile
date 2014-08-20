@@ -77,7 +77,7 @@ upload-tgz: tgz
 
 tgz: build
 	rm dist/*.tar.gz || true
-	$(PYTHON) setup.py sdist bdist_wheel 
+	$(PYTHON) setup.py sdist
 
 
 clean:
