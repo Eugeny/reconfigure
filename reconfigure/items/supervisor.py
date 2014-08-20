@@ -1,5 +1,6 @@
 from reconfigure.nodes import Node, PropertyNode
 from reconfigure.items.bound import BoundData
+from reconfigure.items.util import tf_getter, tf_setter
 
 
 class SupervisorData (BoundData):
@@ -8,7 +9,7 @@ class SupervisorData (BoundData):
 
 class ProgramData (BoundData):
     fields = ['command', 'autostart', 'autorestart', 'startsecs', 'startretries', \
-        'user', 'directory', 'umask', 'environment']
+        'user', 'directory', 'umask', 'environment', 'stopasgroup', 'killasgroup']
 
     def template(self):
         return Node('program:new',
@@ -21,3 +22,4 @@ ProgramData.bind_name('name', getter=lambda x: x[8:], setter=lambda x: 'program:
 ProgramData.bind_attribute('comment', 'comment')
 for i in range(0, len(ProgramData.fields)):
     ProgramData.bind_property(ProgramData.fields[i], ProgramData.fields[i], default_remove=[None, ''])
+ProgramData.bind_property('stopasgroup', 'stopasgroup', default_remove=[False], getter=tf_getter, setter=tf_setter)

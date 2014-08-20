@@ -11,6 +11,7 @@ chmod=0700
 files=test""",
         'test': """[program:test1]
 command=cat
+stopasgroup=true
         """
     }
     result = {
@@ -26,7 +27,9 @@ command=cat
                 "user": None,
                 "startretries": None,
                 "directory": None,
-                "autostart": None
+                "autostart": None,
+                "stopasgroup": True,
+                "killasgroup": None,
             }
         ]
     }
