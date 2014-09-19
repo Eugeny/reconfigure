@@ -59,6 +59,8 @@ directory mask=0700
                 "valid_users": "",
                 "read_list": "",
                 "dfree_cache_time": "",
+                "oplocks": True,
+                "locking": True,
             },
             {
                 "name": "profiles",
@@ -82,6 +84,8 @@ directory mask=0700
                 "valid_users": "",
                 "read_list": "",
                 "dfree_cache_time": "",
+                "oplocks": True,
+                "locking": True,
             }
         ]
     }
