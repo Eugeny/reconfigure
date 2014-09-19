@@ -12,6 +12,7 @@ afp port=123
 path=/home ;comment
 valid users=root
 ea=sys
+password=
 """
     }
 

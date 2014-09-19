@@ -36,4 +36,4 @@ GlobalData.bind_property(
 ShareData.bind_name('name')
 ShareData.bind_attribute('comment', 'comment', path=lambda x: x.get('path'), default='')
 for f, d in zip(ShareData.fields, ShareData.defaults):
-    ShareData.bind_property(f, f.replace(' ', '_'), default=d)
+    ShareData.bind_property(f, f.replace(' ', '_'), default=d, default_remove=[d, None])
