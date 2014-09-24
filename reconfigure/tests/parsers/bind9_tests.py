@@ -61,6 +61,11 @@ import unittest
 
 class BIND9ParserHangTest (unittest.TestCase):
     source = """
+
+controls {
+    inet * port 953 allow { 5.231.55.113; 127.0.0.1; } keys { "rndc-key"; };
+};
+
 options {
         listen-on port 53 { 127.0.0.1; };
         listen-on-v6 port 53 { ::1; };

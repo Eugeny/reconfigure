@@ -23,7 +23,7 @@ class NginxParser (BaseParser):
         scanner = re.Scanner(self.tokens)
         tokens, remainder = scanner.scan(' '.join(filter(None, content.split(' '))))
         if remainder:
-            raise Exception('Invalid tokens: %s' % remainder)
+            raise Exception('Invalid tokens: %s. Tokens: %s' % (remainder, tokens))
 
         node = RootNode()
         node.parameter = None
