@@ -19,7 +19,7 @@ class BaseConfigTest (unittest.TestCase):
         if config.includer:
             config.includer.content_map = self.sources
         config.load()
-        print config.tree._node
+        #print config.tree._node
         #print 'RESULT', config.tree.to_dict()
         #print 'SOURCE', self.__class__.result
         #self.assertTrue(self.__class__.result== config.tree.to_dict())
