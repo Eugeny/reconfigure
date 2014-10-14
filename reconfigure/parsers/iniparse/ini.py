@@ -127,8 +127,8 @@ class OptionLine(LineType):
             out = out + self.comment_separator + self.comment
         return out
 
-    regex = re.compile(r'^(?P<name>[^:=\s[][^:=]*)'
-                       r'(?P<sep>[:=]\s*)'
+    regex = re.compile(r'^(?P<name>[^=\s[][^=]*)'
+                       r'(?P<sep>[=]\s*)'
                        r'(?P<value>.*)$')
 
     def parse(cls, line):

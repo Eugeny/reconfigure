@@ -16,6 +16,10 @@ security=user
 [homes]
 comment=Home Directories
 browseable=no
+preopen:names=/*.frm/
+preopen:num_bytes=123
+preopen:helpers=2
+preopen:queuelen=20
 
 [profiles]
 comment=Users profiles
@@ -61,6 +65,10 @@ directory mask=0700
                 "dfree_cache_time": "",
                 "oplocks": True,
                 "locking": True,
+                "preopen:queuelen": "20", 
+                "preopen:names": "/*.frm/", 
+                "preopen:num_bytes": "123", 
+                "preopen:helpers": "2", 
             },
             {
                 "name": "profiles",
@@ -86,6 +94,10 @@ directory mask=0700
                 "dfree_cache_time": "",
                 "oplocks": True,
                 "locking": True,
+                "preopen:queuelen": "", 
+                "preopen:names": "", 
+                "preopen:num_bytes": "", 
+                "preopen:helpers": "", 
             }
         ]
     }

@@ -17,16 +17,19 @@ class ShareData (BoundData):
         'follow symlinks', 'wide links', 'fstype', 'write list', 'veto files',
         'force create mode', 'force directory mode', 'dfree command', 'force user', 'force group',
         'valid users', 'read list', 'dfree cache time', 'oplocks', 'locking',
+        'preopen:names', 'preopen:num_bytes', 'preopen:helpers', 'preopen:queuelen',
     ]
     defaults = [
         '', '', 'no', 'yes', '0744', '0755', 'yes',
         'yes', 'no', 'NTFS', '', '', '000', '000', '',
         '', '', '', '', '', 'yes', 'yes',
+        '', '', '', '',
     ]
     default_values = [
         '', '', False, True, '0744', '0755', True,
         True, False, '', '', '', '000', '000', '',
         '', '', '', '', '', True, True,
+        '', '', '', '',
     ]
 
     def template(self):
