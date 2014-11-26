@@ -72,7 +72,7 @@ directory mask=0700
                 "vfs_objects": "", 
                 "recycle:keeptree": False, 
                 "recycle:repository": "", 
-                "recycle:exclude": False, 
+                "recycle:exclude": '', 
             },
             {
                 "name": "profiles",
@@ -105,7 +105,7 @@ directory mask=0700
                 "vfs_objects": "", 
                 "recycle:keeptree": False, 
                 "recycle:repository": "", 
-                "recycle:exclude": False, 
+                "recycle:exclude": '', 
             }
         ]
     }
