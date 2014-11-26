@@ -69,6 +69,10 @@ directory mask=0700
                 "preopen:names": "/*.frm/", 
                 "preopen:num_bytes": "123", 
                 "preopen:helpers": "2", 
+                "vfs_objects": "", 
+                "recycle:keeptree": False, 
+                "recycle:repository": "", 
+                "recycle:exclude": False, 
             },
             {
                 "name": "profiles",
@@ -98,6 +102,10 @@ directory mask=0700
                 "preopen:names": "", 
                 "preopen:num_bytes": "", 
                 "preopen:helpers": "", 
+                "vfs_objects": "", 
+                "recycle:keeptree": False, 
+                "recycle:repository": "", 
+                "recycle:exclude": False, 
             }
         ]
     }
