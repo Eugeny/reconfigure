@@ -32,7 +32,7 @@ class ShareData (BoundData):
         True, False, '', '', '', '000', '000', '',
         '', '', '', '', '', True, True,
         '', '', '', '',
-        '', '', False, False,
+        '', '', False, '',
     ]
 
     def template(self):
