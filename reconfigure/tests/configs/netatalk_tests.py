@@ -12,6 +12,7 @@ afp port=123
 path=/home ;comment
 valid users=root
 ea=sys
+file perm=0755
 """
     }
 
@@ -32,7 +33,7 @@ ea=sys
                 "cnid_scheme": "dbd",
                 "path": "/home",
                 "password": '',
-                "file_perm": '',
+                "file_perm": '0755',
                 "directory_perm": '',
             }
         ]

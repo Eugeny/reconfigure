@@ -16,7 +16,7 @@ class ExportsParser (BaseParser):
         tree = self.inner.parse(content)
         root = RootNode()
         for export in tree:
-            export_node = Node(export[0].get('value').value)
+            export_node = Node(export[0].get('value').value.strip('"'))
             export_node.comment = export.comment
             clients_node = Node('clients')
             export_node.append(clients_node)
@@ -37,7 +37,7 @@ class ExportsParser (BaseParser):
         root = RootNode()
         for export in tree:
             export_node = Node('line', comment=export.comment)
-            export_node.append(Node('token', PropertyNode('value', export.name)))
+            export_node.append(Node('token', PropertyNode('value', '"%s"' % export.name)))
             for client in export['clients']:
                 s = client.name
                 if client['options'].value:

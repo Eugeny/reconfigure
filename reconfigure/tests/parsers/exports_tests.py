@@ -6,7 +6,7 @@ from reconfigure.nodes import *
 class ExportsParserTest (BaseParserTest):
     parser = ExportsParser()
     source = """
-/another/exported/directory 192.168.0.3(rw,sync) \
+"/another/exported/directory" 192.168.0.3(rw,sync) \
 192.168.0.4(ro)
 # comment
 /one 192.168.0.1
@@ -42,8 +42,8 @@ class ExportsParserTest (BaseParserTest):
 
     @property
     def stringified(self):
-        return """/another/exported/directory\t192.168.0.3(rw,sync)\t192.168.0.4(ro)
-/one\t192.168.0.1\t# comment
+        return """"/another/exported/directory"\t192.168.0.3(rw,sync)\t192.168.0.4(ro)
+"/one"\t192.168.0.1\t# comment
 """
 
 

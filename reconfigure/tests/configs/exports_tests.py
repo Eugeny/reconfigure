@@ -5,9 +5,9 @@ from reconfigure.tests.configs.base_test import BaseConfigTest
 class ExportsConfigTest (BaseConfigTest):
     sources = {
         None: """
-/another/exported/directory 192.168.0.3(rw,sync) \
+"/another/exported/directory" 192.168.0.3(rw,sync) \
 192.168.0.4(ro) # test
-/one 192.168.0.1 # comment
+"/one" 192.168.0.1 # comment
 """
     }
     result = {
