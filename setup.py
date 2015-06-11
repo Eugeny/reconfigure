@@ -10,6 +10,7 @@ setup(
     version=__version__,
     install_requires=[
         'chardet',
+        'six',
     ],
     description='An ORM for config files',
     license='LGPLv3',
