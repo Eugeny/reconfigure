@@ -67,7 +67,7 @@ class IniFileParser (BaseParser):
             if hasattr(cp[sectionname], '_lines'):
                 self._set_comment(cp[sectionname]._lines[0], section.comment)
 
-        data = str(cp) + '\n'
+        data = unicode(cp) + u'\n'
         if self.sectionless:
             data = data.replace('[' + self.nullsection + ']\n', '')
         return data

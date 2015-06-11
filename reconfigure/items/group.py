@@ -1,3 +1,4 @@
+from reconfigure.nodes import Node, PropertyNode
 from reconfigure.items.bound import BoundData
 
 
@@ -7,6 +8,17 @@ class GroupsData (BoundData):
 
 class GroupData (BoundData):
     fields = ['name', 'password', 'gid', 'users']
+
+    def template(self):
+        return Node(
+            'line',
+            *[
+                Node('token', children=[
+                    PropertyNode('value', '')
+                ])
+                for x in GroupData.fields
+            ]
+        )
 
 
 GroupsData.bind_collection('groups', item_class=GroupData)
