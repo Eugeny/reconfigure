@@ -9,7 +9,7 @@ class NginxParser (BaseParser):
     """
 
     tokens = [
-        (r"[\w_]+\s*?.*?{", lambda s, t: ('section_start', t)),
+        (r"[\w_]+\s*?[^\n]*?{", lambda s, t: ('section_start', t)),
         (r"[\w_]+?.+?;", lambda s, t: ('option', t)),
         (r"\s", lambda s, t: 'whitespace'),
         (r"$^", lambda s, t: 'newline'),
@@ -20,7 +20,7 @@ class NginxParser (BaseParser):
     token_section_end = '}'
 
     def parse(self, content):
-        scanner = re.Scanner(self.tokens)
+        scanner = re.Scanner(self.tokens, re.DOTALL)
         tokens, remainder = scanner.scan(' '.join(filter(None, content.split(' '))))
         if remainder:
             raise Exception('Invalid tokens: %s. Tokens: %s' % (remainder, tokens))
