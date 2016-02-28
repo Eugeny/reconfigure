@@ -10,5 +10,5 @@ Package: python-reconfigure
 Architecture: all
 Homepage: http://eugeny.github.com/reconfigure
 XB-Python-Version: ${python:Versions}
-Depends: ${misc:Depends}, ${python:Depends}, python-chardet, python-six
+Depends: ${misc:Depends}, ${python:Depends}, python-chardet
 Description: Simple config file management library
