@@ -1,4 +1,4 @@
-import six
+import sys
 
 from reconfigure.nodes import *
 from reconfigure.parsers import BaseParser
@@ -69,7 +69,7 @@ class IniFileParser (BaseParser):
             if hasattr(cp[sectionname], '_lines'):
                 self._set_comment(cp[sectionname]._lines[0], section.comment)
 
-        data = (str if six.PY3 else unicode)(cp) + u'\n'
+        data = (str if sys.version_info[0] >= 3 else unicode)(cp) + u'\n'
         if self.sectionless:
             data = data.replace('[' + self.nullsection + ']\n', '')
         return data

@@ -1,5 +1,4 @@
 import chardet
-import six
 import sys
 
 
@@ -38,8 +37,8 @@ class Reconfig (object):
             self.content = open(self.origin, 'r').read()
 
         self.encoding = 'utf8'
-        if (six.PY3 and isinstance(self.content, bytes)) or \
-                (six.PY2 and isinstance(self.content, str)):
+        if (sys.version_info[0] >= 3 and isinstance(self.content, bytes)) or \
+                (sys.version_info[0] == 2 and isinstance(self.content, str)):
             try:
                 self.content = self.content.decode('utf8')
             except (UnicodeDecodeError, AttributeError):

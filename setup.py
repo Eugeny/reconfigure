@@ -9,8 +9,7 @@ setup(
     name='reconfigure',
     version=__version__,
     install_requires=[
-        'chardet',
-        'six',
+        'chardet'
     ],
     description='An ORM for config files',
     license='LGPLv3',
