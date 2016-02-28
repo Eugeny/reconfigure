@@ -16,7 +16,7 @@ BuildArch: noarch
 Vendor: Eugene Pankov <e@ajenti.org>
 Url: http://ajenti.org/
 
-requires: python-chardet
+requires: python-chardet, python-six
 
 %description
 Easy config file management
