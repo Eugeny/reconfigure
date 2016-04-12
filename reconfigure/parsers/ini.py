@@ -44,6 +44,7 @@ class IniFileParser (BaseParser):
                 name = None
             section_node = Node(name)
             section_node.comment = self._get_comment(cp[section]._lines[0])
+            section_node._extra_content = {}
             for option in cp[section]:
                 if option in cp[section]._options:
                     node = PropertyNode(option, cp[section][option])
@@ -66,6 +67,11 @@ class IniFileParser (BaseParser):
                 cp[sectionname][option.name] = option.value
                 if option.comment:
                     self._set_comment(cp[sectionname]._options[option.name], option.comment)
+
+            if section._extra_content:
+                for k, v in section._extra_content.items():
+                    cp[sectionname][k] = v
+
             if hasattr(cp[sectionname], '_lines'):
                 self._set_comment(cp[sectionname]._lines[0], section.comment)
 

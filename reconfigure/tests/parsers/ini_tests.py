@@ -18,9 +18,17 @@ s1p2=123
         Node('section1',
             PropertyNode('s1p1', 'asd', comment='comment 2'),
             PropertyNode('s1p2', '123'),
-            comment='section comment'
+            comment='section comment',
+            extra_content={'c': 'd'},
         ),
     )
+    stringified = """a=b
+
+[section1] ;section comment
+s1p1=asd ;comment 2
+s1p2=123
+c=d
+"""
 
 
 del BaseParserTest

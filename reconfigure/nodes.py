@@ -14,6 +14,7 @@ class Node (object):
         self.name = name
         self.origin = None
         self.children = []
+        self._extra_content = kwargs.pop('extra_content', None)
         for node in list(args) + kwargs.pop('children', []):
             self.append(node)
         self.comment = kwargs.pop('comment', None)
@@ -104,7 +105,7 @@ class Node (object):
         """
         Replaces the child nodes by ``name``
 
-        :param node: replacement node or list of nodes 
+        :param node: replacement node or list of nodes
 
         ::
 

@@ -144,6 +144,7 @@ class BoundData (object):
         if node is None:
             node = self.template(**kwargs)
         self._node = node
+        self.bind_attribute('_extra_content', '_extra_content')
 
     def template(self, **kwargs):
         """
@@ -157,6 +158,8 @@ class BoundData (object):
         res_dict = {}
         for attr_key in self.__class__.__dict__:
             if attr_key in self.__class__._bound:
+                if attr_key == '_extra_content':
+                    continue
                 attr_value = getattr(self, attr_key)
                 if isinstance(attr_value, BoundData):
                     res_dict[attr_key] = attr_value.to_dict()
