@@ -58,8 +58,11 @@ GlobalData.bind_property('security', 'security', default='user')
 ShareData.bind_name('name')
 for f, d in zip(ShareData.fields, ShareData.default_values):
     if d not in [True, False]:
-        ShareData.bind_property(f, f.replace(' ', '_'), default=d)
+        ShareData.bind_property(
+            f, f.replace(' ', '_'), default=d, default_remove=[d]
+        )
     else:
         ShareData.bind_property(
             f, f.replace(' ', '_'), default=d,
-            getter=yn_getter, setter=yn_setter)
+            getter=yn_getter, setter=yn_setter
+        )
