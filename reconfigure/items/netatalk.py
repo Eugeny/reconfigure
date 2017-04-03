@@ -12,8 +12,8 @@ class GlobalData (BoundData):
 
 
 class ShareData (BoundData):
-    fields = ['path', 'appledouble', 'valid users', 'cnid scheme', 'ea', 'password', 'file perm', 'directory perm']
-    defaults = ['', 'ea', '', 'dbd', 'none', '', '', '']
+    fields = ['path', 'appledouble', 'valid users', 'cnid scheme', 'ea', 'password', 'file perm', 'directory perm', 'rolist', 'rwlist']
+    defaults = ['', 'ea', '', 'dbd', 'none', '', '', '', '', '']
 
     def template(self):
         return Node(
