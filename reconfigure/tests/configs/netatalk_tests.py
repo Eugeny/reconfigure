@@ -35,6 +35,8 @@ file perm=0755
                 "password": '',
                 "file_perm": '0755',
                 "directory_perm": '',
+                "rolist": '',
+                "rwlist": '',
             }
         ]
     }
