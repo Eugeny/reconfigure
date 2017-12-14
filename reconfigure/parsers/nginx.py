@@ -10,7 +10,7 @@ class NginxParser (BaseParser):
 
     tokens = [
         (r"[\w_]+\s*?[^\n]*?{", lambda s, t: ('section_start', t)),
-        (r"[\w_]+?.+?;", lambda s, t: ('option', t)),
+        (r"[\w_]+?(?:[^\"]+?(?:\".*?\")?)+?;", lambda s, t: ('option', t)),
         (r"\s", lambda s, t: 'whitespace'),
         (r"$^", lambda s, t: 'newline'),
         (r"\#.*?\n", lambda s, t: ('comment', t)),
