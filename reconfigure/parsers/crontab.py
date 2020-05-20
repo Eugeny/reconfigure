@@ -71,7 +71,7 @@ class CrontabParser(BaseParser):
         name = node.get('name')
         value = node.get('value')
         if isinstance(name, PropertyNode) and isinstance(value, PropertyNode):
-                return ' = '.join([name.value, value.value])
+                return '='.join([name.value, value.value])
         return ''
 
     def stringify_normal_task(self, node):
