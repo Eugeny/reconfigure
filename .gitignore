@@ -7,9 +7,7 @@
 
 debian/python-reconfigure*
 debian/changelog
-dist/*.rpm
-dist/*.deb
-dist/*.gz
+dist/*
 *.egg*
 build/*
 debian/files

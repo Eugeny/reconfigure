@@ -1,4 +1,4 @@
-PYTHON=`which python`
+PYTHON=`which python3`
 DESTDIR=/
 BUILDIR=$(CURDIR)/debian/reconfigure
 RPMTOPDIR=$(CURDIR)/build
@@ -73,7 +73,8 @@ upload-rpm7: rpm
 	ssh root@ajenti.org /srv/repo/rebuild-centos7.sh
 
 upload-tgz: tgz
-	$(PYTHON) setup.py sdist bdist_wheel upload
+	$(PYTHON) setup.py sdist bdist_wheel
+	twine upload -s -i 'Ajenti Packagers' dist/*.tar.gz --skip-existing
 
 tgz: build
 	rm dist/*.tar.gz || true
