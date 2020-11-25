@@ -26,13 +26,13 @@ class BaseConfigTest (unittest.TestCase):
         a, b = self.__class__.result, config.tree.to_dict()
         if a != b:
             print('SOURCE: %s\nGENERATED: %s\n' % (json.dumps(a, indent=4), json.dumps(b, indent=4)))
-        self.assertEquals(a, b)
+        self.assertEqual(a, b)
 
         result = config.save()
         s_filter = self.__class__.stringify_filter
         #print s_filter(result[None])
         for k, v in result.items():
-            self.assertEquals(
+            self.assertEqual(
                 s_filter(self.__class__.sources[k]),
                 s_filter(v)
             )

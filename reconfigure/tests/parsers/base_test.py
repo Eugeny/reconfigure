@@ -17,7 +17,7 @@ class BaseParserTest (unittest.TestCase):
         nodetree = self.parser.parse(self.__class__.source)
         if self.__class__.parsed != nodetree:
             print('TARGET: %s\n\nPARSED: %s' % (self.__class__.parsed, nodetree))
-        self.assertEquals(self.__class__.parsed, nodetree)
+        self.assertEqual(self.__class__.parsed, nodetree)
 
     def test_stringify(self):
         if not self.__class__.parser:
@@ -27,4 +27,4 @@ class BaseParserTest (unittest.TestCase):
         a, b = self.stringified, unparsed
         if a.split() != b.split():
             print('SOURCE: %s\n\nGENERATED: %s' % (a, b))
-            self.assertEquals(a.split(), b.split())
+            self.assertEqual(a.split(), b.split())

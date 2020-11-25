@@ -26,6 +26,6 @@ class JsonParserTest (BaseParserTest):
         a, b = self.stringified, unparsed
         if json.loads(a) != json.loads(b):
             print('SOURCE: %s\n\nGENERATED: %s' % (a, b))
-            self.assertEquals(a, b)
+            self.assertEqual(a, b)
 
 del BaseParserTest
