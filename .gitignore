@@ -18,3 +18,4 @@ docs/build
 nosetests*
 .idea
 *.whl
+.mypy_cache
