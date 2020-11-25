@@ -8,7 +8,7 @@ class CrontabConfigTest (BaseConfigTest):
 * * * * * date
 @reboot ls -al
 1 * 0 1 2 date -s
-NAME = TEST"""
+NAME=TEST"""
     }
     result = {
         'normal_tasks': [
