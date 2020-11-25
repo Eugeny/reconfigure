@@ -15,7 +15,7 @@ setup(
     license='LGPLv3',
     author='Eugeny Pankov',
     author_email='e@ajenti.org',
-    url='http://ajenti.org/',
+    url='https://github.com/Eugeny/reconfigure',
     classifiers=[
         "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
     ],
